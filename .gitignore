@@ -1,0 +1,78 @@
+# Rider-specific
+.idea/
+*.sln.iml
+
+# Build artifacts
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+*.log
+*.vspscc
+*.vssscc
+
+# User-specific files
+*.user
+*.lock.json
+*.suo
+*.userosscache
+*.sln.docstates
+*.ncrunch*
+*.dotCover
+
+# Rider-specific workspace files
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/shelf
+.idea/modules.xml
+.idea/assetWizard.xml
+.idea/compiler.xml
+.idea/uiDesigner.xml
+.idea/sonarlint/
+.idea/httpRequests/
+
+# Rider settings
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dataSources/
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/gradle.xml
+.idea/**/sonarlint/
+
+# Rider cache
+.idea/.idea_modules/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/libraries/
+.idea/jsLibraryMappings.xml
+.idea/scopes/
+.idea/compiler.xml
+.idea/artifacts/
+.idea/sonarlint/
+.idea/httpRequests/
+.idea/shelf/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Logs
+*.log
+
+# VS Code settings
+.vscode/
+.vscode/settings.json
+
+# Other
