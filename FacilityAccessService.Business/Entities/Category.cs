@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace FacilityAccessService.Business.Entities
 {
     /// <summary>
@@ -6,10 +10,10 @@ namespace FacilityAccessService.Business.Entities
     public class Category
     {
         public string Name { get; private set; }
-        public Object[] Objects { get; private set; }
+        public ReadOnlyCollection<Object> Objects { get; private set; }
 
 
-        public Category(string name, Object[] objects)
+        public Category(string name, ReadOnlyCollection<Object> objects)
         {
             this.Name = name;
             this.Objects = objects;

@@ -1,5 +1,5 @@
 using System;
-using FacilityAccessService.Business.ValueObjects.Roles;
+using FacilityAccessService.Business.ValueObjects;
 
 namespace FacilityAccessService.Business.Entities
 {
