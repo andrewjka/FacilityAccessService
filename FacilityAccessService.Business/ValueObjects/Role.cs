@@ -9,7 +9,6 @@ namespace FacilityAccessService.Business.ValueObjects
     public record Role
     {
         public readonly string Name;
-        
         public readonly ReadOnlyCollection<Permission> Permissions;
 
         protected Role(string name, ReadOnlyCollection<Permission> permissions)
@@ -19,11 +18,41 @@ namespace FacilityAccessService.Business.ValueObjects
         }
 
 
-        public static readonly  Role Guest = new Role(
+        public bool CheckPermission(Permission permission)
+        {
+            return Role.CheckPermission(this, permission);
+        }
+
+        public static bool CheckPermission(Role role, Permission permission)
+        {
+            return role.Permissions.Contains(permission);
+        }
+
+        public static Role GetRoleByName(string name)
+        {
+            switch (name.ToLower())
+            {
+                case ("guest"):
+                    return Role.Guest;
+
+                case ("employee"):
+                    return Role.Employee;
+
+                case ("guard"):
+                    return Role.Guard;
+
+                case ("administrator"):
+                    return Role.Administrator;
+
+                default:
+                    return Role.Guest;
+            }
+        }
+
+        public static readonly Role Guest = new Role(
             name: "Guest",
             permissions: new List<Permission>()
             {
-                Permission.CanEnterObject
             }.AsReadOnly()
         );
 
