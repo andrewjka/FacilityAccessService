@@ -19,5 +19,10 @@ namespace FacilityAccessService.Business.User.Models
             this.ExternalUserId = externalUserId;
             this.Role = role ?? Role.Guest;
         }
+
+        public void ChangeRole(Role role)
+        {
+            this.Role = role;
+        }
     }
 }

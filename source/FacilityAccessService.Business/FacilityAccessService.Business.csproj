@@ -7,11 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Object\Repositories\" />
+      <Folder Include="Access\Actions\" />
+      <Folder Include="Object\Actions\" />
       <Folder Include="Object\Services\" />
       <Folder Include="Object\Specifications\" />
+      <Folder Include="Terminal\Actions\" />
       <Folder Include="Terminal\Services\" />
       <Folder Include="Terminal\Specifications\" />
+      <Folder Include="User\Actions\" />
       <Folder Include="User\Services\" />
       <Folder Include="User\Specifications\" />
     </ItemGroup>

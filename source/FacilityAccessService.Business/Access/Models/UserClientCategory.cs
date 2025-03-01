@@ -1,25 +1,34 @@
-using System.Collections.ObjectModel;
+using System;
+using FacilityAccessService.Business.Common;
 using FacilityAccessService.Business.Common.ValueObjects;
-using FacilityAccessService.Business.Object.Models;
-using FacilityAccessService.Business.User.Models;
 
 namespace FacilityAccessService.Business.Access.Models
 {
-    public class UserClientCategory
+    public class UserClientCategory : BaseEntity
     {
-        public UserClient UserClient { get; private set; }
-        public Category Category { get; private set; }
+        public Guid UserClientId { get; private set; }
+        public Guid CategoryId { get; private set; }
         public AccessPeriod AccessPeriod { get; private set; }
 
 
         public UserClientCategory(
-            UserClient userClient,
-            Category category,
+            Guid userClientId,
+            Guid categoryId,
             AccessPeriod accessPeriod)
         {
-            this.UserClient = userClient;
-            this.Category = category;
+            this.UserClientId = userClientId;
+            this.CategoryId = categoryId;
             this.AccessPeriod = accessPeriod;
+        }
+
+        public void ChangeAccessPeriod(AccessPeriod accessPeriod)
+        {
+            this.AccessPeriod = accessPeriod;
+        }
+
+        public bool ValidateAccessValidity()
+        {
+            return AccessPeriod.IsValidAt(DateOnly.FromDateTime(DateTime.Today));
         }
     }
 }

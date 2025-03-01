@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace FacilityAccessService.Business.Object.Models
@@ -17,6 +15,11 @@ namespace FacilityAccessService.Business.Object.Models
         {
             this.Name = name;
             this.Objects = objects;
+        }
+
+        public void ChangeName(string name)
+        {
+            this.Name = name;
         }
     }
 }

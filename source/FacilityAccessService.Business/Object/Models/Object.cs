@@ -11,10 +11,20 @@ namespace FacilityAccessService.Business.Object.Models
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        public Object(Guid id, string name, string description)
+        public Object(Guid uid, string name, string description)
         {
-            this.Id = id;
+            this.Id = uid;
             this.Name = name;
+            this.Description = description;
+        }
+
+        public void ChangeName(string name)
+        {
+            this.Name = name;
+        }
+
+        public void ChangeDescription(string description)
+        {
             this.Description = description;
         }
     }
