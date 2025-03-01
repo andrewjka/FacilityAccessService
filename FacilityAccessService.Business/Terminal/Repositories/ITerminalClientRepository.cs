@@ -1,15 +1,9 @@
-using System;
-using System.Threading.Tasks;
+using FacilityAccessService.Business.Common;
 using FacilityAccessService.Business.Terminal.Models;
 
 namespace FacilityAccessService.Business.Terminal.Repositories
 {
-    public interface ITerminalClientRepository
+    public interface ITerminalClientRepository : IBaseRepository<TerminalClient>
     {
-        public Task CreateAsync(TerminalClient terminalClient);
-
-        public Task UpdateAsync(TerminalClient terminalClient);
-        
-        public Task GetById(Guid id);
     }
 }

@@ -1,17 +1,9 @@
-using System;
-using System.Threading.Tasks;
+using FacilityAccessService.Business.Common;
 using FacilityAccessService.Business.User.Models;
 
 namespace FacilityAccessService.Business.User.Repositories
 {
-    public interface IUserClientRepository
+    public interface IUserClientRepository : IBaseRepository<UserClient>
     {
-        public Task CreateAsync(UserClient userClient);
-
-        public Task UpdateAsync(UserClient userClient);
-
-        public Task GetByExternalIdAsync(string externalId);
-        
-        public Task GetByIdAsync(Guid id);
     }
 }

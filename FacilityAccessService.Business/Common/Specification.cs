@@ -4,6 +4,10 @@ using System.Linq.Expressions;
 
 namespace FacilityAccessService.Business.Common.Specification
 {
+    /// <summary>
+    /// Contains a set of parameters for filtering the query.
+    /// </summary>
+    /// <typeparam name="T">entity for querying</typeparam>
     public abstract class Specification<T> where T : class
     {
         public Expression<Func<T, bool>> Expression { get; private set; }
