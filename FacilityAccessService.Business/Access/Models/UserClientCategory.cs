@@ -5,20 +5,20 @@ using FacilityAccessService.Business.User.Models;
 
 namespace FacilityAccessService.Business.Access.Models
 {
-    public class UserClientCategories
+    public class UserClientCategory
     {
         public UserClient UserClient { get; private set; }
-        public ReadOnlyCollection<Category> Categories { get; private set; }
+        public Category Category { get; private set; }
         public AccessPeriod AccessPeriod { get; private set; }
 
 
-        public UserClientCategories(
+        public UserClientCategory(
             UserClient userClient,
-            ReadOnlyCollection<Category> categories,
+            Category category,
             AccessPeriod accessPeriod)
         {
-            this.UserClient = UserClient;
-            this.Categories = categories;
+            this.UserClient = userClient;
+            this.Category = category;
             this.AccessPeriod = accessPeriod;
         }
     }

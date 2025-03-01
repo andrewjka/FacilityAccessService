@@ -4,20 +4,20 @@ using FacilityAccessService.Business.User.Models;
 
 namespace FacilityAccessService.Business.Access.Models
 {
-    public class UserClientObjects
+    public class UserClientObject
     {
         public UserClient UserClient { get; private set; }
-        public ReadOnlyCollection<Object.Models.Object> Objects { get; private set; }
+        public Object.Models.Object Object { get; private set; }
         public AccessPeriod AccessPeriod { get; private set; }
 
 
-        public UserClientObjects(
+        public UserClientObject(
             UserClient userClient,
-            ReadOnlyCollection<Object.Models.Object> objects,
+            Object.Models.Object facility,
             AccessPeriod accessPeriod)
         {
-            this.UserClient = UserClient;
-            this.Objects = objects;
+            this.UserClient = userClient;
+            this.Object = facility;
             this.AccessPeriod = accessPeriod;
         }
     }
