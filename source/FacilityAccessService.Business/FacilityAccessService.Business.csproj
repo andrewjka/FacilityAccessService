@@ -7,9 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Access\Repositories\" />
-      <Folder Include="Access\Services\" />
-      <Folder Include="Access\Specifications\" />
       <Folder Include="Object\Repositories\" />
       <Folder Include="Object\Services\" />
       <Folder Include="Object\Specifications\" />
