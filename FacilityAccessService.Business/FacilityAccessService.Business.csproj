@@ -7,7 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="IRepositories\" />
+      <Folder Include="Access\Repositories\" />
+      <Folder Include="Access\Services\" />
+      <Folder Include="Access\Specifications\" />
+      <Folder Include="Object\Repositories\" />
+      <Folder Include="Object\Services\" />
+      <Folder Include="Object\Specifications\" />
+      <Folder Include="Terminal\Services\" />
+      <Folder Include="Terminal\Specifications\" />
+      <Folder Include="User\Services\" />
+      <Folder Include="User\Specifications\" />
     </ItemGroup>
 
 </Project>

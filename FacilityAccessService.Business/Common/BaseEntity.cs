@@ -1,6 +1,6 @@
 using System;
 
-namespace FacilityAccessService.Business.Entities
+namespace FacilityAccessService.Business.Common
 {
     public abstract class BaseEntity
     {

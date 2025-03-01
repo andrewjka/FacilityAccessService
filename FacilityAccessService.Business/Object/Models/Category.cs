@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace FacilityAccessService.Business.Entities
+namespace FacilityAccessService.Business.Object.Models
 {
     /// <summary>
     /// Describes a set of facilities in the access control system.

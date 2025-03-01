@@ -1,6 +1,6 @@
 using System;
 
-namespace FacilityAccessService.Business.ValueObjects
+namespace FacilityAccessService.Business.Common.ValueObjects
 {
     public record AccessPeriod
     {

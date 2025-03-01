@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
-using FacilityAccessService.Business.ValueObjects;
+using FacilityAccessService.Business.Common.ValueObjects;
+using FacilityAccessService.Business.Object.Models;
+using FacilityAccessService.Business.User.Models;
 
-namespace FacilityAccessService.Business.Entities
+namespace FacilityAccessService.Business.Access.Models
 {
     public class UserClientCategories
     {

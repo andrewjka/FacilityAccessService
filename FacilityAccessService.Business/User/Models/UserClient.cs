@@ -1,7 +1,8 @@
 using System;
-using FacilityAccessService.Business.ValueObjects;
+using FacilityAccessService.Business.Common;
+using FacilityAccessService.Business.Common.ValueObjects;
 
-namespace FacilityAccessService.Business.Entities
+namespace FacilityAccessService.Business.User.Models
 {
     /// <summary>
     /// Describes a user in the access control system.

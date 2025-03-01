@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using FacilityAccessService.Business.Entities;
+using FacilityAccessService.Business.User.Models;
 
-namespace FacilityAccessService.Business.IServices
+namespace FacilityAccessService.Business.Common.Services
 {
     /// <summary>
     /// Describes a service for verifying userClient session.

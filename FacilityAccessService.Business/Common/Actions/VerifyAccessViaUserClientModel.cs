@@ -1,6 +1,6 @@
 using System;
 
-namespace FacilityAccessService.Business.Actions
+namespace FacilityAccessService.Business.Common.Actions
 {
     /// <summary>
     /// Describes a model for verifying user access to a facility via a guard man.

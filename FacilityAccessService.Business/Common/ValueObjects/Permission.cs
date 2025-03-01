@@ -1,4 +1,4 @@
-namespace FacilityAccessService.Business.ValueObjects
+namespace FacilityAccessService.Business.Common.ValueObjects
 {
     /// <summary>
     /// Represents a permission that defines an action a user can perform.

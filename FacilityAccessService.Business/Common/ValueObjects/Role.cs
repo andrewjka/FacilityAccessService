@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace FacilityAccessService.Business.ValueObjects
+namespace FacilityAccessService.Business.Common.ValueObjects
 {
     /// <summary>
     /// Represents a role that defines a set of permissions for user.

@@ -1,6 +1,7 @@
 using System;
+using FacilityAccessService.Business.Common;
 
-namespace FacilityAccessService.Business.Entities
+namespace FacilityAccessService.Business.Terminal.Models
 {
     /// <summary>
     /// Describes a device that can check user's access to a facility.

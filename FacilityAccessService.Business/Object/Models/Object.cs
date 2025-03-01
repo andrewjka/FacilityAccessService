@@ -1,6 +1,7 @@
 using System;
+using FacilityAccessService.Business.Common;
 
-namespace FacilityAccessService.Business.Entities
+namespace FacilityAccessService.Business.Object.Models
 {
     /// <summary>
     /// Describes a facility in the access control system.
