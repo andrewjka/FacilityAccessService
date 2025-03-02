@@ -4,7 +4,7 @@ using FacilityAccessService.Business.User.Models;
 namespace FacilityAccessService.Business.Common.Services
 {
     /// <summary>
-    /// Describes a service for verifying userClient session.
+    /// Describes a service for verifying UserClient session.
     /// </summary>
     public interface ISessionService
     {
