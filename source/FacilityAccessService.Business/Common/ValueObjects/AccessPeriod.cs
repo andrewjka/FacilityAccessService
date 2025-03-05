@@ -13,7 +13,7 @@ namespace FacilityAccessService.Business.Common.ValueObjects
             this.EndDate = EndDate;
         }
 
-        public bool IsValidAt(DateOnly currentDate)
+        public bool IsWithinAccessPeriod(DateOnly currentDate)
         {
             return EndDate >= currentDate && currentDate >= StartDate;
         }

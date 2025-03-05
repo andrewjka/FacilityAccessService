@@ -9,7 +9,7 @@ namespace FacilityAccessService.Business.Access.Specifications
         public ExpiredAccessCategorySpecification(int skip, int take)
         {
             ApplyExpression(userClientCategory =>
-                userClientCategory.AccessPeriod.EndDate > DateOnly.FromDateTime(DateTime.Today)
+                userClientCategory.AccessPeriod.EndDate < DateOnly.FromDateTime(DateTime.Today)
             );
             
             ApplyPaging(skip, take);

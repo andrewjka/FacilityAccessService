@@ -1,4 +1,5 @@
 using System;
+using FacilityAccessService.Business.Access.Actions;
 using FacilityAccessService.Business.Common;
 using FacilityAccessService.Business.Common.ValueObjects;
 
@@ -28,7 +29,7 @@ namespace FacilityAccessService.Business.Access.Models
 
         public bool ValidateAccessValidity()
         {
-            return AccessPeriod.IsValidAt(DateOnly.FromDateTime(DateTime.Today));
+            return AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));
         }
     }
 }

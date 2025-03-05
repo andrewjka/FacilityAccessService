@@ -29,7 +29,7 @@ namespace FacilityAccessService.Business.Access.Models
         
         public bool ValidateAccessValidity()
         {
-            return AccessPeriod.IsValidAt(DateOnly.FromDateTime(DateTime.Today));
+            return AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));
         }
     }
 }
