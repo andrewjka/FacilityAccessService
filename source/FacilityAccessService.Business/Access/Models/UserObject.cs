@@ -5,7 +5,7 @@ using FacilityAccessService.Business.User.Models;
 
 namespace FacilityAccessService.Business.Access.Models
 {
-    public class UserObject : BaseEntity, IUserPassModel
+    public class UserObject : BaseEntity
     {
         public Guid UserId { get; private set; }
         public Guid ObjectId { get; private set; }

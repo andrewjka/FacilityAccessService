@@ -4,7 +4,7 @@ using FacilityAccessService.Business.Common.Specification;
 
 namespace FacilityAccessService.Business.Access.Specifications
 {
-    public class ExpiredAccessCategorySpecification : Specification<UserClientCategory>
+    public class ExpiredAccessCategorySpecification : Specification<UserCategory>
     {
         public ExpiredAccessCategorySpecification(int skip, int take)
         {

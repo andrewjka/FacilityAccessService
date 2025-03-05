@@ -6,7 +6,7 @@ namespace FacilityAccessService.Business.Access.Repositories
     /// <summary>
     /// Describes the repository for doing core operations with the UserClientObject entity.
     /// </summary>
-    public interface IUserClientObjectRepository : IBaseRepository<UserClientObject>
+    public interface IUserClientObjectRepository : IBaseRepository<UserObject>
     {
 
     }
