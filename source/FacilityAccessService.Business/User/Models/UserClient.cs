@@ -13,9 +13,8 @@ namespace FacilityAccessService.Business.User.Models
         public Role Role { get; private set; }
 
 
-        public UserClient(Guid id, string externalUserId, Role role = null)
+        public UserClient(string externalUserId, Role role = null) : base()
         {
-            this.Id = id;
             this.ExternalUserId = externalUserId;
             this.Role = role ?? Role.Guest;
         }

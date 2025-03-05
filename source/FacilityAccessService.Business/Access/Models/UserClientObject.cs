@@ -15,7 +15,8 @@ namespace FacilityAccessService.Business.Access.Models
         public UserClientObject(
             Guid userClientId,
             Guid objectId,
-            AccessPeriod accessPeriod)
+            AccessPeriod accessPeriod
+        ) : base()
         {
             this.UserClientId = userClientId;
             this.ObjectId = objectId;
@@ -26,7 +27,7 @@ namespace FacilityAccessService.Business.Access.Models
         {
             this.AccessPeriod = accessPeriod;
         }
-        
+
         public bool ValidateAccessValidity()
         {
             return AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));

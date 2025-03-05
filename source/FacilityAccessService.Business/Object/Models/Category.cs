@@ -12,7 +12,7 @@ namespace FacilityAccessService.Business.Object.Models
         public ReadOnlyCollection<Object> Objects { get; private set; }
 
 
-        public Category(string name, ReadOnlyCollection<Object> objects)
+        public Category(string name, ReadOnlyCollection<Object> objects) : base()
         {
             this.Name = name;
             this.Objects = objects;

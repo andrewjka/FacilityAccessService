@@ -15,7 +15,8 @@ namespace FacilityAccessService.Business.Access.Models
         public UserClientCategory(
             Guid userClientId,
             Guid categoryId,
-            AccessPeriod accessPeriod)
+            AccessPeriod accessPeriod
+        ) : base()
         {
             this.UserClientId = userClientId;
             this.CategoryId = categoryId;

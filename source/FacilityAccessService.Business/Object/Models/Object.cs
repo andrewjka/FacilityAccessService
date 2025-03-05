@@ -11,9 +11,8 @@ namespace FacilityAccessService.Business.Object.Models
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        public Object(Guid uid, string name, string description)
+        public Object(string name, string description) : base()
         {
-            this.Id = uid;
             this.Name = name;
             this.Description = description;
         }
