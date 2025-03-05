@@ -8,7 +8,6 @@ namespace FacilityAccessService.Business.TerminalScope.Actions
     public record UpdateTerminalModel(
         Guid Uid,
         string Name,
-        string Description,
-        DateOnly ExpiredTokenOn
+        DateOnly? ExpiredTokenOn
     );
 }
