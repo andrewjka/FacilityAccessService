@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Access.Actions.Generic
     /// <summary>
     /// The action model for update access to accessed resource.
     /// </summary>
-    public abstract record UpdateAccessModel<TAccessedResource> where TAccessedResource: IAccessedResouce
+    public abstract record UpdateAccessModel<TAccessedResource> where TAccessedResource: IAccessedResource
     {
         public Guid UserId { get; init; }
         public AccessPeriod AccessPeriod { get; init; }

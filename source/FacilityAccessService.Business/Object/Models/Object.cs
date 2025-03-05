@@ -5,7 +5,7 @@ namespace FacilityAccessService.Business.Object.Models
     /// <summary>
     /// Describes a facility in the access control system.
     /// </summary>
-    public class Object : BaseEntity, IAccessedResouce
+    public class Object : BaseEntity, IAccessedResource
     {
         public string Name { get; private set; }
         public string Description { get; private set; }

@@ -1,6 +1,6 @@
 namespace FacilityAccessService.Business.Object.Models
 {
-    public interface IAccessedResouce
+    public interface IAccessedResource
     {
         
     }

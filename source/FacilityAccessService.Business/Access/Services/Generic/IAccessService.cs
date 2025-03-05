@@ -8,7 +8,7 @@ namespace FacilityAccessService.Business.Access.Services.Generic
     /// Describes the service for the main cases with the specific accessed resource.
     /// </summary>
     /// <typeparam name="TAccessedResource">A model describing access to something.</typeparam>
-    public interface IAccessService<TAccessedResource> where TAccessedResource: IAccessedResouce
+    public interface IAccessService<TAccessedResource> where TAccessedResource: IAccessedResource
     {
         public Task GrantAccessAsync(GrantAccessModel<TAccessedResource> grantAccessModel);
 
