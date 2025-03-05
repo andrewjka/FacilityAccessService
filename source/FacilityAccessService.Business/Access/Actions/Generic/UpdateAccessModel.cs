@@ -1,12 +1,13 @@
 using System;
 using FacilityAccessService.Business.Common.ValueObjects;
+using FacilityAccessService.Business.Object.Models;
 
 namespace FacilityAccessService.Business.Access.Actions.Generic
 {
     /// <summary>
-    /// The action model for update a specific access model.
+    /// The action model for update access to accessed resource.
     /// </summary>
-    public abstract record UpdateAccessModel<TAccessModel> where TAccessModel: class
+    public abstract record UpdateAccessModel<TAccessedResource> where TAccessedResource: IAccessedResouce
     {
         public Guid UserId { get; init; }
         public AccessPeriod AccessPeriod { get; init; }

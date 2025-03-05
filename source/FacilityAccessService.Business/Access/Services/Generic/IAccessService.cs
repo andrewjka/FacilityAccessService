@@ -1,19 +1,20 @@
 using System.Threading.Tasks;
 using FacilityAccessService.Business.Access.Actions.Generic;
+using FacilityAccessService.Business.Object.Models;
 
 namespace FacilityAccessService.Business.Access.Services.Generic
 {
     /// <summary>
-    /// Describes the service for the main cases with the specific access model.
+    /// Describes the service for the main cases with the specific accessed resource.
     /// </summary>
-    /// <typeparam name="TAccessModel">A model describing access to something.</typeparam>
-    public interface IAccessService<TAccessModel> where TAccessModel: class
+    /// <typeparam name="TAccessedResource">A model describing access to something.</typeparam>
+    public interface IAccessService<TAccessedResource> where TAccessedResource: IAccessedResouce
     {
-        public Task GrantAccessAsync(GrantAccessModel<TAccessModel> grantAccessModel);
+        public Task GrantAccessAsync(GrantAccessModel<TAccessedResource> grantAccessModel);
 
-        public Task RevokeAccessAsync(RevokeAccessModel<TAccessModel> revokeAccessModel);
+        public Task RevokeAccessAsync(RevokeAccessModel<TAccessedResource> revokeAccessModel);
 
-        public Task UpdateAccessAsync(UpdateAccessModel<TAccessModel> updateAccessModel);
+        public Task UpdateAccessAsync(UpdateAccessModel<TAccessedResource> updateAccessModel);
         
     }
 }
