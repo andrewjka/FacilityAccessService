@@ -1,4 +1,3 @@
-using System;
 using FacilityAccessService.Business.Common;
 
 namespace FacilityAccessService.Business.Object.Models

@@ -7,13 +7,13 @@ namespace FacilityAccessService.Business.User.Models
     /// <summary>
     /// Describes a user in the access control system.
     /// </summary>
-    public class UserClient : BaseEntity
+    public class User : BaseEntity
     {
         public string ExternalUserId { get; private set; }
         public Role Role { get; private set; }
 
 
-        public UserClient(string externalUserId, Role role = null) : base()
+        public User(string externalUserId, Role role = null) : base()
         {
             this.ExternalUserId = externalUserId;
             this.Role = role ?? Role.Guest;

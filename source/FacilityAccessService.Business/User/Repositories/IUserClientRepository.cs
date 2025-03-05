@@ -4,9 +4,9 @@ using FacilityAccessService.Business.User.Models;
 namespace FacilityAccessService.Business.User.Repositories
 {
     /// <summary>
-    /// Describes the repository for doing core operations with the UserClient entity.
+    /// Describes the repository for doing core operations with the User entity.
     /// </summary>
-    public interface IUserClientRepository : IBaseRepository<UserClient>
+    public interface IUserClientRepository : IBaseRepository<Models.User>
     {
     }
 }

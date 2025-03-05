@@ -5,10 +5,10 @@ using FacilityAccessService.Business.User.Models;
 namespace FacilityAccessService.Business.User.Services
 {
     /// <summary>
-    /// Describes the service for the main cases with the UserClient entity.
+    /// Describes the service for the main cases with the User entity.
     /// </summary>
     public interface IUserService
     {
-        public Task<UserClient> RegistryUserAsync(RegistryUserModel registryUserModel);
+        public Task<Models.User> RegistryUserAsync(RegistryUserModel registryUserModel);
     }
 }
