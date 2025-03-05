@@ -6,4 +6,16 @@
         <Nullable>disable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="AccessScope\" />
+      <Folder Include="CommonScope\" />
+      <Folder Include="ObjectScope\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FacilityAccessService.Business.Validation\FacilityAccessService.Business.Validation.csproj" />
+      <ProjectReference Include="..\FacilityAccessService.Business\FacilityAccessService.Business.csproj" />
+      <ProjectReference Include="..\FacilityAccessService.Event\FacilityAccessService.Event.csproj" />
+    </ItemGroup>
+
 </Project>
