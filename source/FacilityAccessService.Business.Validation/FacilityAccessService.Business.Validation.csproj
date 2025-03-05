@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FacilityAccessService.Business\FacilityAccessService.Business.csproj" />
+      <ProjectReference Include="..\FacilityAccessService.Event\FacilityAccessService.Event.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -15,11 +16,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Access\Actions\" />
       <Folder Include="Common\Actions\" />
-      <Folder Include="Object\Actions\" />
-      <Folder Include="Terminal\Actions\" />
-      <Folder Include="User\Actions\" />
+      <Folder Include="Events\" />
     </ItemGroup>
 
 </Project>

@@ -7,10 +7,7 @@ namespace FacilityAccessService.Business.Validation.Object.Models
         public ObjectValidator()
         {
             RuleFor(model => model.Id).NotNull();
-            
             RuleFor(model => model.Name).NotEmpty();
-            
-            // RuleFor(model => model.Description).NotEmpty();
         }
     }
 }

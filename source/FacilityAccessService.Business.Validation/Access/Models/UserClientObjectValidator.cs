@@ -3,13 +3,13 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.Access.Models
 {
-    public class UserClientObjectValidator : AbstractValidator<UserClientObject>
+    public class UserClientObjectValidator : AbstractValidator<UserObject>
     {
         public UserClientObjectValidator()
         {
             RuleFor(model => model.Id).NotNull();
             
-            RuleFor(model => model.UserClientId).NotNull();
+            RuleFor(model => model.UserId).NotNull();
             
             RuleFor(model => model.ObjectId).NotNull();
             
