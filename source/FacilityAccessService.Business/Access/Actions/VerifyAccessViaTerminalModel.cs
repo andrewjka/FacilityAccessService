@@ -5,5 +5,5 @@ using FacilityAccessService.Business.Terminal.Models;
 namespace FacilityAccessService.Business.Access.Actions
 {
     /// <inheritdoc/>
-    public record VerifyAccessViaTerminalModel(string TokenTerminal) : VerifyAccessModel<TerminalClient>;
+    public record VerifyAccessViaTerminalModel(string TokenTerminal) : VerifyAccessModel<Terminal.Models.Terminal>;
 }

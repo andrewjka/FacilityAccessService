@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.Access.Models
 {
-    public class UserClientCategoryValidator : AbstractValidator<UserCategory>
+    public class UserCategoryValidator : AbstractValidator<UserCategory>
     {
-        public UserClientCategoryValidator()
+        public UserCategoryValidator()
         {
             RuleFor(model => model.Id).NotNull();
             

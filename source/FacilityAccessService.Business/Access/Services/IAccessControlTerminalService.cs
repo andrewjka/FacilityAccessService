@@ -4,7 +4,7 @@ using FacilityAccessService.Business.Terminal.Models;
 namespace FacilityAccessService.Business.Access.Services
 {
     /// <inheritdoc/>
-    public interface IAccessControlTerminalService : IAccessControlService<TerminalClient>
+    public interface IAccessControlTerminalService : IAccessControlService<Terminal.Models.Terminal>
     {
         
     }

@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.Terminal.Models
 {
-    public class TerminalClientValidator : AbstractValidator<TerminalClient>
+    public class TerminalValidator : AbstractValidator<Business.Terminal.Models.Terminal>
     {
-        public TerminalClientValidator()
+        public TerminalValidator()
         {
             RuleFor(model => model.Id).NotNull();
             RuleFor(model => model.Name).NotEmpty();

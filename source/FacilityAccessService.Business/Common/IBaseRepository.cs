@@ -15,7 +15,7 @@ namespace FacilityAccessService.Business.Common
 
         public Task UpdateAsync(T model);
 
-        public Task<TerminalClient> FirstByAsync(Specification<T> specification);
+        public Task<Terminal.Models.Terminal> FirstByAsync(Specification<T> specification);
 
         public Task<ReadOnlyCollection<T>> SelectByAsync(Specification<T> specification);
         

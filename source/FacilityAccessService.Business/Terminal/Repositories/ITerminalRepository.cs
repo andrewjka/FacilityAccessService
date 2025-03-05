@@ -4,9 +4,9 @@ using FacilityAccessService.Business.Terminal.Models;
 namespace FacilityAccessService.Business.Terminal.Repositories
 {
     /// <summary>
-    /// Describes the repository for doing core operations with the TerminalClient entity.
+    /// Describes the repository for doing core operations with the Terminal entity.
     /// </summary>
-    public interface ITerminalClientRepository : IBaseRepository<TerminalClient>
+    public interface ITerminalRepository : IBaseRepository<Models.Terminal>
     {
     }
 }
