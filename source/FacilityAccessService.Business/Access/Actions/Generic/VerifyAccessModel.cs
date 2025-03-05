@@ -1,3 +1,5 @@
+using System;
+
 namespace FacilityAccessService.Business.Access.Actions.Generic
 {
     /// <summary>
@@ -5,5 +7,7 @@ namespace FacilityAccessService.Business.Access.Actions.Generic
     /// </summary>
     public abstract record VerifyAccessModel<TAccessChecker> where TAccessChecker : class
     {
+        public Guid UserId { get; init; }
+        public Guid ObjectId { get; init; }
     }
 }

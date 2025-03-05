@@ -5,9 +5,5 @@ using FacilityAccessService.Business.Common.ValueObjects;
 namespace FacilityAccessService.Business.Access.Actions
 {
     /// <inheritdoc/>
-    public record UpdateAccessObjectModel(
-        Guid UserId,
-        Guid ObjectId,
-        AccessPeriod AccessPeriod
-    ) : UpdateAccessModel<Object.Models.Object>;
+    public record UpdateAccessObjectModel(Guid ObjectId) : UpdateAccessModel<Object.Models.Object>;
 }

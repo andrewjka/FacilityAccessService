@@ -5,9 +5,5 @@ using FacilityAccessService.Business.User.Models;
 namespace FacilityAccessService.Business.Access.Actions
 {
     /// <inheritdoc/>
-    public record VerifyAccessViaGuardModel(
-        Guid UserId,
-        Guid GuarderId,
-        Guid ObjectId
-    ) : VerifyAccessModel<UserClient>;
+    public record VerifyAccessViaGuardModel(Guid GuarderId) : VerifyAccessModel<UserClient>;
 }

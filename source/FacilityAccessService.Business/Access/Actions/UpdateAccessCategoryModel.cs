@@ -6,9 +6,5 @@ using FacilityAccessService.Business.Object.Models;
 namespace FacilityAccessService.Business.Access.Actions
 {
     /// <inheritdoc/>
-    public record UpdateAccessCategoryModel(
-        Guid UserId,
-        Guid CategoryId,
-        AccessPeriod AccessPeriod
-    ) : UpdateAccessModel<Category>;
+    public record UpdateAccessCategoryModel(Guid CategoryId) : UpdateAccessModel<Category>;
 }

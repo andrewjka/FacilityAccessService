@@ -6,8 +6,5 @@ using FacilityAccessService.Business.Object.Models;
 namespace FacilityAccessService.Business.Access.Actions
 {
     /// <inheritdoc/>
-    public record RevokeAccessCategoryModel(
-        Guid UserId,
-        Guid CategoryId
-    ) : RevokeAccessModel<Category>;
+    public record RevokeAccessCategoryModel(Guid CategoryId) : RevokeAccessModel<Category>;
 }

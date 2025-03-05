@@ -13,7 +13,7 @@ namespace FacilityAccessService.Business.Terminal.Models
         public DateOnly ExpiredTokenOn { get; private set; }
 
 
-        public TerminalClient(string name, string token, DateOnly expiredTokenOn)
+        public TerminalClient(string name, string token, DateOnly expiredTokenOn) : base()
         {
             this.Name = name;
             this.Token = token;
