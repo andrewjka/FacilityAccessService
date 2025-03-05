@@ -4,9 +4,9 @@ using FacilityAccessService.Business.Common;
 namespace FacilityAccessService.Business.Access.Repositories
 {
     /// <summary>
-    /// Describes the repository for doing core operations with the UserClientCategory entity.
+    /// Describes the repository for doing core operations with the UserClientObject entity.
     /// </summary>
-    public interface IUserClientCategoryRepository : IBaseRepository<UserCategory>
+    public interface IUserObjectRepository : IBaseRepository<UserObject>
     {
 
     }
