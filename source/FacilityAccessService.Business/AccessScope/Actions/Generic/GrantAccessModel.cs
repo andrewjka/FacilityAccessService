@@ -1,6 +1,6 @@
 using System;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
-using FacilityAccessService.Business.ObjectScope.Models;
+using FacilityAccessService.Business.FacilityScope.Models;
 
 namespace FacilityAccessService.Business.AccessScope.Actions.Generic
 {

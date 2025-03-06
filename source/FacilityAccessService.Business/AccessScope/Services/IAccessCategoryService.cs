@@ -1,5 +1,5 @@
 using FacilityAccessService.Business.AccessScope.Services.Generic;
-using FacilityAccessService.Business.ObjectScope.Models;
+using FacilityAccessService.Business.FacilityScope.Models;
 
 namespace FacilityAccessService.Business.AccessScope.Services
 {

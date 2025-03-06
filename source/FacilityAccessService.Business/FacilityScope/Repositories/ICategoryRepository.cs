@@ -1,7 +1,7 @@
 using FacilityAccessService.Business.CommonScope;
-using FacilityAccessService.Business.ObjectScope.Models;
+using FacilityAccessService.Business.FacilityScope.Models;
 
-namespace FacilityAccessService.Business.ObjectScope.Repositories
+namespace FacilityAccessService.Business.FacilityScope.Repositories
 {
     /// <summary>
     /// Describes the repository for doing core operations with the Category entity.

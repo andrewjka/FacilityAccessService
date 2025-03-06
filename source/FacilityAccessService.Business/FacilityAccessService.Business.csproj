@@ -12,9 +12,8 @@
       <Folder Include="CommonScope\Exceptions\" />
       <Folder Include="CommonScope\Models\" />
       <Folder Include="CommonScope\ValueObjects\" />
-      <Folder Include="ObjectScope\Exceptions\" />
-      <Folder Include="ObjectScope\Specifications\" />
-      <Folder Include="ObjectScope\ValueObjects\" />
+      <Folder Include="FacilityScope\Specifications\" />
+      <Folder Include="FacilityScope\ValueObjects\" />
       <Folder Include="TerminalScope\Specifications\" />
       <Folder Include="UserScope\Exceptions\" />
       <Folder Include="UserScope\Specifications\" />

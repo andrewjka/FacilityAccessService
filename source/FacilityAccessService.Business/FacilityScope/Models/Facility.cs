@@ -1,16 +1,16 @@
 using FacilityAccessService.Business.CommonScope;
 
-namespace FacilityAccessService.Business.ObjectScope.Models
+namespace FacilityAccessService.Business.FacilityScope.Models
 {
     /// <summary>
     /// Describes a facility in the access control system.
     /// </summary>
-    public class Object : BaseEntity, IAccessedResource
+    public class Facility : BaseEntity, IAccessedResource
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        public Object(string name, string description) : base()
+        public Facility(string name, string description) : base()
         {
             this.Name = name;
             this.Description = description;

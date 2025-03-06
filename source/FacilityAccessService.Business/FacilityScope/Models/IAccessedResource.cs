@@ -1,4 +1,4 @@
-namespace FacilityAccessService.Business.ObjectScope.Models
+namespace FacilityAccessService.Business.FacilityScope.Models
 {
     public interface IAccessedResource
     {

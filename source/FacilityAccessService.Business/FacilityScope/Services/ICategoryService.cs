@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using FacilityAccessService.Business.ObjectScope.Actions;
-using FacilityAccessService.Business.ObjectScope.Models;
+using FacilityAccessService.Business.FacilityScope.Actions;
+using FacilityAccessService.Business.FacilityScope.Models;
 
-namespace FacilityAccessService.Business.ObjectScope.Services
+namespace FacilityAccessService.Business.FacilityScope.Services
 {
     /// <summary>
     /// Describes the service for the main cases with the Category entity.
