@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Actions
 {
-    public class RevokeAccessObjectValidator : AbstractValidator<RevokeAccessObjectModel>
+    public class RevokeAccessObjectValidator : AbstractValidator<RevokeAccessFacilityModel>
     {
         public RevokeAccessObjectValidator()
         {

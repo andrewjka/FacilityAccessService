@@ -8,7 +8,7 @@ namespace FacilityAccessService.Business.Validation.FacilityScope.Actions
         public CreateCategoryValidator()
         {
             RuleFor(model => model.Name).NotEmpty();
-            RuleFor(model => model.Objects).NotEmpty();
+            RuleFor(model => model.Facilities).NotEmpty();
         }
     }
 }

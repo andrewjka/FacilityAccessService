@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Actions
 {
-    public class GrantAccessObjectValidator : AbstractValidator<GrantAccessObjectModel>
+    public class GrantAccessObjectValidator : AbstractValidator<GrantAccessFacilityModel>
     {
         public GrantAccessObjectValidator()
         {

@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Validation.FacilityScope.Actions
     {
         public UpdateFacilityValidator()
         {
-            RuleFor(model => model.ObjectId).NotNull();
+            RuleFor(model => model.FacilityId).NotNull();
         }
     }
 }
