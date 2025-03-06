@@ -15,7 +15,6 @@
       <Folder Include="FacilityScope\Specifications\" />
       <Folder Include="FacilityScope\ValueObjects\" />
       <Folder Include="TerminalScope\Specifications\" />
-      <Folder Include="UserScope\Exceptions\" />
       <Folder Include="UserScope\Specifications\" />
     </ItemGroup>
 

@@ -1,20 +1,19 @@
 using System.Threading.Tasks;
-using FacilityAccessService.Business.AccessScope.Actions;
-using FacilityAccessService.Business.AccessScope.Actions.Generic;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 
 namespace FacilityAccessService.Business.AccessScope.Services.Generic
 {
     /// <summary>
-    /// Describes a service for verify access via specific access checker.
+    /// Describes a service for verify access via specific access model.
     /// </summary>
-    /// <typeparam name="TAccessChecker">The model through which access verification is performed</typeparam>
-    public interface IAccessControlService<TAccessChecker> where TAccessChecker : class
+    /// <typeparam name="TAccessVerifyModel">The model through which access verification is performed</typeparam>
+    public interface IAccessControlService<TAccessVerifyModel> where TAccessVerifyModel : VerifyAccessModel
     {
         /// <summary>
         /// Verifying access via specific access checker.
         /// </summary>
         /// <param name="verifyAccessModel"></param>
         /// <returns></returns>
-        public Task<bool> VerifyAccessAsync(VerifyAccessModel<TAccessChecker> verifyAccessModel);
+        public Task<bool> VerifyAccessAsync(TAccessVerifyModel verifyAccessModel);
     }
 }

@@ -1,8 +1,8 @@
 using System;
-using FacilityAccessService.Business.AccessScope.Actions.Generic;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 
 namespace FacilityAccessService.Business.AccessScope.Actions
 {
     /// <inheritdoc/>
-    public record VerifyAccessViaGuardModel(Guid GuarderId) : VerifyAccessModel<UserScope.Models.User>;
+    public record VerifyAccessViaGuardModel(Guid GuarderId) : VerifyAccessModel;
 }
