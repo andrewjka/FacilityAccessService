@@ -7,9 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="AccessScope\" />
       <Folder Include="CommonScope\" />
-      <Folder Include="ObjectScope\" />
     </ItemGroup>
 
     <ItemGroup>

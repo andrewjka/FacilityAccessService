@@ -66,8 +66,9 @@ namespace FacilityAccessService.Domain.TerminalScope
             _updateTerminalVL.ValidateAndThrow(updateTerminalModel);
 
 
-            FirstByIdSpecification<Terminal> firstByIdSpecification =
-                new FirstByIdSpecification<Terminal>(updateTerminalModel.Uid);
+            FirstByIdSpecification<Terminal> firstByIdSpecification = new FirstByIdSpecification<Terminal>(
+                updateTerminalModel.Uid
+            );
 
             Terminal terminal = await _terminalRepository.FirstByAsync(firstByIdSpecification);
             if (terminal is null)
@@ -80,7 +81,6 @@ namespace FacilityAccessService.Domain.TerminalScope
             {
                 terminal.ChangeName(updateTerminalModel.Name);
             }
-
             if (updateTerminalModel.ExpiredTokenOn is not null)
             {
                 terminal.ChangeExpiredTokenOn((DateOnly)updateTerminalModel.ExpiredTokenOn);
@@ -99,8 +99,9 @@ namespace FacilityAccessService.Domain.TerminalScope
             _deleteTerminalVL.ValidateAndThrow(deleteTerminalModel);
 
 
-            FirstByIdSpecification<Terminal> firstByIdSpecification =
-                new FirstByIdSpecification<Terminal>(deleteTerminalModel.Uid);
+            FirstByIdSpecification<Terminal> firstByIdSpecification = new FirstByIdSpecification<Terminal>(
+                deleteTerminalModel.Uid
+            );
 
             Terminal terminal = await _terminalRepository.FirstByAsync(firstByIdSpecification);
             if (terminal is null)
