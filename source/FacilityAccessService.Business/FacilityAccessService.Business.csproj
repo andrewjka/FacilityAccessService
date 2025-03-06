@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="AccessScope\Exceptions\" />
       <Folder Include="CommonScope\Actions\" />
       <Folder Include="CommonScope\Exceptions\" />
       <Folder Include="CommonScope\Models\" />

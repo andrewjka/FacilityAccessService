@@ -5,9 +5,8 @@ using FacilityAccessService.Business.FacilityScope.Models;
 namespace FacilityAccessService.Business.AccessScope.Services.Generic
 {
     /// <summary>
-    /// Describes the service for the main cases with the specific accessed resource.
+    /// Describes the service to management user access to specific accessed model.
     /// </summary>
-    /// <typeparam name="TAccessedResource">A model describing access to something.</typeparam>
     public interface IAccessService<TGrantAccessModel, TRevokeAccessModel, TUpdateAccessModel>
         where TGrantAccessModel : GrantAccessModel
         where TRevokeAccessModel : RevokeAccessModel

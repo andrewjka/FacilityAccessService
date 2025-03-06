@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using FacilityAccessService.Business.FacilityScope.Actions;
+using FacilityAccessService.Business.FacilityScope.Models;
 
 namespace FacilityAccessService.Business.FacilityScope.Services
 {
@@ -8,10 +9,10 @@ namespace FacilityAccessService.Business.FacilityScope.Services
     /// </summary>
     public interface IFacilityService
     {
-        public Task<Models.Facility> CreateObjectAsync(CreateFacilityModel createFacilityModel);
+        public Task<Facility> CreateFacilityAsync(CreateFacilityModel createFacilityModel);
 
-        public Task<Models.Facility> UpdateObjectAsync(UpdateFacilityModel updateFacilityModel);
+        public Task<Facility> UpdateFacilityAsync(UpdateFacilityModel updateFacilityModel);
 
-        public Task DeleteObjectAsync(DeleteFacilityModel deleteFacilityModel);
+        public Task DeleteFacilityAsync(DeleteFacilityModel deleteFacilityModel);
     }
 }
