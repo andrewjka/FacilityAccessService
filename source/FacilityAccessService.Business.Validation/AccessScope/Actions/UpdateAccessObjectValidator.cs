@@ -1,9 +1,9 @@
-using FacilityAccessService.Business.ObjectScope.Actions;
+using FacilityAccessService.Business.FacilityScope.Actions;
 using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Actions
 {
-    public class UpdateAccessObjectValidator : AbstractValidator<UpdateObjectModel>
+    public class UpdateAccessObjectValidator : AbstractValidator<UpdateFacilityModel>
     {
         public UpdateAccessObjectValidator()
         {

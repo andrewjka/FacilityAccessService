@@ -1,4 +1,4 @@
-using FacilityAccessService.Business.ObjectScope.Actions;
+using FacilityAccessService.Business.FacilityScope.Actions;
 using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Actions

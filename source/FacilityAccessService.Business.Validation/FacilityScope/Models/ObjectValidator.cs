@@ -1,8 +1,8 @@
 using FluentValidation;
 
-namespace FacilityAccessService.Business.Validation.ObjectScope.Models
+namespace FacilityAccessService.Business.Validation.FacilityScope.Models
 {
-    public class ObjectValidator : AbstractValidator<Business.ObjectScope.Models.Object>
+    public class ObjectValidator : AbstractValidator<Business.FacilityScope.Models.Facility>
     {
         public ObjectValidator()
         {

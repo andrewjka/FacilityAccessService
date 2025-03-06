@@ -1,7 +1,7 @@
-using FacilityAccessService.Business.ObjectScope.Actions;
+using FacilityAccessService.Business.FacilityScope.Actions;
 using FluentValidation;
 
-namespace FacilityAccessService.Business.Validation.ObjectScope.Actions
+namespace FacilityAccessService.Business.Validation.FacilityScope.Actions
 {
     public class DeleteCategoryValidator : AbstractValidator<DeleteCategoryModel>
     {

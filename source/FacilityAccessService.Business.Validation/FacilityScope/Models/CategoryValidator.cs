@@ -1,7 +1,7 @@
-using FacilityAccessService.Business.ObjectScope.Models;
+using FacilityAccessService.Business.FacilityScope.Models;
 using FluentValidation;
 
-namespace FacilityAccessService.Business.Validation.ObjectScope.Models
+namespace FacilityAccessService.Business.Validation.FacilityScope.Models
 {
     public class CategoryValidator : AbstractValidator<Category>
     {
