@@ -3,7 +3,7 @@ using FacilityAccessService.Business.AccessScope.Services.Generic;
 namespace FacilityAccessService.Business.AccessScope.Services
 {
     /// <inheritdoc/>
-    public interface IAccessObjectService : IAccessService<FacilityScope.Models.Facility>
+    public interface IAccessFacilityService : IAccessService<FacilityScope.Models.Facility>
     {
         
     }

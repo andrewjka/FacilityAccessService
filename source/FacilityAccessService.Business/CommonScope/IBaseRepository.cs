@@ -19,6 +19,6 @@ namespace FacilityAccessService.Business.CommonScope
         public Task<ReadOnlyCollection<T>> SelectByAsync(Specification<T> specification);
         
         public Task DeleteAsync(T model);
-        public Task DeleteByAsync(Specification<T> specification);
+        public Task<int> DeleteByAsync(Specification<T> specification);
     }
 }

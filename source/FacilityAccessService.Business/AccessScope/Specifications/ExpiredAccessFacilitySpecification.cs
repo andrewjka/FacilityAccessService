@@ -4,15 +4,15 @@ using FacilityAccessService.Business.CommonScope.Specification;
 
 namespace FacilityAccessService.Business.AccessScope.Specifications
 {
-    public class ExpiredAccessObjectSpecification : Specification<UserObject>
+    public class ExpiredAccessFacilitySpecification : Specification<UserFacility>
     {
-        public ExpiredAccessObjectSpecification(int skip, int take)
+        public ExpiredAccessFacilitySpecification(int take)
         {
             ApplyExpression(userClientObject =>
                 userClientObject.AccessPeriod.EndDate < DateOnly.FromDateTime(DateTime.Today)
             );
-            
-            ApplyPaging(skip, take);
+
+            ApplyPaging(0, take);
         }
     }
 }

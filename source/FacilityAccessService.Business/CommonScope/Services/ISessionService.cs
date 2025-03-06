@@ -8,6 +8,6 @@ namespace FacilityAccessService.Business.CommonScope.Services
     /// </summary>
     public interface ISessionService
     {
-        Task<(UserScope.Models.User userClient, bool isValidated)> ValidateTokenAsync(string token);
+        Task<(User userClient, bool isValidated)> ValidateTokenAsync(string token);
     }
 }

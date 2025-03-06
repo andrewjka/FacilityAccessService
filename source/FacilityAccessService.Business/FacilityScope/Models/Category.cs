@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using FacilityAccessService.Business.CommonScope;
 
@@ -9,13 +10,13 @@ namespace FacilityAccessService.Business.FacilityScope.Models
     public class Category : BaseEntity, IAccessedResource
     {
         public string Name { get; private set; }
-        public ReadOnlyCollection<Facility> Objects { get; private set; }
+        public HashSet<Facility> Facilities { get; private set; }
 
 
-        public Category(string name, ReadOnlyCollection<Facility> objects) : base()
+        public Category(string name, HashSet<Facility> facilities) : base()
         {
             this.Name = name;
-            this.Objects = objects;
+            this.Facilities = facilities;
         }
 
         public void ChangeName(string name)
@@ -23,9 +24,9 @@ namespace FacilityAccessService.Business.FacilityScope.Models
             this.Name = name;
         }
 
-        public void ChangeObjects(ReadOnlyCollection<Facility> objects)
+        public void ChangeObjects(HashSet<Facility> facilities)
         {
-            this.Objects = objects;
+            this.Facilities = facilities;
         }
     }
 }

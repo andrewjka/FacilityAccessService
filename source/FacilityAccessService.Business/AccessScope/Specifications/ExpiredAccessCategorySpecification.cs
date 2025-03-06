@@ -6,13 +6,13 @@ namespace FacilityAccessService.Business.AccessScope.Specifications
 {
     public class ExpiredAccessCategorySpecification : Specification<UserCategory>
     {
-        public ExpiredAccessCategorySpecification(int skip, int take)
+        public ExpiredAccessCategorySpecification(int take)
         {
             ApplyExpression(userClientCategory =>
                 userClientCategory.AccessPeriod.EndDate < DateOnly.FromDateTime(DateTime.Today)
             );
             
-            ApplyPaging(skip, take);
+            ApplyPaging(0, take);
         }
     }
 }

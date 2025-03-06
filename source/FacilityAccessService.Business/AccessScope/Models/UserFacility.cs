@@ -4,21 +4,21 @@ using FacilityAccessService.Business.CommonScope;
 
 namespace FacilityAccessService.Business.AccessScope.Models
 {
-    public class UserObject : BaseEntity
+    public class UserFacility : BaseEntity
     {
         public Guid UserId { get; private set; }
-        public Guid ObjectId { get; private set; }
+        public Guid FacilityId { get; private set; }
         public AccessPeriod AccessPeriod { get; private set; }
 
 
-        public UserObject(
+        public UserFacility(
             Guid userId,
-            Guid objectId,
+            Guid facilityId,
             AccessPeriod accessPeriod
         ) : base()
         {
             this.UserId = userId;
-            this.ObjectId = objectId;
+            this.FacilityId = facilityId;
             this.AccessPeriod = accessPeriod;
         }
 
