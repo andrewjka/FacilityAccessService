@@ -73,7 +73,7 @@ It describes the implementation of business functionality, specifically the inte
 This layer also includes validation of service input data and validation of business entities.
 Additionally, it publishes events according to business logic.
 Simply put, it implements high-level logic, while the implementation of repository and the like interfaces used here is
-moved to other projects and tightly coupled with a specific database.
+moved to other projects and tightly coupled with a specific technologies.
 
 **References:** *Business, Business.Validation, Event*.
 
