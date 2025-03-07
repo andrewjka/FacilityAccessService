@@ -13,7 +13,6 @@
       <Folder Include="CommonScope\ValueObjects\" />
       <Folder Include="FacilityScope\Specifications\" />
       <Folder Include="FacilityScope\ValueObjects\" />
-      <Folder Include="TerminalScope\Specifications\" />
       <Folder Include="UserScope\Specifications\" />
     </ItemGroup>
 

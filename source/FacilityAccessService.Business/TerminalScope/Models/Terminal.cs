@@ -20,15 +20,20 @@ namespace FacilityAccessService.Business.TerminalScope.Models
             this.Token = token;
             this.ExpiredTokenOn = expiredTokenOn;
         }
-        
+
         public void ChangeName(string name)
         {
             this.Name = name;
         }
-        
+
         public void ChangeExpiredTokenOn(DateOnly expiredToken)
         {
             this.ExpiredTokenOn = expiredToken;
+        }
+
+        public bool IsTokenExpired(DateOnly date)
+        {
+            return ExpiredTokenOn < date;
         }
     }
 }
