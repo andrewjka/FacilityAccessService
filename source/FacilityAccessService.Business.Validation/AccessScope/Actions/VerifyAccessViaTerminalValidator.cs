@@ -9,7 +9,7 @@ namespace FacilityAccessService.Business.Validation.AccessScope.Actions
         {
             RuleFor(model => model.UserId).NotNull();
             RuleFor(model => model.TokenTerminal).NotNull();
-            RuleFor(model => model.ObjectId).NotNull();
+            RuleFor(model => model.FacilityId).NotNull();
         }
     }
 }
