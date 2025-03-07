@@ -17,9 +17,8 @@
 This service implements an access control system for objects within the enterprise premises.
 To operate, it is necessary to know when a new user is registered in the system, via a message broker,
 in order to create a local user based on their UID, with data specific to this service, such as determining the role of
-guest, employee, guard, or administrator.
-Additionally, a connection to a service that will authenticate the user's session, which is used across the entire
-system, is required.
+guest, employee, guard, or administrator. Additionally, a connection to a service that will authenticate the user's
+session, which is used across the entire system, is required.
 
 <a id="project_relationships"></a>
 
@@ -47,8 +46,7 @@ It contains business entities, repository interfaces, service interfaces, and in
 
 **Description:** This project includes components that could have also been part of the business project.
 Essentially, it is still the same business layer as Business and Business.Validation, but separated into different
-projects for convenience.
-It contains interfaces for event publishing and processing, as well as business event models.
+projects for convenience. It contains interfaces for event publishing and processing, as well as business event models.
 
 **References:** *none*.
 
@@ -59,9 +57,8 @@ It contains interfaces for event publishing and processing, as well as business 
 ### Business.Validation
 
 **Description:** In my solution, which may not be entirely correct, business entities do not contain an internal
-validation mechanism.
-Instead, I have extracted validation rules for various business models and actions into a separate layer.
-All these rules are implemented using *FluentValidation*.
+validation mechanism. Instead, I have extracted validation rules for various business models and actions into a separate
+layer. All these rules are implemented using *FluentValidation*.
 
 **References:** *Business, Event*.
 
@@ -75,15 +72,14 @@ All these rules are implemented using *FluentValidation*.
 It describes the implementation of business functionality, specifically the interfaces of services.
 This layer also includes validation of service input data and validation of business entities.
 Additionally, it publishes events according to business logic.
-Simply put, it implements high-level logic, while the implementation of repository interfaces used here is moved to
-other projects and tightly coupled with a specific database.
+Simply put, it implements high-level logic, while the implementation of repository and the like interfaces used here is
+moved to other projects and tightly coupled with a specific database.
 
 **References:** *Business, Business.Validation, Event*.
 
 **Packages:** none.
 
 ***
-
 
 ### Domain.Secure
 
@@ -96,7 +92,6 @@ domain, providing access control for the use of service logic.
 **Packages:** *none*.
 
 ***
-
 
 ### Persistence
 
