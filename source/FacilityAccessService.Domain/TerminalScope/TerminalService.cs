@@ -66,11 +66,11 @@ namespace FacilityAccessService.Domain.TerminalScope
             _updateTerminalVL.ValidateAndThrow(updateTerminalModel);
 
 
-            FirstByIdSpecification<Terminal> firstByIdSpecification = new FirstByIdSpecification<Terminal>(
+            FindByIdSpecification<Terminal> findByIdSpec = new FindByIdSpecification<Terminal>(
                 updateTerminalModel.Uid
             );
 
-            Terminal terminal = await _terminalRepository.FirstByAsync(firstByIdSpecification);
+            Terminal terminal = await _terminalRepository.FirstByAsync(findByIdSpec);
             if (terminal is null)
             {
                 throw new TerminalNotFoundException("The terminal with the specified id does not exist.");
@@ -99,11 +99,11 @@ namespace FacilityAccessService.Domain.TerminalScope
             _deleteTerminalVL.ValidateAndThrow(deleteTerminalModel);
 
 
-            FirstByIdSpecification<Terminal> firstByIdSpecification = new FirstByIdSpecification<Terminal>(
+            FindByIdSpecification<Terminal> findByIdSpec = new FindByIdSpecification<Terminal>(
                 deleteTerminalModel.Uid
             );
 
-            Terminal terminal = await _terminalRepository.FirstByAsync(firstByIdSpecification);
+            Terminal terminal = await _terminalRepository.FirstByAsync(findByIdSpec);
             if (terminal is null)
             {
                 throw new TerminalNotFoundException("The terminal with the specified id does not exist.");

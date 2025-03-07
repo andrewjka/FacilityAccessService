@@ -65,17 +65,18 @@ namespace FacilityAccessService.Domain.AccessScope
         {
             _grantAccessVL.ValidateAndThrow(grantAccessModel);
 
-            FirstByIdSpecification<User> userByIdSpecification = new FirstByIdSpecification<User>(
+            FindByIdSpecification<User> userByIdSpecification = new FindByIdSpecification<User>(
                 guid: grantAccessModel.UserId
             );
 
             User user = await _userRepository.FirstByAsync(userByIdSpecification);
             if (user is null)
             {
-                throw new UserNotFoundException("The category with the specified id does not exist.");
+                throw new UserNotFoundException("The user with the specified id does not exist.");
             }
 
-            FirstByIdSpecification<Facility> facilityByIdSpecification = new FirstByIdSpecification<Facility>(
+            
+            FindByIdSpecification<Facility> facilityByIdSpecification = new FindByIdSpecification<Facility>(
                 guid: grantAccessModel.FacilityId
             );
 

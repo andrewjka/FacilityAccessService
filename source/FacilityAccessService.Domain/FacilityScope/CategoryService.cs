@@ -66,11 +66,11 @@ namespace FacilityAccessService.Domain.FacilityScope
             _updateCategoryVL.ValidateAndThrow(updateCategoryModel);
 
 
-            FirstByIdSpecification<Category> firstByIdSpecification = new FirstByIdSpecification<Category>(
+            FindByIdSpecification<Category> findByIdSpec = new FindByIdSpecification<Category>(
                 guid: updateCategoryModel.CategoryId
             );
 
-            Category category = await _categoryRepository.FirstByAsync(firstByIdSpecification);
+            Category category = await _categoryRepository.FirstByAsync(findByIdSpec);
             if (category is null)
             {
                 throw new CategoryNotFoundException("The category with the specified id does not exist.");
@@ -99,11 +99,11 @@ namespace FacilityAccessService.Domain.FacilityScope
             _deleteCategoryVL.ValidateAndThrow(deleteCategoryModel);
 
 
-            FirstByIdSpecification<Category> firstByIdSpecification = new FirstByIdSpecification<Category>(
+            FindByIdSpecification<Category> findByIdSpec = new FindByIdSpecification<Category>(
                 deleteCategoryModel.CategoryId
             );
 
-            Category category = await _categoryRepository.FirstByAsync(firstByIdSpecification);
+            Category category = await _categoryRepository.FirstByAsync(findByIdSpec);
             if (category is null)
             {
                 throw new CategoryNotFoundException("The category with the specified id does not exist.");

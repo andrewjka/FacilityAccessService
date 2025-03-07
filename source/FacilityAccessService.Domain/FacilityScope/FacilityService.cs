@@ -66,11 +66,11 @@ namespace FacilityAccessService.Domain.FacilityScope
             _updateFacilityVL.ValidateAndThrow(updateFacilityModel);
 
 
-            FirstByIdSpecification<Facility> firstByIdSpecification = new FirstByIdSpecification<Facility>(
+            FindByIdSpecification<Facility> findByIdSpec = new FindByIdSpecification<Facility>(
                 guid: updateFacilityModel.FacilityId
             );
 
-            Facility facility = await _facilityRepository.FirstByAsync(firstByIdSpecification);
+            Facility facility = await _facilityRepository.FirstByAsync(findByIdSpec);
             if (facility is null)
             {
                 throw new FacilityNotFoundException("The facility with the specified id does not exist.");
@@ -99,11 +99,11 @@ namespace FacilityAccessService.Domain.FacilityScope
             _deleteFacilityVL.ValidateAndThrow(deleteFacilityModel);
             
             
-            FirstByIdSpecification<Facility> firstByIdSpecification = new FirstByIdSpecification<Facility>(
+            FindByIdSpecification<Facility> findByIdSpec = new FindByIdSpecification<Facility>(
                 deleteFacilityModel.FacilityId
             );
 
-            Facility category = await _facilityRepository.FirstByAsync(firstByIdSpecification);
+            Facility category = await _facilityRepository.FirstByAsync(findByIdSpec);
             if (category is null)
             {
                 throw new FacilityNotFoundException("The facility with the specified id does not exist.");
