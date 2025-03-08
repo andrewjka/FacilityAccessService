@@ -1,30 +1,24 @@
 using System;
 using System.Threading.Tasks;
-using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
+using FacilityAccessService.Business.CommonScope.PersistenceContext;
 
 
 namespace FacilityAccessService.Domain.AccessScope
 {
     public class CleanerExpiredAccessService : ICleanerExpiredAccessService
     {
-        private IUserCategoryRepository _userCategoryRepository;
-        private IUserFacilityRepository _userFacilityRepository;
+        private readonly IPersistenceContextFactory _persistenceContextFactory;
 
         private const int takeEntries = 500;
 
 
-        public CleanerExpiredAccessService(
-            IUserCategoryRepository userCategoryRepository,
-            IUserFacilityRepository userFacilityRepository
-        )
+        public CleanerExpiredAccessService(IPersistenceContextFactory persistenceContextFactory)
         {
-            if (userCategoryRepository is null) throw new ArgumentNullException(nameof(userCategoryRepository));
-            if (userFacilityRepository is null) throw new ArgumentNullException(nameof(userFacilityRepository));
-            
-            this._userCategoryRepository = userCategoryRepository;
-            this._userFacilityRepository = userFacilityRepository;
+            if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
+
+            this._persistenceContextFactory = persistenceContextFactory;
         }
 
         public async Task ClearExpiredAccessAsync()
@@ -35,7 +29,11 @@ namespace FacilityAccessService.Domain.AccessScope
 
             while (true)
             {
-                int deletedCount = await _userCategoryRepository.DeleteByAsync(expiredCategorySpec);
+                int deletedCount = -1;
+                await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+                {
+                    deletedCount = await context.UserCategoryRepository.DeleteByAsync(expiredCategorySpec);
+                }
 
                 if (deletedCount <= 0)
                 {
@@ -50,7 +48,11 @@ namespace FacilityAccessService.Domain.AccessScope
 
             while (true)
             {
-                int deletedCount = await _userFacilityRepository.DeleteByAsync(expiredFacilitySpec);
+                int deletedCount = -1;
+                await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+                {
+                    deletedCount = await context.UserFacilityRepository.DeleteByAsync(expiredFacilitySpec);
+                }
 
                 if (deletedCount <= 0)
                 {

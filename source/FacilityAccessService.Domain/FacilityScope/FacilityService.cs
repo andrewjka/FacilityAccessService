@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
@@ -12,34 +13,33 @@ namespace FacilityAccessService.Domain.FacilityScope
 {
     public class FacilityService : IFacilityService
     {
-        private IValidator<CreateFacilityModel> _createFacilityVl;
-        private IValidator<UpdateFacilityModel> _updateFacilityVL;
-        private IValidator<DeleteFacilityModel> _deleteFacilityVL;
-        private IValidator<Facility> _facilityVl;
+        private readonly IValidator<CreateFacilityModel> _createFacilityVl;
+        private readonly IValidator<UpdateFacilityModel> _updateFacilityVL;
+        private readonly IValidator<DeleteFacilityModel> _deleteFacilityVL;
+        private readonly IValidator<Facility> _facilityVl;
 
-        private IFacilityRepository _facilityRepository;
-
+        private readonly IPersistenceContextFactory _persistenceContextFactory;
 
         public FacilityService(
             IValidator<CreateFacilityModel> createFacilityVL,
             IValidator<UpdateFacilityModel> updateFacilityVl,
             IValidator<DeleteFacilityModel> deleteFacilityVl,
             IValidator<Facility> facilityVL,
-            IFacilityRepository facilityRepository
+            IPersistenceContextFactory persistenceContextFactory
         )
         {
             if (createFacilityVL is null) throw new ArgumentNullException(nameof(createFacilityVL));
             if (updateFacilityVl is null) throw new ArgumentNullException(nameof(updateFacilityVl));
             if (deleteFacilityVl is null) throw new ArgumentNullException(nameof(deleteFacilityVl));
             if (facilityVL is null) throw new ArgumentNullException(nameof(facilityVL));
-            
-            if (facilityRepository is null) throw new ArgumentNullException(nameof(facilityRepository));
+
+            if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
 
             this._createFacilityVl = createFacilityVL;
             this._updateFacilityVL = updateFacilityVl;
             this._deleteFacilityVL = deleteFacilityVl;
             this._facilityVl = facilityVL;
-            this._facilityRepository = facilityRepository;
+            this._persistenceContextFactory = persistenceContextFactory;
         }
 
 
@@ -56,7 +56,12 @@ namespace FacilityAccessService.Domain.FacilityScope
             _facilityVl.ValidateAndThrow(facility);
 
 
-            await _facilityRepository.CreateAsync(facility);
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.FacilityRepository.CreateAsync(facility);
+
+                await context.CommitAsync();
+            }
 
             return facility;
         }
@@ -70,12 +75,18 @@ namespace FacilityAccessService.Domain.FacilityScope
                 guid: updateFacilityModel.FacilityId
             );
 
-            Facility facility = await _facilityRepository.FirstByAsync(findByGuidSpec);
+            Facility facility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                facility = await context.FacilityRepository.FirstByAsync(findByGuidSpec);
+            }
+
             if (facility is null)
             {
                 throw new FacilityNotFoundException("The facility with the specified id does not exist.");
             }
 
+            
             if (updateFacilityModel.Name is not null)
             {
                 facility.ChangeName(updateFacilityModel.Name);
@@ -89,7 +100,12 @@ namespace FacilityAccessService.Domain.FacilityScope
             _facilityVl.ValidateAndThrow(facility);
 
 
-            await _facilityRepository.UpdateAsync(facility);
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.FacilityRepository.UpdateAsync(facility);
+
+                await context.CommitAsync();
+            }
 
             return facility;
         }
@@ -97,20 +113,30 @@ namespace FacilityAccessService.Domain.FacilityScope
         public async Task DeleteFacilityAsync(DeleteFacilityModel deleteFacilityModel)
         {
             _deleteFacilityVL.ValidateAndThrow(deleteFacilityModel);
-            
-            
+
+
             FindByGUIDSpecification<Facility> findByGuidSpec = new FindByGUIDSpecification<Facility>(
                 deleteFacilityModel.FacilityId
             );
 
-            Facility category = await _facilityRepository.FirstByAsync(findByGuidSpec);
-            if (category is null)
+            Facility facility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                facility = await context.FacilityRepository.FirstByAsync(findByGuidSpec);
+            }
+
+            if (facility is null)
             {
                 throw new FacilityNotFoundException("The facility with the specified id does not exist.");
             }
 
 
-            await _facilityRepository.DeleteAsync(category);
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.FacilityRepository.DeleteAsync(facility);
+
+                await context.CommitAsync();
+            }
         }
     }
 }

@@ -2,12 +2,11 @@ using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
 using FacilityAccessService.Business.AccessScope.Models;
-using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
+using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Business.TerminalScope.Exceptions;
 using FacilityAccessService.Business.TerminalScope.Models;
-using FacilityAccessService.Business.TerminalScope.Repositories;
 using FacilityAccessService.Business.TerminalScope.Specifications;
 using FacilityAccessService.Event;
 using FacilityAccessService.Event.Events;
@@ -17,31 +16,27 @@ namespace FacilityAccessService.Domain.AccessScope
 {
     public class AccessControlTerminalService : IAccessControlTerminalService
     {
-        private IValidator<VerifyAccessViaTerminalModel> _verifyAccessViaTerminalVL;
+        private readonly IValidator<VerifyAccessViaTerminalModel> _verifyAccessViaTerminalVL;
 
-        private IUserFacilityRepository _userFacilityRepository;
-        private ITerminalRepository _terminalRepository;
+        private readonly IPersistenceContextFactory _persistenceContextFactory;
 
         private IPublisher _publisher;
 
 
         public AccessControlTerminalService(
             IValidator<VerifyAccessViaTerminalModel> verifyAccessViaTerminalVl,
-            IUserFacilityRepository userFacilityRepository,
-            ITerminalRepository terminalRepository,
+            IPersistenceContextFactory persistenceContextFactory,
             IPublisher publisher
         )
         {
             if (verifyAccessViaTerminalVl is null) throw new ArgumentNullException(nameof(verifyAccessViaTerminalVl));
 
-            if (userFacilityRepository is null) throw new ArgumentNullException(nameof(userFacilityRepository));
-            if (terminalRepository is null) throw new ArgumentNullException(nameof(terminalRepository));
+            if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
 
             if (publisher is null) throw new ArgumentNullException(nameof(publisher));
 
             this._verifyAccessViaTerminalVL = verifyAccessViaTerminalVl;
-            this._userFacilityRepository = userFacilityRepository;
-            this._terminalRepository = terminalRepository;
+            this._persistenceContextFactory = persistenceContextFactory;
             this._publisher = publisher;
         }
 
@@ -54,7 +49,12 @@ namespace FacilityAccessService.Domain.AccessScope
                 token: verifyAccessModel.TokenTerminal
             );
 
-            Terminal terminal = await _terminalRepository.FirstByAsync(guardByIdSpec);
+            Terminal terminal;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                terminal = await context.TerminalRepository.FirstByAsync(guardByIdSpec);
+            }
+
             if (terminal is null)
             {
                 throw new TerminalTokenInvalidException("The terminal token is invalid.");
@@ -71,7 +71,12 @@ namespace FacilityAccessService.Domain.AccessScope
                 facilityId: verifyAccessModel.FacilityId
             );
 
-            UserFacility userFacility = await _userFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            UserFacility userFacility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            }
+
             if (userFacility is null)
             {
                 return false;

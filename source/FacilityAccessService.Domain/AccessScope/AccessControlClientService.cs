@@ -2,12 +2,11 @@ using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
 using FacilityAccessService.Business.AccessScope.Models;
-using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
+using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Business.UserScope.Exceptions;
 using FacilityAccessService.Business.UserScope.Models;
-using FacilityAccessService.Business.UserScope.Repositories;
 using FacilityAccessService.Business.UserScope.Specifications;
 using FacilityAccessService.Business.UserScope.ValueObjects;
 using FacilityAccessService.Event;
@@ -18,31 +17,27 @@ namespace FacilityAccessService.Domain.AccessScope
 {
     public class AccessControlClientService : IAccessControlClientService
     {
-        private IValidator<VerifyAccessViaGuardModel> _verifyAccessViaGuardVL;
+        private readonly IValidator<VerifyAccessViaGuardModel> _verifyAccessViaGuardVL;
 
-        private IUserFacilityRepository _userFacilityRepository;
-        private IUserRepository _userRepository;
+        private readonly IPersistenceContextFactory _persistenceContextFactory;
 
-        private IPublisher _publisher;
+        private readonly IPublisher _publisher;
 
 
         public AccessControlClientService(
             IValidator<VerifyAccessViaGuardModel> verifyAccessViaGuardVL,
-            IUserFacilityRepository userFacilityRepository,
-            IUserRepository userRepository,
+            IPersistenceContextFactory persistenceContextFactory,
             IPublisher publisher
         )
         {
             if (verifyAccessViaGuardVL is null) throw new ArgumentNullException(nameof(verifyAccessViaGuardVL));
 
-            if (userFacilityRepository is null) throw new ArgumentNullException(nameof(userFacilityRepository));
-            if (userRepository is null) throw new ArgumentNullException(nameof(userRepository));
+            if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
 
             if (publisher is null) throw new ArgumentNullException(nameof(publisher));
 
             this._verifyAccessViaGuardVL = verifyAccessViaGuardVL;
-            this._userFacilityRepository = userFacilityRepository;
-            this._userRepository = userRepository;
+            this._persistenceContextFactory = persistenceContextFactory;
             this._publisher = publisher;
         }
 
@@ -55,18 +50,24 @@ namespace FacilityAccessService.Domain.AccessScope
                 id: verifyAccessModel.GuarderId
             );
 
-            User guard = await _userRepository.FirstByAsync(guardByIdSpec);
+            User guard;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                guard = await context.UserRepository.FirstByAsync(guardByIdSpec);
+            }
+
             if (guard is null)
             {
                 throw new UserNotFoundException("The guarder with the specified id does not exist.");
             }
 
-            if (guard.Role.CheckPermission(Permission.CanCheckPass) is false)
-            {
-                throw new UserHasNotPermissionException(
-                    $"The guarder with given id hasn't permission '{Permission.CanCheckPass.Name}' to verify user access."
-                );
-            }
+            //TODO: In general, this is business logic, but it is essentially put in Domain.Secure.
+            // if (guard.Role.CheckPermission(Permission.CanCheckPass) is false)
+            // {
+            //     throw new UserHasNotPermissionException(
+            //         $"The guarder with given id hasn't permission '{Permission.CanCheckPass.Name}' to verify user access."
+            //     );
+            // }
 
 
             FindUserFacilitySpecification findUserFacilitySpec = new FindUserFacilitySpecification(
@@ -74,7 +75,12 @@ namespace FacilityAccessService.Domain.AccessScope
                 facilityId: verifyAccessModel.FacilityId
             );
 
-            UserFacility userFacility = await _userFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            UserFacility userFacility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            }
+
             if (userFacility is null)
             {
                 return false;

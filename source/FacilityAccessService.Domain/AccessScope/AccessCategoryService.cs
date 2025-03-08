@@ -3,16 +3,14 @@ using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
 using FacilityAccessService.Business.AccessScope.Exceptions;
 using FacilityAccessService.Business.AccessScope.Models;
-using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
+using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
-using FacilityAccessService.Business.FacilityScope.Repositories;
 using FacilityAccessService.Business.UserScope.Exceptions;
 using FacilityAccessService.Business.UserScope.Models;
-using FacilityAccessService.Business.UserScope.Repositories;
 using FacilityAccessService.Business.UserScope.Specifications;
 using FluentValidation;
 
@@ -20,15 +18,12 @@ namespace FacilityAccessService.Domain.AccessScope
 {
     public class AccessCategoryService : IAccessCategoryService
     {
-        private IValidator<GrantAccessCategoryModel> _grantAccessVL;
-        private IValidator<RevokeAccessCategoryModel> _revokeAccessVL;
-        private IValidator<UpdateAccessCategoryModel> _updateAccessVL;
-        private IValidator<UserCategory> _userCategoryVL;
+        private readonly IValidator<GrantAccessCategoryModel> _grantAccessVL;
+        private readonly IValidator<RevokeAccessCategoryModel> _revokeAccessVL;
+        private readonly IValidator<UpdateAccessCategoryModel> _updateAccessVL;
+        private readonly IValidator<UserCategory> _userCategoryVL;
 
-        private IUserCategoryRepository _userCategoryRepository;
-
-        private IUserRepository _userRepository;
-        private ICategoryRepository _categoryRepository;
+        private readonly IPersistenceContextFactory _persistenceContextFactory;
 
 
         public AccessCategoryService(
@@ -36,9 +31,7 @@ namespace FacilityAccessService.Domain.AccessScope
             IValidator<RevokeAccessCategoryModel> revokeAccessVL,
             IValidator<UpdateAccessCategoryModel> updateAccessVL,
             IValidator<UserCategory> userCategoryVl,
-            IUserCategoryRepository userCategoryRepository,
-            IUserRepository userRepository,
-            ICategoryRepository categoryRepository
+            IPersistenceContextFactory persistenceContextFactory
         )
         {
             if (grantAccessVL is null) throw new ArgumentNullException(nameof(grantAccessVL));
@@ -46,17 +39,13 @@ namespace FacilityAccessService.Domain.AccessScope
             if (updateAccessVL is null) throw new ArgumentNullException(nameof(updateAccessVL));
             if (userCategoryVl is null) throw new ArgumentNullException(nameof(userCategoryVl));
 
-            if (userCategoryRepository is null) throw new ArgumentNullException(nameof(userCategoryRepository));
-            if (userRepository is null) throw new ArgumentNullException(nameof(userRepository));
-            if (categoryRepository is null) throw new ArgumentNullException(nameof(categoryRepository));
+            if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
 
             this._grantAccessVL = grantAccessVL;
             this._revokeAccessVL = revokeAccessVL;
             this._updateAccessVL = updateAccessVL;
             this._userCategoryVL = userCategoryVl;
-            this._userCategoryRepository = userCategoryRepository;
-            this._userRepository = userRepository;
-            this._categoryRepository = categoryRepository;
+            this._persistenceContextFactory = persistenceContextFactory;
         }
 
 
@@ -68,7 +57,12 @@ namespace FacilityAccessService.Domain.AccessScope
                 id: grantAccessModel.UserId
             );
 
-            User user = await _userRepository.FirstByAsync(userByIdSpec);
+            User user;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                user = await context.UserRepository.FirstByAsync(userByIdSpec);
+            }
+
             if (user is null)
             {
                 throw new UserNotFoundException("The user with the specified id does not exist.");
@@ -78,7 +72,12 @@ namespace FacilityAccessService.Domain.AccessScope
                 guid: grantAccessModel.CategoryId
             );
 
-            Category category = await _categoryRepository.FirstByAsync(categoryByGuidSpec);
+            Category category;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                category = await context.CategoryRepository.FirstByAsync(categoryByGuidSpec);
+            }
+
             if (category is null)
             {
                 throw new CategoryNotFoundException("The category with the specified id does not exist.");
@@ -93,7 +92,13 @@ namespace FacilityAccessService.Domain.AccessScope
 
             _userCategoryVL.ValidateAndThrow(userCategory);
 
-            await _userCategoryRepository.CreateAsync(userCategory);
+
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.UserCategoryRepository.UpdateAsync(userCategory);
+
+                await context.CommitAsync();
+            }
         }
 
         public async Task RevokeAccessAsync(RevokeAccessCategoryModel revokeAccessModel)
@@ -106,13 +111,25 @@ namespace FacilityAccessService.Domain.AccessScope
                 categoryId: revokeAccessModel.CategoryId
             );
 
-            UserCategory userCategory = await _userCategoryRepository.FirstByAsync(findUserCategorySpec);
+            UserCategory userCategory;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                userCategory = await context.UserCategoryRepository.FirstByAsync(findUserCategorySpec);
+
+                await context.CommitAsync();
+            }
+
             if (userCategory is null)
             {
                 throw new UserCategoryNotFoundException("There is no such access to the category.");
             }
 
-            await _userCategoryRepository.DeleteAsync(userCategory);
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.UserCategoryRepository.DeleteAsync(userCategory);
+
+                await context.CommitAsync();
+            }
         }
 
         public async Task UpdateAccessAsync(UpdateAccessCategoryModel updateAccessModel)
@@ -125,7 +142,12 @@ namespace FacilityAccessService.Domain.AccessScope
                 categoryId: updateAccessModel.CategoryId
             );
 
-            UserCategory userCategory = await _userCategoryRepository.FirstByAsync(findUserCategorySpec);
+            UserCategory userCategory;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                userCategory = await context.UserCategoryRepository.FirstByAsync(findUserCategorySpec);
+            }
+
             if (userCategory is null)
             {
                 throw new UserCategoryNotFoundException("There is no such access to the category.");
@@ -139,7 +161,12 @@ namespace FacilityAccessService.Domain.AccessScope
             _userCategoryVL.ValidateAndThrow(userCategory);
 
 
-            await _userCategoryRepository.UpdateAsync(userCategory);
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.UserCategoryRepository.DeleteAsync(userCategory);
+
+                await context.CommitAsync();
+            }
         }
     }
 }

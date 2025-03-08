@@ -6,6 +6,7 @@ using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
+using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
@@ -20,15 +21,12 @@ namespace FacilityAccessService.Domain.AccessScope
 {
     public class AccessFacilityService : IAccessFacilityService
     {
-        private IValidator<GrantAccessFacilityModel> _grantAccessVL;
-        private IValidator<RevokeAccessFacilityModel> _revokeAccessVL;
-        private IValidator<UpdateAccessFacilityModel> _updateAccessVL;
-        private IValidator<UserFacility> _userFacilityVL;
+        private readonly IValidator<GrantAccessFacilityModel> _grantAccessVL;
+        private readonly IValidator<RevokeAccessFacilityModel> _revokeAccessVL;
+        private readonly IValidator<UpdateAccessFacilityModel> _updateAccessVL;
+        private readonly IValidator<UserFacility> _userFacilityVL;
 
-        private IUserFacilityRepository _userFacilityRepository;
-
-        private IUserRepository _userRepository;
-        private IFacilityRepository _facilityRepository;
+        private readonly IPersistenceContextFactory _persistenceContextFactory;
 
 
         public AccessFacilityService(
@@ -36,9 +34,7 @@ namespace FacilityAccessService.Domain.AccessScope
             IValidator<RevokeAccessFacilityModel> revokeAccessVL,
             IValidator<UpdateAccessFacilityModel> updateAccessVL,
             IValidator<UserFacility> userFacilityVL,
-            IUserFacilityRepository userFacilityRepository,
-            IUserRepository userRepository,
-            IFacilityRepository facilityRepository
+            IPersistenceContextFactory persistenceContextFactory
         )
         {
             if (grantAccessVL is null) throw new ArgumentNullException(nameof(grantAccessVL));
@@ -46,17 +42,13 @@ namespace FacilityAccessService.Domain.AccessScope
             if (updateAccessVL is null) throw new ArgumentNullException(nameof(updateAccessVL));
             if (userFacilityVL is null) throw new ArgumentNullException(nameof(userFacilityVL));
 
-            if (userFacilityRepository is null) throw new ArgumentNullException(nameof(userFacilityRepository));
-            if (userRepository is null) throw new ArgumentNullException(nameof(userRepository));
-            if (facilityRepository is null) throw new ArgumentNullException(nameof(facilityRepository));
+            if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
 
             this._grantAccessVL = grantAccessVL;
             this._revokeAccessVL = revokeAccessVL;
             this._updateAccessVL = updateAccessVL;
             this._userFacilityVL = userFacilityVL;
-            this._userFacilityRepository = userFacilityRepository;
-            this._userRepository = userRepository;
-            this._facilityRepository = facilityRepository;
+            this._persistenceContextFactory = persistenceContextFactory;
         }
 
 
@@ -64,22 +56,33 @@ namespace FacilityAccessService.Domain.AccessScope
         {
             _grantAccessVL.ValidateAndThrow(grantAccessModel);
 
+
             FindByIdSpecification userByIdSpec = new FindByIdSpecification(
                 id: grantAccessModel.UserId
             );
 
-            User user = await _userRepository.FirstByAsync(userByIdSpec);
+            User user;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                user = await context.UserRepository.FirstByAsync(userByIdSpec);
+            }
+
             if (user is null)
             {
                 throw new UserNotFoundException("The user with the specified id does not exist.");
             }
 
-            
+
             FindByGUIDSpecification<Facility> facilityByGuidSpecification = new FindByGUIDSpecification<Facility>(
                 guid: grantAccessModel.FacilityId
             );
 
-            Facility facility = await _facilityRepository.FirstByAsync(facilityByGuidSpecification);
+            Facility facility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                facility = await context.FacilityRepository.FirstByAsync(facilityByGuidSpecification);
+            }
+
             if (facility is null)
             {
                 throw new FacilityNotFoundException("The facility with the specified id does not exist.");
@@ -94,7 +97,13 @@ namespace FacilityAccessService.Domain.AccessScope
 
             _userFacilityVL.ValidateAndThrow(userFacility);
 
-            await _userFacilityRepository.CreateAsync(userFacility);
+
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.UserFacilityRepository.CreateAsync(userFacility);
+
+                await context.CommitAsync();
+            }
         }
 
         public async Task RevokeAccessAsync(RevokeAccessFacilityModel revokeAccessModel)
@@ -107,13 +116,24 @@ namespace FacilityAccessService.Domain.AccessScope
                 facilityId: revokeAccessModel.FacilityId
             );
 
-            UserFacility userFacility = await _userFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            UserFacility userFacility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            }
+
             if (userFacility is null)
             {
                 throw new UserFacilityNotFoundException("There is no such access to the facility.");
             }
 
-            await _userFacilityRepository.DeleteAsync(userFacility);
+
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.UserFacilityRepository.DeleteAsync(userFacility);
+
+                await context.CommitAsync();
+            }
         }
 
         public async Task UpdateAccessAsync(UpdateAccessFacilityModel updateAccessModel)
@@ -126,7 +146,12 @@ namespace FacilityAccessService.Domain.AccessScope
                 facilityId: updateAccessModel.FacilityId
             );
 
-            UserFacility userFacility = await _userFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            UserFacility userFacility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
+            }
+
             if (userFacility is null)
             {
                 throw new UserFacilityNotFoundException("There is no such access to the facility.");
@@ -140,7 +165,12 @@ namespace FacilityAccessService.Domain.AccessScope
             _userFacilityVL.ValidateAndThrow(userFacility);
 
 
-            await _userFacilityRepository.UpdateAsync(userFacility);
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                await context.UserFacilityRepository.UpdateAsync(userFacility);
+
+                await context.CommitAsync();
+            }
         }
     }
 }
