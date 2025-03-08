@@ -5,13 +5,13 @@ namespace FacilityAccessService.Business.AccessScope.Models
 {
     public class UserCategory : BaseEntity
     {
-        public Guid UserId { get; private set; }
+        public string UserId { get; private set; }
         public Guid CategoryId { get; private set; }
         public AccessPeriod AccessPeriod { get; private set; }
 
 
         public UserCategory(
-            Guid userId,
+            string userId,
             Guid categoryId,
             AccessPeriod accessPeriod
         ) : base()

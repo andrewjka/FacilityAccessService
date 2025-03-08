@@ -6,13 +6,13 @@ namespace FacilityAccessService.Business.AccessScope.Models
 {
     public class UserFacility : BaseEntity
     {
-        public Guid UserId { get; private set; }
+        public string UserId { get; private set; }
         public Guid FacilityId { get; private set; }
         public AccessPeriod AccessPeriod { get; private set; }
 
 
         public UserFacility(
-            Guid userId,
+            string userId,
             Guid facilityId,
             AccessPeriod accessPeriod
         ) : base()

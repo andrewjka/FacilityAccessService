@@ -7,8 +7,8 @@ namespace FacilityAccessService.Business.Validation.AccessScope.Actions
     {
         public VerifyAccessViaGuardValidator()
         {
-            RuleFor(model => model.UserId).NotNull();
-            RuleFor(model => model.GuarderId).NotNull();
+            RuleFor(model => model.UserId).NotEmpty();
+            RuleFor(model => model.GuarderId).NotEmpty();
             RuleFor(model => model.FacilityId).NotNull();
         }
     }

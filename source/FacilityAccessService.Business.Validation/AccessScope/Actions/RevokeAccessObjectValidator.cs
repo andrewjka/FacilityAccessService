@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Validation.AccessScope.Actions
     {
         public RevokeAccessObjectValidator()
         {
-            RuleFor(model => model.UserId).NotNull();
+            RuleFor(model => model.UserId).NotEmpty();
             RuleFor(model => model.FacilityId).NotNull();
         }
     }

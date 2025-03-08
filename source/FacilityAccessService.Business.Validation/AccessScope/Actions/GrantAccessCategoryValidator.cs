@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Validation.AccessScope.Actions
     {
         public GrantAccessCategoryValidator() : base()
         {
-            RuleFor(model => model.UserId).NotNull();
+            RuleFor(model => model.UserId).NotEmpty();
             RuleFor(model => model.CategoryId).NotNull();
             RuleFor(model => model.AccessPeriod).NotNull();
         }

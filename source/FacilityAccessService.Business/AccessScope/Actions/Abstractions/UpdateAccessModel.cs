@@ -9,7 +9,7 @@ namespace FacilityAccessService.Business.AccessScope.Actions.Abstractions
     /// </summary>
     public abstract record UpdateAccessModel
     {
-        public Guid UserId { get; init; }
+        public string UserId { get; init; }
         public AccessPeriod AccessPeriod { get; init; }
     }
 }

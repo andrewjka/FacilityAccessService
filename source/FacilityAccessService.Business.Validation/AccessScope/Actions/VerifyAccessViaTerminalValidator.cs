@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Validation.AccessScope.Actions
     {
         public VerifyAccessViaTerminalValidator()
         {
-            RuleFor(model => model.UserId).NotNull();
+            RuleFor(model => model.UserId).NotEmpty();
             RuleFor(model => model.TokenTerminal).NotNull();
             RuleFor(model => model.FacilityId).NotNull();
         }

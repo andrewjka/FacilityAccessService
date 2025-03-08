@@ -6,8 +6,7 @@ namespace FacilityAccessService.Business.Validation.UserScope.Models
     {
         public UserValidator()
         {
-            RuleFor(model => model.Id).NotNull();
-            RuleFor(model => model.ExternalUserId).NotNull();
+            RuleFor(model => model.Id).NotEmpty();
             RuleFor(model => model.Role).NotNull();
         }
     }

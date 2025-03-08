@@ -6,7 +6,7 @@ namespace FacilityAccessService.Business.TerminalScope.Actions
     /// The action model for update the terminal.
     /// </summary>
     public record UpdateTerminalModel(
-        Guid Uid,
+        Guid TerminalId,
         string Name,
         DateOnly? ExpiredTokenOn
     );

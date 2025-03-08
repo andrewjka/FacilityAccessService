@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Validation.TerminalScope.Actions
     {
         public DeleteTerminalValidator()
         {
-            RuleFor(model => model.Uid).NotNull();
+            RuleFor(model => model.TerminalId).NotNull();
         }
     }
 }

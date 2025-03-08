@@ -3,9 +3,9 @@ using FacilityAccessService.Business.CommonScope.Specification;
 
 namespace FacilityAccessService.Business.CommonScope.Specifications.Generic
 {
-    public class FindByIdSpecification<TEntity> : Specification<TEntity> where TEntity : BaseEntity
+    public class FindByGUIDSpecification<TEntity> : Specification<TEntity> where TEntity : BaseEntity
     {
-        public FindByIdSpecification(Guid guid)
+        public FindByGUIDSpecification(Guid guid)
         {
             ApplyExpression(entity => entity.Id == guid);
         }

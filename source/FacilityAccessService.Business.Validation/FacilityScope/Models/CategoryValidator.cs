@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Validation.FacilityScope.Models
     {
         public CategoryValidator()
         {
-            RuleFor(model => model.Id).NotNull();
+            RuleFor(model => model.Id).NotEmpty();
             RuleFor(model => model.Name).NotNull();
         }
     }

@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.AccessScope.Actions.Abstractions
     /// </summary>
     public abstract record VerifyAccessModel
     {
-        public Guid UserId { get; init; }
+        public string UserId { get; init; }
         public Guid FacilityId { get; init; }
     }
 }

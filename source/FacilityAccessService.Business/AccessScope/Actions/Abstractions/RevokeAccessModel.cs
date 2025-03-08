@@ -8,6 +8,6 @@ namespace FacilityAccessService.Business.AccessScope.Actions.Abstractions
     /// </summary>
     public abstract record RevokeAccessModel
     {
-        public Guid UserId { get; init; }
+        public string UserId { get; init; }
     }
 }

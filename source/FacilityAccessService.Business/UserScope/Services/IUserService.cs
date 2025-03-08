@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using FacilityAccessService.Business.UserScope.Models;
 using FacilityAccessService.Business.UserScope.Actions;
 
 namespace FacilityAccessService.Business.UserScope.Services

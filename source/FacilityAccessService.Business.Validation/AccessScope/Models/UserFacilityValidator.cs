@@ -3,16 +3,13 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Models
 {
-    public class UserObjectValidator : AbstractValidator<UserFacility>
+    public class UserFacilityValidator : AbstractValidator<UserFacility>
     {
-        public UserObjectValidator()
+        public UserFacilityValidator()
         {
             RuleFor(model => model.Id).NotNull();
-            
-            RuleFor(model => model.UserId).NotNull();
-            
+            RuleFor(model => model.UserId).NotEmpty();
             RuleFor(model => model.FacilityId).NotNull();
-            
             RuleFor(model => model.AccessPeriod).NotNull();
         }
     }

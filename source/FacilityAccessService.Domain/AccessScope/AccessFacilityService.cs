@@ -1,20 +1,19 @@
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
-using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 using FacilityAccessService.Business.AccessScope.Exceptions;
 using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
-using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Business.FacilityScope.Repositories;
 using FacilityAccessService.Business.UserScope.Exceptions;
 using FacilityAccessService.Business.UserScope.Models;
 using FacilityAccessService.Business.UserScope.Repositories;
+using FacilityAccessService.Business.UserScope.Specifications;
 using FluentValidation;
 
 namespace FacilityAccessService.Domain.AccessScope
@@ -65,22 +64,22 @@ namespace FacilityAccessService.Domain.AccessScope
         {
             _grantAccessVL.ValidateAndThrow(grantAccessModel);
 
-            FindByIdSpecification<User> userByIdSpecification = new FindByIdSpecification<User>(
-                guid: grantAccessModel.UserId
+            FindByIdSpecification userByIdSpec = new FindByIdSpecification(
+                id: grantAccessModel.UserId
             );
 
-            User user = await _userRepository.FirstByAsync(userByIdSpecification);
+            User user = await _userRepository.FirstByAsync(userByIdSpec);
             if (user is null)
             {
                 throw new UserNotFoundException("The user with the specified id does not exist.");
             }
 
             
-            FindByIdSpecification<Facility> facilityByIdSpecification = new FindByIdSpecification<Facility>(
+            FindByGUIDSpecification<Facility> facilityByGuidSpecification = new FindByGUIDSpecification<Facility>(
                 guid: grantAccessModel.FacilityId
             );
 
-            Facility facility = await _facilityRepository.FirstByAsync(facilityByIdSpecification);
+            Facility facility = await _facilityRepository.FirstByAsync(facilityByGuidSpecification);
             if (facility is null)
             {
                 throw new FacilityNotFoundException("The facility with the specified id does not exist.");
@@ -89,7 +88,7 @@ namespace FacilityAccessService.Domain.AccessScope
 
             UserFacility userFacility = new UserFacility(
                 userId: grantAccessModel.UserId,
-                facilityId: grantAccessModel.UserId,
+                facilityId: grantAccessModel.FacilityId,
                 accessPeriod: grantAccessModel.AccessPeriod
             );
 

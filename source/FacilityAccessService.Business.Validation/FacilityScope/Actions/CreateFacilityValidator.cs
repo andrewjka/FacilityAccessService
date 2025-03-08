@@ -7,7 +7,7 @@ namespace FacilityAccessService.Business.Validation.FacilityScope.Actions
     {
         public CreateFacilityValidator()
         {
-            RuleFor(model => model).NotEmpty();
+            RuleFor(model => model.Name).NotEmpty();
         }
     }
 }

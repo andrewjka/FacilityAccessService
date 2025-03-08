@@ -13,6 +13,7 @@ using FacilityAccessService.Business.FacilityScope.Repositories;
 using FacilityAccessService.Business.UserScope.Exceptions;
 using FacilityAccessService.Business.UserScope.Models;
 using FacilityAccessService.Business.UserScope.Repositories;
+using FacilityAccessService.Business.UserScope.Specifications;
 using FluentValidation;
 
 namespace FacilityAccessService.Domain.AccessScope
@@ -63,8 +64,8 @@ namespace FacilityAccessService.Domain.AccessScope
         {
             _grantAccessVL.ValidateAndThrow(grantAccessModel);
 
-            FindByIdSpecification<User> userByIdSpec = new FindByIdSpecification<User>(
-                guid: grantAccessModel.UserId
+            FindByIdSpecification userByIdSpec = new FindByIdSpecification(
+                id: grantAccessModel.UserId
             );
 
             User user = await _userRepository.FirstByAsync(userByIdSpec);
@@ -73,11 +74,11 @@ namespace FacilityAccessService.Domain.AccessScope
                 throw new UserNotFoundException("The user with the specified id does not exist.");
             }
 
-            FindByIdSpecification<Category> categoryByIdSpec = new FindByIdSpecification<Category>(
+            FindByGUIDSpecification<Category> categoryByGuidSpec = new FindByGUIDSpecification<Category>(
                 guid: grantAccessModel.CategoryId
             );
 
-            Category category = await _categoryRepository.FirstByAsync(categoryByIdSpec);
+            Category category = await _categoryRepository.FirstByAsync(categoryByGuidSpec);
             if (category is null)
             {
                 throw new CategoryNotFoundException("The category with the specified id does not exist.");

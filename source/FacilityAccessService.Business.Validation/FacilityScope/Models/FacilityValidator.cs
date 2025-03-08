@@ -2,11 +2,11 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.FacilityScope.Models
 {
-    public class ObjectValidator : AbstractValidator<Business.FacilityScope.Models.Facility>
+    public class FacilityValidator : AbstractValidator<Business.FacilityScope.Models.Facility>
     {
-        public ObjectValidator()
+        public FacilityValidator()
         {
-            RuleFor(model => model.Id).NotNull();
+            RuleFor(model => model.Id).NotEmpty();
             RuleFor(model => model.Name).NotEmpty();
         }
     }
