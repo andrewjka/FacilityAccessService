@@ -9,6 +9,8 @@ using FacilityAccessService.Business.TerminalScope.Exceptions;
 using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.Repositories;
 using FacilityAccessService.Business.TerminalScope.Specifications;
+using FacilityAccessService.Event;
+using FacilityAccessService.Event.Events;
 using FluentValidation;
 
 namespace FacilityAccessService.Domain.AccessScope
@@ -20,11 +22,14 @@ namespace FacilityAccessService.Domain.AccessScope
         private IUserFacilityRepository _userFacilityRepository;
         private ITerminalRepository _terminalRepository;
 
+        private IPublisher _publisher;
+
 
         public AccessControlTerminalService(
             IValidator<VerifyAccessViaTerminalModel> verifyAccessViaTerminalVl,
             IUserFacilityRepository userFacilityRepository,
-            ITerminalRepository terminalRepository
+            ITerminalRepository terminalRepository,
+            IPublisher publisher
         )
         {
             if (verifyAccessViaTerminalVl is null) throw new ArgumentNullException(nameof(verifyAccessViaTerminalVl));
@@ -32,9 +37,12 @@ namespace FacilityAccessService.Domain.AccessScope
             if (userFacilityRepository is null) throw new ArgumentNullException(nameof(userFacilityRepository));
             if (terminalRepository is null) throw new ArgumentNullException(nameof(terminalRepository));
 
+            if (publisher is null) throw new ArgumentNullException(nameof(publisher));
+
             this._verifyAccessViaTerminalVL = verifyAccessViaTerminalVl;
             this._userFacilityRepository = userFacilityRepository;
             this._terminalRepository = terminalRepository;
+            this._publisher = publisher;
         }
 
         public async Task<bool> VerifyAccessAsync(VerifyAccessViaTerminalModel verifyAccessModel)
@@ -64,9 +72,23 @@ namespace FacilityAccessService.Domain.AccessScope
             );
 
             UserFacility userFacility = await _userFacilityRepository.FirstByAsync(findUserFacilitySpec);
-            if (userFacility is not null)
+            if (userFacility is null)
             {
-                return userFacility.AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));
+                return false;
+            }
+
+            bool isAccessActive = userFacility.AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));
+            if (isAccessActive is true)
+            {
+                UserEnteredFacilityEvent @event = new UserEnteredFacilityEvent(
+                    UserId: userFacility.UserId,
+                    FacilityId: userFacility.FacilityId.ToString(),
+                    EnteredTime: DateTime.Now
+                );
+
+                await _publisher.PublishAsync(@event);
+
+                return true;
             }
 
             return false;

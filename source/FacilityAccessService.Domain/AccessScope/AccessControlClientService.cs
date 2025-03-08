@@ -5,11 +5,13 @@ using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
-using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.UserScope.Exceptions;
 using FacilityAccessService.Business.UserScope.Models;
 using FacilityAccessService.Business.UserScope.Repositories;
+using FacilityAccessService.Business.UserScope.Specifications;
 using FacilityAccessService.Business.UserScope.ValueObjects;
+using FacilityAccessService.Event;
+using FacilityAccessService.Event.Events;
 using FluentValidation;
 
 namespace FacilityAccessService.Domain.AccessScope
@@ -21,11 +23,14 @@ namespace FacilityAccessService.Domain.AccessScope
         private IUserFacilityRepository _userFacilityRepository;
         private IUserRepository _userRepository;
 
+        private IPublisher _publisher;
+
 
         public AccessControlClientService(
             IValidator<VerifyAccessViaGuardModel> verifyAccessViaGuardVL,
             IUserFacilityRepository userFacilityRepository,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            IPublisher publisher
         )
         {
             if (verifyAccessViaGuardVL is null) throw new ArgumentNullException(nameof(verifyAccessViaGuardVL));
@@ -33,9 +38,12 @@ namespace FacilityAccessService.Domain.AccessScope
             if (userFacilityRepository is null) throw new ArgumentNullException(nameof(userFacilityRepository));
             if (userRepository is null) throw new ArgumentNullException(nameof(userRepository));
 
+            if (publisher is null) throw new ArgumentNullException(nameof(publisher));
+
             this._verifyAccessViaGuardVL = verifyAccessViaGuardVL;
             this._userFacilityRepository = userFacilityRepository;
             this._userRepository = userRepository;
+            this._publisher = publisher;
         }
 
         public async Task<bool> VerifyAccessAsync(VerifyAccessViaGuardModel verifyAccessModel)
@@ -43,8 +51,8 @@ namespace FacilityAccessService.Domain.AccessScope
             _verifyAccessViaGuardVL.ValidateAndThrow(verifyAccessModel);
 
 
-            FindByIdSpecification<User> guardByIdSpec = new FindByIdSpecification<User>(
-                guid: verifyAccessModel.GuarderId
+            FindByIdSpecification guardByIdSpec = new FindByIdSpecification(
+                id: verifyAccessModel.GuarderId
             );
 
             User guard = await _userRepository.FirstByAsync(guardByIdSpec);
@@ -67,9 +75,23 @@ namespace FacilityAccessService.Domain.AccessScope
             );
 
             UserFacility userFacility = await _userFacilityRepository.FirstByAsync(findUserFacilitySpec);
-            if (userFacility is not null)
+            if (userFacility is null)
             {
-                return userFacility.AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));
+                return false;
+            }
+
+            bool isAccessActive = userFacility.AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));
+            if (isAccessActive is true)
+            {
+                UserEnteredFacilityEvent @event = new UserEnteredFacilityEvent(
+                    UserId: userFacility.UserId,
+                    FacilityId: userFacility.FacilityId.ToString(),
+                    EnteredTime: DateTime.Now
+                );
+
+                await _publisher.PublishAsync(@event);
+
+                return true;
             }
 
             return false;
