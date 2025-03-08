@@ -1,5 +1,5 @@
 using System;
-using FacilityAccessService.Business.CommonScope;
+using FacilityAccessService.Business.CommonScope.Models;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
 
 namespace FacilityAccessService.Business.TerminalScope.Models

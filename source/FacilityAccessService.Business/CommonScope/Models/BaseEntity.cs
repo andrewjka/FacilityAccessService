@@ -1,6 +1,6 @@
 using System;
 
-namespace FacilityAccessService.Business.CommonScope
+namespace FacilityAccessService.Business.CommonScope.Models
 {
     /// <summary>
     /// Describes the base class for all entities that have a unique identifier.

@@ -1,4 +1,5 @@
 using System;
+using FacilityAccessService.Business.CommonScope.Models;
 using FacilityAccessService.Business.CommonScope.Specification;
 
 namespace FacilityAccessService.Business.CommonScope.Specifications.Generic

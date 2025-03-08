@@ -1,9 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.CommonScope.Specification;
-using FacilityAccessService.Business.TerminalScope.Models;
 
-namespace FacilityAccessService.Business.CommonScope
+namespace FacilityAccessService.Business.CommonScope.Repositories
 {
     /// <summary>
     /// Describes a basic set of methods for all repositories.

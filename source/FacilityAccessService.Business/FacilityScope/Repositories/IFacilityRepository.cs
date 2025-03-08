@@ -1,4 +1,4 @@
-using FacilityAccessService.Business.CommonScope;
+using FacilityAccessService.Business.CommonScope.Repositories;
 
 namespace FacilityAccessService.Business.FacilityScope.Repositories
 {
@@ -7,6 +7,5 @@ namespace FacilityAccessService.Business.FacilityScope.Repositories
     /// </summary>
     public interface IFacilityRepository : IBaseRepository<Models.Facility>
     {
-        
     }
 }

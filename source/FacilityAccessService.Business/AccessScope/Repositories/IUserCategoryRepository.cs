@@ -1,5 +1,5 @@
 using FacilityAccessService.Business.AccessScope.Models;
-using FacilityAccessService.Business.CommonScope;
+using FacilityAccessService.Business.CommonScope.Repositories;
 
 namespace FacilityAccessService.Business.AccessScope.Repositories
 {

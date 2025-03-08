@@ -1,4 +1,4 @@
-using FacilityAccessService.Business.CommonScope;
+using FacilityAccessService.Business.CommonScope.Repositories;
 using FacilityAccessService.Business.UserScope.Models;
 
 namespace FacilityAccessService.Business.UserScope.Repositories

@@ -1,6 +1,7 @@
 using System;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
-using FacilityAccessService.Business.CommonScope;
+using FacilityAccessService.Business.CommonScope.Models;
+
 namespace FacilityAccessService.Business.AccessScope.Models
 {
     public class UserCategory : BaseEntity

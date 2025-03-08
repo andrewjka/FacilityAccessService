@@ -1,5 +1,5 @@
 using System;
-using FacilityAccessService.Business.CommonScope;
+using FacilityAccessService.Business.CommonScope.Exceptions;
 
 namespace FacilityAccessService.Business.AccessScope.Exceptions
 {

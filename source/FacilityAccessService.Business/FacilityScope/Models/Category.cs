@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using FacilityAccessService.Business.CommonScope;
+using FacilityAccessService.Business.CommonScope.Models;
 
 namespace FacilityAccessService.Business.FacilityScope.Models
 {

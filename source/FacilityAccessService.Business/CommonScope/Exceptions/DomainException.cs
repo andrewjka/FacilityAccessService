@@ -1,6 +1,6 @@
 using System;
 
-namespace FacilityAccessService.Business.CommonScope
+namespace FacilityAccessService.Business.CommonScope.Exceptions
 {
     public class DomainException : Exception
     {
