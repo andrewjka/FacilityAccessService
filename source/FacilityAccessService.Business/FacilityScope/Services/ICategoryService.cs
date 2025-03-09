@@ -9,10 +9,19 @@ namespace FacilityAccessService.Business.FacilityScope.Services
     /// </summary>
     public interface ICategoryService
     {
+        /// <summary>
+        /// Creates a new Category.
+        /// </summary>
         public Task<Category> CreateCategoryAsync(CreateCategoryModel createCategoryModel);
 
+        /// <summary>
+        /// Updates the Category.
+        /// </summary>
         public Task<Category> UpdateCategoryAsync(UpdateCategoryModel updateCategoryModel);
 
+        /// <summary>
+        /// Deletes the Category.
+        /// </summary>
         public Task DeleteCategoryAsync(DeleteCategoryModel deleteCategoryModel);
     }
 }

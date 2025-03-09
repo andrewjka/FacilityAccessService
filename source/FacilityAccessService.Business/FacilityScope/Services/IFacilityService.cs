@@ -9,10 +9,19 @@ namespace FacilityAccessService.Business.FacilityScope.Services
     /// </summary>
     public interface IFacilityService
     {
+        /// <summary>
+        /// Creates a new Facility.
+        /// </summary>
         public Task<Facility> CreateFacilityAsync(CreateFacilityModel createFacilityModel);
 
+        /// <summary>
+        /// Updates the Facility.
+        /// </summary>
         public Task<Facility> UpdateFacilityAsync(UpdateFacilityModel updateFacilityModel);
 
+        /// <summary>
+        /// Deletes the Facility.
+        /// </summary>
         public Task DeleteFacilityAsync(DeleteFacilityModel deleteFacilityModel);
     }
 }

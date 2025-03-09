@@ -3,7 +3,7 @@ using FacilityAccessService.Business.CommonScope.Exceptions;
 
 namespace FacilityAccessService.Business.AccessScope.Exceptions
 {
-    public class UserFacilityNotFoundException : DomainException
+    public class UserFacilityNotFoundException : BusinessException
     {
         public UserFacilityNotFoundException()
         {

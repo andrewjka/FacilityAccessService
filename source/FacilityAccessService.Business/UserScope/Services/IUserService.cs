@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using FacilityAccessService.Business.UserScope.Actions;
+using FacilityAccessService.Business.UserScope.Models;
 
 namespace FacilityAccessService.Business.UserScope.Services
 {
@@ -8,6 +9,9 @@ namespace FacilityAccessService.Business.UserScope.Services
     /// </summary>
     public interface IUserService
     {
-        public Task<Models.User> RegistryUserAsync(RegistryUserModel registryUserModel);
+        /// <summary>
+        /// Registers a new User.
+        /// </summary>
+        public Task<User> RegistryUserAsync(RegistryUserModel registryUserModel);
     }
 }

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using FacilityAccessService.Business.TerminalScope.Actions;
+using FacilityAccessService.Business.TerminalScope.Models;
 
 namespace FacilityAccessService.Business.TerminalScope.Services
 {
@@ -8,10 +9,19 @@ namespace FacilityAccessService.Business.TerminalScope.Services
     /// </summary>
     public interface ITerminalService
     {
-        public Task<Models.Terminal> CreateTerminalAsync(CreateTerminalModel createTerminalModel);
+        /// <summary>
+        /// Creates a new Terminal.
+        /// </summary>
+        public Task<Terminal> CreateTerminalAsync(CreateTerminalModel createTerminalModel);
 
-        public Task<Models.Terminal> UpdateTerminalAsync(UpdateTerminalModel updateTerminalModel);
+        /// <summary>
+        /// Updates the Terminal.
+        /// </summary>
+        public Task<Terminal> UpdateTerminalAsync(UpdateTerminalModel updateTerminalModel);
 
+        /// <summary>
+        /// Deletes the Terminal.
+        /// </summary>
         public Task DeleteTerminalAsync(DeleteTerminalModel deleteTerminalModel);
     }
 }

@@ -3,6 +3,9 @@ using System.Security.Cryptography;
 
 namespace FacilityAccessService.Business.TerminalScope.ValueObjects
 {
+    /// <summary>
+    /// Describes a 512 bit terminal API token key.
+    /// </summary>
     public record TerminalToken
     {
         private byte[] _token = new byte[64];
@@ -24,17 +27,30 @@ namespace FacilityAccessService.Business.TerminalScope.ValueObjects
                 _token[i] = token[i];
             }
         }
-
+        
+        /// <summary>
+        /// Returns the token in a hexadecimal representation as a string.
+        /// </summary>
+        /// <returns></returns>
         public string GetHexFormat()
         {
             return Convert.ToHexString(_token);
         }
 
+        /// <summary>
+        /// Returns a token based on a string representation.
+        /// </summary>
+        /// <param name="hex">String representation of the token in HEX format.</param>
+        /// <returns></returns>
         public static TerminalToken GetFromHex(string hex)
         {
             return new TerminalToken(Convert.FromHexString(hex));
         }
 
+        /// <summary>
+        /// Generates a new terminal token.
+        /// </summary>
+        /// <returns></returns>
         public static TerminalToken GenerateToken()
         {
             return new TerminalToken();

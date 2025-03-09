@@ -7,6 +7,10 @@ namespace FacilityAccessService.Business.AccessScope.Services
     /// </summary>
     public interface ICleanerExpiredAccessService
     {
+        /// <summary>
+        /// Clears all expired access.
+        /// </summary>
+        /// <returns></returns>
         public Task ClearExpiredAccessAsync();
     }
 }

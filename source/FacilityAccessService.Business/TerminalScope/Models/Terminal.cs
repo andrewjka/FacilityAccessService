@@ -21,16 +21,25 @@ namespace FacilityAccessService.Business.TerminalScope.Models
             this.ExpiredTokenOn = expiredTokenOn;
         }
 
+        /// <summary>
+        /// Changes the Terminal name.
+        /// </summary>
         public void ChangeName(string name)
         {
             this.Name = name;
         }
 
+        /// <summary>
+        /// Changes the expiration date of the terminal token. 
+        /// </summary>
         public void ChangeExpiredTokenOn(DateOnly expiredToken)
         {
             this.ExpiredTokenOn = expiredToken;
         }
 
+        /// <summary>
+        /// Checks if the token is valid on the specified date.
+        /// </summary>
         public bool IsTokenExpired(DateOnly date)
         {
             return ExpiredTokenOn < date;

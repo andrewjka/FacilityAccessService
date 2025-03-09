@@ -3,7 +3,7 @@ using FacilityAccessService.Business.CommonScope.Exceptions;
 
 namespace FacilityAccessService.Business.UserScope.Exceptions
 {
-    public class UserHasNotPermissionException : DomainException
+    public class UserHasNotPermissionException : BusinessException
     {
         public UserHasNotPermissionException()
         {

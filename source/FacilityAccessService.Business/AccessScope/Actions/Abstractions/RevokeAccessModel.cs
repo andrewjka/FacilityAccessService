@@ -1,5 +1,4 @@
-using System;
-using FacilityAccessService.Business.FacilityScope.Models;
+
 
 namespace FacilityAccessService.Business.AccessScope.Actions.Abstractions
 {

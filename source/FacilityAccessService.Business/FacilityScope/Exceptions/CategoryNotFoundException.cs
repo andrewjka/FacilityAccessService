@@ -3,7 +3,7 @@ using FacilityAccessService.Business.CommonScope.Exceptions;
 
 namespace FacilityAccessService.Business.FacilityScope.Exceptions
 {
-    public class CategoryNotFoundException : DomainException
+    public class CategoryNotFoundException : BusinessException
     {
         public CategoryNotFoundException()
         {

@@ -6,14 +6,12 @@ namespace FacilityAccessService.Business.AccessScope.Services.Generic
     /// <summary>
     /// Describes a service for verify access via specific access model.
     /// </summary>
-    /// <typeparam name="TAccessVerifyModel">The model through which access verification is performed</typeparam>
+    /// <typeparam name="TAccessVerifyModel">The model through which access verification is performed.</typeparam>
     public interface IAccessControlService<TAccessVerifyModel> where TAccessVerifyModel : VerifyAccessModel
     {
         /// <summary>
         /// Verifying access via specific access checker.
         /// </summary>
-        /// <param name="verifyAccessModel"></param>
-        /// <returns></returns>
         public Task<bool> VerifyAccessAsync(TAccessVerifyModel verifyAccessModel);
     }
 }

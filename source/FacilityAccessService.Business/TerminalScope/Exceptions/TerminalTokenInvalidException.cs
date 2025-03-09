@@ -3,7 +3,7 @@ using FacilityAccessService.Business.CommonScope.Exceptions;
 
 namespace FacilityAccessService.Business.TerminalScope.Exceptions
 {
-    public class TerminalTokenInvalidException : DomainException
+    public class TerminalTokenInvalidException : BusinessException
     {
         public TerminalTokenInvalidException()
         {

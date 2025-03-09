@@ -5,6 +5,9 @@ using FacilityAccessService.Business.UserScope.Repositories;
 
 namespace FacilityAccessService.Business.CommonScope.PersistenceContext
 {
+    /// <summary>
+    /// Implemented the unit of work pattern. Describes access to all repositories in a single collaboration.
+    /// </summary>
     public interface IUnitWork
     {
         public IUserRepository UserRepository { get; }
@@ -15,6 +18,6 @@ namespace FacilityAccessService.Business.CommonScope.PersistenceContext
         public ICategoryRepository CategoryRepository { get; }
 
         public IUserFacilityRepository UserFacilityRepository { get; }
-        public IUserCategoryRepository UserCategoryRepository { get; }  
+        public IUserCategoryRepository UserCategoryRepository { get; }
     }
 }

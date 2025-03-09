@@ -3,7 +3,7 @@ using FacilityAccessService.Business.CommonScope.Exceptions;
 
 namespace FacilityAccessService.Business.TerminalScope.Exceptions
 {
-    public class TerminalNotFoundException : DomainException
+    public class TerminalNotFoundException : BusinessException
     {
         public TerminalNotFoundException()
         {

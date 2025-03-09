@@ -15,12 +15,18 @@ namespace FacilityAccessService.Business.FacilityScope.Models
             this.Name = name;
             this.Description = description;
         }
-
+        
+        /// <summary>
+        /// Changes the Facility name.
+        /// </summary>
         public void ChangeName(string name)
         {
             this.Name = name;
         }
 
+        /// <summary>
+        /// Changes the Facility description.
+        /// </summary>
         public void ChangeDescription(string description)
         {
             this.Description = description;
