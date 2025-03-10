@@ -10,6 +10,6 @@ namespace FacilityAccessService.Business.FacilityScope.Actions
     public record UpdateCategoryModel(
         Guid CategoryId,
         string Name,
-        HashSet<Facility> Facilities
+        HashSet<Guid> FacilitiesId
     );
 }

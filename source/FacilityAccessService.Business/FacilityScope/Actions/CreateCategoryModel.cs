@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using FacilityAccessService.Business.FacilityScope.Models;
 
 namespace FacilityAccessService.Business.FacilityScope.Actions
 {
@@ -8,6 +8,6 @@ namespace FacilityAccessService.Business.FacilityScope.Actions
     /// </summary>
     public record CreateCategoryModel(
         string Name,
-        HashSet<Facility> Facilities
+        HashSet<Guid> FacilitiesId
     );
 }

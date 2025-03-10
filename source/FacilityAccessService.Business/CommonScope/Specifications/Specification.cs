@@ -11,11 +11,10 @@ namespace FacilityAccessService.Business.CommonScope.Specification
     public abstract class Specification<T> where T : class
     {
         public Expression<Func<T, bool>> Expression { get; private set; }
-        public List<Expression<Func<T, object>>> Includes { get; private set; }
         public Expression<Func<T, object>> OrderBy { get; private set; }
         public Expression<Func<T, object>> OrderByDescending { get; private set; }
-        public int Skip { get; protected set; }
-        public int Take { get; protected set; }
+        public int? Skip { get; protected set; }
+        public int? Take { get; protected set; }
 
         /// <summary>
         /// Applies the expression for querying once.
@@ -23,14 +22,6 @@ namespace FacilityAccessService.Business.CommonScope.Specification
         protected void ApplyExpression(Expression<Func<T, bool>> expression)
         {
             Expression = expression;
-        }
-        
-        /// <summary>
-        /// Adds an expression to be included in the query.
-        /// </summary>
-        protected void AddInclude(Expression<Func<T, object>> includeExpression)
-        {
-            Includes.Add(includeExpression);
         }
         
         /// <summary>
