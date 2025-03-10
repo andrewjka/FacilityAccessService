@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
@@ -6,6 +9,7 @@ using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Business.FacilityScope.Services;
+using FacilityAccessService.Business.FacilityScope.Specifications;
 using FluentValidation;
 
 namespace FacilityAccessService.Domain.FacilityScope
@@ -48,9 +52,11 @@ namespace FacilityAccessService.Domain.FacilityScope
             _createCategoryVL.ValidateAndThrow(createCategoryModel);
 
 
+            HashSet<Facility> facilities = await GetAllFacilitiesByIds(createCategoryModel.FacilitiesId);
+
             Category category = new Category(
                 name: createCategoryModel.Name,
-                facilities: createCategoryModel.Facilities
+                facilities: facilities
             );
 
             _categoryVL.ValidateAndThrow(category);
@@ -70,6 +76,8 @@ namespace FacilityAccessService.Domain.FacilityScope
         {
             _updateCategoryVL.ValidateAndThrow(updateCategoryModel);
 
+
+            HashSet<Facility> facilities = await GetAllFacilitiesByIds(updateCategoryModel.FacilitiesId);
 
             FindByGUIDSpecification<Category> findByGuidSpec = new FindByGUIDSpecification<Category>(
                 guid: updateCategoryModel.CategoryId
@@ -92,9 +100,9 @@ namespace FacilityAccessService.Domain.FacilityScope
                 category.ChangeName(updateCategoryModel.Name);
             }
 
-            if (updateCategoryModel.Facilities is not null)
+            if (updateCategoryModel.FacilitiesId is not null)
             {
-                category.ChangeObjects(updateCategoryModel.Facilities);
+                category.ChangeObjects(facilities);
             }
 
             _categoryVL.ValidateAndThrow(category);
@@ -137,6 +145,31 @@ namespace FacilityAccessService.Domain.FacilityScope
 
                 await context.CommitAsync();
             }
+        }
+
+        private async Task<HashSet<Facility>> GetAllFacilitiesByIds(HashSet<Guid> guids)
+        {
+            SelectAllByFacilitiesId selectAllSpec = new SelectAllByFacilitiesId(guids);
+
+            HashSet<Facility> facilities;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            {
+                facilities = (await context.FacilityRepository.SelectByAsync(selectAllSpec)).ToHashSet();
+            }
+
+            if (guids.Count != facilities.Count)
+            {
+                StringBuilder exceptionMessages = new StringBuilder();
+
+                IEnumerable<Guid> missed = guids.ExceptBy(facilities.Select(facility => facility.Id), guid => guid);
+
+
+                throw new FacilityNotFoundException(
+                    $"The facilities with id s'{string.Join(", ", missed)}' does not exist."
+                );
+            }
+
+            return facilities;
         }
     }
 }
