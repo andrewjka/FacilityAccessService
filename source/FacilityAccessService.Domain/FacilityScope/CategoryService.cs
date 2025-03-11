@@ -165,7 +165,7 @@ namespace FacilityAccessService.Domain.FacilityScope
 
 
                 throw new FacilityNotFoundException(
-                    $"The facilities with id s'{string.Join(", ", missed)}' does not exist."
+                    $"The facilities with ids '{string.Join(", ", missed)}' does not exist."
                 );
             }
 
