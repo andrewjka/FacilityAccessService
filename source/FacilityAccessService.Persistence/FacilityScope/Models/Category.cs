@@ -5,9 +5,9 @@ namespace FacilityAccessService.Persistence.FacilityScope.Models
 {
     public class Category : BaseEntity
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
 
-        public List<Facility> Facilities { get; private set; }
+        public List<Facility> Facilities { get; set; }
     }
 }

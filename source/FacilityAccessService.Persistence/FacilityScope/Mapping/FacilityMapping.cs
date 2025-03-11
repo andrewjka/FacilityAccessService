@@ -8,7 +8,11 @@ namespace FacilityAccessService.Persistence.FacilityScope.Mapping
         public FacilityMapping()
         {
             CreateMap<Facility, Models.Facility>();
-            CreateMap<Models.Facility, Facility>();
+            CreateMap<Models.Facility, Facility>()
+                .ConstructUsing(from => new Facility(
+                    from.Name,
+                    from.Description)
+                );
         }
     }
 }

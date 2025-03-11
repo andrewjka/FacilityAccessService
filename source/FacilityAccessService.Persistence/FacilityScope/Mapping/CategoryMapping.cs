@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 using FacilityAccessService.Business.FacilityScope.Models;
 
@@ -8,7 +9,11 @@ namespace FacilityAccessService.Persistence.FacilityScope.Mapping
         public CategoryMapping()
         {
             CreateMap<Category, Models.Category>();
-            CreateMap<Models.Category, Category>();
+            CreateMap<Models.Category, Category>()
+                .ConstructUsing(from => new Category(
+                    from.Name,
+                    new HashSet<Facility>())
+                );
         }
     }
 }
