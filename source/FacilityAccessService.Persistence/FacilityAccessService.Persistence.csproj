@@ -14,13 +14,9 @@
 
     <ItemGroup>
         <Folder Include="AccessScope\Converters\"/>
-        <Folder Include="AccessScope\Mapping\"/>
         <Folder Include="CommonScope\Converters\"/>
         <Folder Include="CommonScope\Mapping\"/>
         <Folder Include="FacilityScope\Converters\"/>
-        <Folder Include="FacilityScope\Mapping\"/>
-        <Folder Include="TerminalScope\Mapping\"/>
-        <Folder Include="UserScope\Mapping\"/>
     </ItemGroup>
 
     <ItemGroup>
