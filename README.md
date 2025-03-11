@@ -2,6 +2,7 @@
 
 <a href="https://dotnet.microsoft.com/en-us/download/dotnet/9.0">![Static Badge](./docs/badges/dotnet.svg)</a>
 <a href="https://www.nuget.org/packages/FluentValidation/11.11.0">![Static Badge](./docs/badges/fluentValidation.svg)</a>
+<a href="https://www.nuget.org/packages/AutoMapper/14.0.0">![Static Badge](./docs/badges/automapper.svg)<a/>
 <a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">![Static Badge](./docs/badges/entityFrameworkCore.svg)</a>
 
 ## Navigation list
@@ -100,8 +101,8 @@ It references the business layer and implements repository interfaces through in
 
 **References:** *Business*.
 
-**Packages:** *<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">EntityFrameworkCore(
-9.0.2)</a>*.
+**Packages:** *<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">EntityFrameworkCore(9.0.2)</a>,
+<a href="https://www.nuget.org/packages/AutoMapper/14.0.0">AutoMapper(14.0.0)<a/>*.
 
 
 
