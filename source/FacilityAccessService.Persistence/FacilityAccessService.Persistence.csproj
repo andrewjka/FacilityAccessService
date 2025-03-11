@@ -7,15 +7,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+        <PackageReference Include="AutoMapper" Version="14.0.0"/>
+        <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="AccessScope\" />
-      <Folder Include="CommonScope\" />
-      <Folder Include="FacilityScope\" />
-      <Folder Include="TerminalScope\" />
-      <Folder Include="UserScope\" />
+        <Folder Include="AccessScope\Converters\"/>
+        <Folder Include="AccessScope\Mapping\"/>
+        <Folder Include="CommonScope\Converters\"/>
+        <Folder Include="CommonScope\Mapping\"/>
+        <Folder Include="FacilityScope\Converters\"/>
+        <Folder Include="FacilityScope\Mapping\"/>
+        <Folder Include="TerminalScope\Mapping\"/>
+        <Folder Include="UserScope\Mapping\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\FacilityAccessService.Business\FacilityAccessService.Business.csproj"/>
     </ItemGroup>
 
 </Project>
