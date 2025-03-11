@@ -7,7 +7,6 @@ namespace FacilityAccessService.Business.Validation.AccessScope.Models
     {
         public UserCategoryValidator()
         {
-            RuleFor(model => model.Id).NotNull();
             RuleFor(model => model.UserId).NotEmpty();
             RuleFor(model => model.CategoryId).NotNull();
             RuleFor(model => model.AccessPeriod).NotNull();

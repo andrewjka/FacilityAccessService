@@ -4,7 +4,7 @@ using FacilityAccessService.Business.CommonScope.Models;
 
 namespace FacilityAccessService.Business.AccessScope.Models
 {
-    public class UserFacility : BaseEntity
+    public class UserFacility
     {
         public string UserId { get; private set; }
         public Guid FacilityId { get; private set; }
