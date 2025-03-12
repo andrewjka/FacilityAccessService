@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E4C623BC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.Tests", "tests\Persistence.Tests\Persistence.Tests.csproj", "{B11992FE-E27C-44D8-8C9E-1FE98C358467}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacilityAccessService.Domain.Secure", "source\FacilityAccessService.Domain.Secure\FacilityAccessService.Domain.Secure.csproj", "{A491A727-74D6-40C9-97AE-5E6F92508C56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{B11992FE-E27C-44D8-8C9E-1FE98C358467}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B11992FE-E27C-44D8-8C9E-1FE98C358467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B11992FE-E27C-44D8-8C9E-1FE98C358467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A491A727-74D6-40C9-97AE-5E6F92508C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A491A727-74D6-40C9-97AE-5E6F92508C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A491A727-74D6-40C9-97AE-5E6F92508C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A491A727-74D6-40C9-97AE-5E6F92508C56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{138238B5-E58B-44DE-BEEC-EA0411A22868} = {6F35A39E-7C32-47CB-B114-E1E3E3494338}
@@ -106,5 +112,6 @@ Global
 		{1BF29627-1E81-46A0-AB63-9DF1CD0FF579} = {9D1AFD7C-5761-42B3-9817-5176798FC132}
 		{5CB080F1-7CBF-4C13-AA10-3CDA17FDA178} = {9D1AFD7C-5761-42B3-9817-5176798FC132}
 		{B11992FE-E27C-44D8-8C9E-1FE98C358467} = {E4C623BC-889D-452F-B2CA-A029469121C0}
+		{A491A727-74D6-40C9-97AE-5E6F92508C56} = {9D1AFD7C-5761-42B3-9817-5176798FC132}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="UserScope\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FacilityAccessService.Domain\FacilityAccessService.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
