@@ -13,7 +13,7 @@ namespace FacilityAccessService.Business.AccessScope.ValueObjects
         public AccessPeriod(DateOnly startDate, DateOnly endDate)
         {
             this.StartDate = startDate;
-            this.EndDate = EndDate;
+            this.EndDate = endDate;
         }
         
         /// <summary>
