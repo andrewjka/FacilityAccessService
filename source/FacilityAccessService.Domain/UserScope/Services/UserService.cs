@@ -7,7 +7,7 @@ using FacilityAccessService.Business.UserScope.Services;
 using FacilityAccessService.Business.UserScope.ValueObjects;
 using FluentValidation;
 
-namespace FacilityAccessService.Domain.UserScope
+namespace FacilityAccessService.Domain.UserScope.Services
 {
     public class UserService : IUserService
     {

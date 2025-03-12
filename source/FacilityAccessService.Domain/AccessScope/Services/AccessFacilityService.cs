@@ -17,7 +17,7 @@ using FacilityAccessService.Business.UserScope.Repositories;
 using FacilityAccessService.Business.UserScope.Specifications;
 using FluentValidation;
 
-namespace FacilityAccessService.Domain.AccessScope
+namespace FacilityAccessService.Domain.AccessScope.Services
 {
     public class AccessFacilityService : IAccessFacilityService
     {

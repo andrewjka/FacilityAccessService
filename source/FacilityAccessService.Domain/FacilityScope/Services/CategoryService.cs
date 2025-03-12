@@ -12,7 +12,7 @@ using FacilityAccessService.Business.FacilityScope.Services;
 using FacilityAccessService.Business.FacilityScope.Specifications;
 using FluentValidation;
 
-namespace FacilityAccessService.Domain.FacilityScope
+namespace FacilityAccessService.Domain.FacilityScope.Services
 {
     public class CategoryService : ICategoryService
     {

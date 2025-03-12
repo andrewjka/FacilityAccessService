@@ -14,7 +14,7 @@ using FacilityAccessService.Business.UserScope.Models;
 using FacilityAccessService.Business.UserScope.Specifications;
 using FluentValidation;
 
-namespace FacilityAccessService.Domain.AccessScope
+namespace FacilityAccessService.Domain.AccessScope.Services
 {
     public class AccessCategoryService : IAccessCategoryService
     {

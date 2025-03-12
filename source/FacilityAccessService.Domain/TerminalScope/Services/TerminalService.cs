@@ -9,7 +9,7 @@ using FacilityAccessService.Business.TerminalScope.Services;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
 using FluentValidation;
 
-namespace FacilityAccessService.Domain.TerminalScope
+namespace FacilityAccessService.Domain.TerminalScope.Services
 {
     public class TerminalService : ITerminalService
     {

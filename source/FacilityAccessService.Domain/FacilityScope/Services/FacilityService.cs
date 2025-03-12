@@ -5,11 +5,10 @@ using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
-using FacilityAccessService.Business.FacilityScope.Repositories;
 using FacilityAccessService.Business.FacilityScope.Services;
 using FluentValidation;
 
-namespace FacilityAccessService.Domain.FacilityScope
+namespace FacilityAccessService.Domain.FacilityScope.Services
 {
     public class FacilityService : IFacilityService
     {

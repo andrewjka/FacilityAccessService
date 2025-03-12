@@ -12,7 +12,7 @@ using FacilityAccessService.Event;
 using FacilityAccessService.Event.Events;
 using FluentValidation;
 
-namespace FacilityAccessService.Domain.AccessScope
+namespace FacilityAccessService.Domain.AccessScope.Services
 {
     public class AccessControlTerminalService : IAccessControlTerminalService
     {

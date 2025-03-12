@@ -5,7 +5,7 @@ using FacilityAccessService.Business.AccessScope.Specifications;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
 
 
-namespace FacilityAccessService.Domain.AccessScope
+namespace FacilityAccessService.Domain.AccessScope.Services
 {
     public class CleanerExpiredAccessService : ICleanerExpiredAccessService
     {
