@@ -4,12 +4,16 @@ using System.Linq;
 using AutoMapper;
 using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Persistence.FacilityScope.Mapping;
+using KellermanSoftware.CompareNetObjects;
 
 namespace Persistence.Tests.Mapping.Models
 {
     public class CategoryMappingTest
     {
         private readonly IMapper _mapper;
+        
+        private readonly ICompareLogic _compare;
+        
 
         public CategoryMappingTest()
         {
@@ -19,6 +23,9 @@ namespace Persistence.Tests.Mapping.Models
                 cfg.AddProfile<FacilityMapping>();
             });
             _mapper = config.CreateMapper();
+            
+            _compare = new CompareLogic();
+            _compare.Config.IgnoreObjectTypes = true;
         }
 
         [Fact]
@@ -37,8 +44,11 @@ namespace Persistence.Tests.Mapping.Models
             var persistenceModel =
                 _mapper.Map<FacilityAccessService.Persistence.FacilityScope.Models.Category>(businessModel);
 
-            Assert.Equal(businessModel.Name, persistenceModel.Name);
-            Assert.Equal(businessModel.Facilities.Count, persistenceModel.Facilities.Count);
+            
+            
+            var result = _compare.Compare(businessModel, persistenceModel);
+            
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
 
         [Fact]
@@ -68,8 +78,10 @@ namespace Persistence.Tests.Mapping.Models
 
             var businessModel = _mapper.Map<Category>(persistenceModel);
 
-            Assert.Equal(persistenceModel.Name, businessModel.Name);
-            Assert.Equal(persistenceModel.Facilities.Count, businessModel.Facilities.Count);
+            
+            var result = _compare.Compare(persistenceModel, businessModel);
+
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
     }
 }

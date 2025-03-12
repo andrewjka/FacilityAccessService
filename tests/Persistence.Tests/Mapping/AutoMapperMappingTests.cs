@@ -12,7 +12,7 @@ namespace Persistence.Tests.Mapping
         [Fact]
         public void AutoMapper_AtlasMapping_FieldsMatch()
         {
-            var config = new MapperConfiguration(cfg => { cfg.AddMaps(typeof(AppMySQLContext).Assembly); });
+            var config = new MapperConfiguration(cfg => { cfg.AddMaps(typeof(AppDatabaseContext).Assembly); });
             config.AssertConfigurationIsValid();
         }
     }

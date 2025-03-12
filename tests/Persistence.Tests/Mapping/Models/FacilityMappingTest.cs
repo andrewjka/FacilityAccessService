@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Persistence.FacilityScope.Mapping;
+using KellermanSoftware.CompareNetObjects;
 
 
 namespace Persistence.Tests.Mapping.Models
@@ -9,27 +10,35 @@ namespace Persistence.Tests.Mapping.Models
     public class FacilityMappingTest
     {
         private readonly IMapper _mapper;
+        private readonly ICompareLogic _compare;
+
+
 
         public FacilityMappingTest()
         {
             var config = new MapperConfiguration(cfg => { cfg.AddProfile<FacilityMapping>(); });
             _mapper = config.CreateMapper();
+            
+            _compare = new CompareLogic();
+            _compare.Config.IgnoreObjectTypes = true;
         }
 
         [Fact]
         public void BusinessModel_Facility_To_PersistenceModel()
         {
-            var businessFacility =
+            var businessModel =
                 new Facility(
                     name: "Checkpoint",
                     description: "Main entrance with facial recognition system and turnstiles."
                 );
 
-            var persistenceFacility =
-                _mapper.Map<FacilityAccessService.Persistence.FacilityScope.Models.Facility>(businessFacility);
+            var persistenceModel =
+                _mapper.Map<FacilityAccessService.Persistence.FacilityScope.Models.Facility>(businessModel);
 
-            Assert.Equal(businessFacility.Name, persistenceFacility.Name);
-            Assert.Equal(businessFacility.Description, persistenceFacility.Description);
+            
+            var result = _compare.Compare(businessModel, persistenceModel);
+            
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
 
         [Fact]
@@ -44,8 +53,10 @@ namespace Persistence.Tests.Mapping.Models
 
             var businessModel = _mapper.Map<Facility>(persistenceModel);
 
-            Assert.Equal(persistenceModel.Name, businessModel.Name);
-            Assert.Equal(persistenceModel.Description, businessModel.Description);
+            
+            var result = _compare.Compare(persistenceModel, businessModel);
+
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
     }
 }

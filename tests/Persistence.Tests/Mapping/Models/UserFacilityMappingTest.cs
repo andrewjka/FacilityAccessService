@@ -3,6 +3,7 @@ using AutoMapper;
 using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
 using FacilityAccessService.Persistence.AccessScope.Mapping;
+using KellermanSoftware.CompareNetObjects;
 
 namespace Persistence.Tests.Mapping.Models
 {
@@ -10,10 +11,17 @@ namespace Persistence.Tests.Mapping.Models
     {
         private readonly IMapper _mapper;
 
+        private readonly ICompareLogic _compare;
+
+
         public UserFacilityMappingTest()
         {
             var config = new MapperConfiguration(cfg => { cfg.AddProfile<UserFacilityMapping>(); });
             _mapper = config.CreateMapper();
+
+
+            _compare = new CompareLogic();
+            _compare.Config.IgnoreObjectTypes = true;
         }
 
         [Fact]
@@ -33,9 +41,10 @@ namespace Persistence.Tests.Mapping.Models
             var persistenceModel =
                 _mapper.Map<FacilityAccessService.Persistence.AccessScope.Models.UserFacility>(businessModel);
 
-            Assert.Equal(businessModel.UserId, persistenceModel.UserId);
-            Assert.Equal(businessModel.FacilityId, persistenceModel.FacilityId);
-            Assert.Equal(businessModel.AccessPeriod, persistenceModel.AccessPeriod);
+
+            var result = _compare.Compare(businessModel, persistenceModel);
+
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
 
         [Fact]
@@ -55,9 +64,10 @@ namespace Persistence.Tests.Mapping.Models
 
             var businessModel = _mapper.Map<UserFacility>(persistenceModel);
 
-            Assert.Equal(persistenceModel.UserId, businessModel.UserId);
-            Assert.Equal(persistenceModel.FacilityId, businessModel.FacilityId);
-            Assert.Equal(persistenceModel.AccessPeriod, businessModel.AccessPeriod);
+
+            var result = _compare.Compare(persistenceModel, businessModel);
+
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
     }
 }

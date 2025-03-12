@@ -3,18 +3,24 @@ using AutoMapper;
 using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
 using FacilityAccessService.Persistence.TerminalScope.Mapping;
+using KellermanSoftware.CompareNetObjects;
 
 namespace Persistence.Tests.Mapping.Models
 {
     public class TerminalMappingTest
     {
         private readonly IMapper _mapper;
+        
+        private readonly ICompareLogic _compare;
+
 
         public TerminalMappingTest()
         {
             var config = new MapperConfiguration(cfg => { cfg.AddProfile<TerminalMapping>(); });
-
             _mapper = config.CreateMapper();
+            
+            _compare = new CompareLogic();
+            _compare.Config.IgnoreObjectTypes = true;
         }
 
         [Fact]
@@ -29,10 +35,10 @@ namespace Persistence.Tests.Mapping.Models
             var persistenceModel =
                 _mapper.Map<FacilityAccessService.Persistence.TerminalScope.Models.Terminal>(businessModel);
 
-            Assert.Equal(businessModel.Id, persistenceModel.Id);
-            Assert.Equal(businessModel.Name, persistenceModel.Name);
-            Assert.Equal(businessModel.Token, persistenceModel.Token);
-            Assert.Equal(businessModel.ExpiredTokenOn, persistenceModel.ExpiredTokenOn);
+            
+            var result = _compare.Compare(businessModel, persistenceModel);
+            
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
 
         [Fact]
@@ -47,10 +53,10 @@ namespace Persistence.Tests.Mapping.Models
 
             var businessModel = _mapper.Map<Terminal>(persistenceModel);
 
-            Assert.Equal(persistenceModel.Id, businessModel.Id);
-            Assert.Equal(persistenceModel.Name, businessModel.Name);
-            Assert.Equal(persistenceModel.Token, businessModel.Token);
-            Assert.Equal(persistenceModel.ExpiredTokenOn, businessModel.ExpiredTokenOn);
+            
+            var result = _compare.Compare(persistenceModel, businessModel);
+
+            Assert.True(result.AreEqual, result.DifferencesString);
         }
     }
 }
