@@ -60,7 +60,7 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
             name: "Employee",
             permissions: new List<Permission>()
             {
-                Permission.CanEnterObject
+                Permission.CanEnterFacility
             }.AsReadOnly()
         );
 
@@ -68,7 +68,7 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
             name: "Guard",
             permissions: new List<Permission>()
             {
-                Permission.CanEnterObject, Permission.CanCheckPass
+                Permission.CanEnterFacility, Permission.CanCheckPass
             }.AsReadOnly()
         );
 
@@ -76,9 +76,9 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
             name: "Administrator",
             permissions: new List<Permission>()
             {
-                Permission.CanEnterObject, Permission.CanCheckPass,
-                Permission.CanMaintenanceObject, Permission.CanMaintenanceCategory,
-                Permission.CanMaintenanceAccess
+                Permission.CanEnterFacility, Permission.CanCheckPass,
+                Permission.CanMaintenanceFacility, Permission.CanMaintenanceCategory,
+                Permission.CanMaintenanceAccess, Permission.CanMaintenanceTerminal
             }.AsReadOnly()
         );
     }

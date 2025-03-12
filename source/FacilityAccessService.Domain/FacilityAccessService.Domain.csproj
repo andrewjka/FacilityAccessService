@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="CommonScope\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\FacilityAccessService.Business.Validation\FacilityAccessService.Business.Validation.csproj" />
       <ProjectReference Include="..\FacilityAccessService.Business\FacilityAccessService.Business.csproj" />
       <ProjectReference Include="..\FacilityAccessService.Event\FacilityAccessService.Event.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="CommonScope\" />
     </ItemGroup>
 
 </Project>

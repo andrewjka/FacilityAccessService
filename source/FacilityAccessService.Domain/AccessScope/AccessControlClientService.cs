@@ -64,7 +64,7 @@ namespace FacilityAccessService.Domain.AccessScope
             //TODO: In general, this is business logic, but it is essentially put in Domain.Secure.
             // if (guard.Role.CheckPermission(Permission.CanCheckPass) is false)
             // {
-            //     throw new UserHasNotPermissionException(
+            //     throw new UnauthorizedAccessException(
             //         $"The guarder with given id hasn't permission '{Permission.CanCheckPass.Name}' to verify user access."
             //     );
             // }
