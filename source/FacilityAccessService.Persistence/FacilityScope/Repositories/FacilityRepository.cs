@@ -14,7 +14,7 @@ namespace FacilityAccessService.Persistence.FacilityScope.Repositories
     public class FacilityRepository : BaseRepository<Facility, Business.FacilityScope.Models.Facility>,
         IFacilityRepository
     {
-        public FacilityRepository(AppMySQLContext context, IMapper mapper) : base(context, mapper)
+        public FacilityRepository(AppDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

@@ -14,7 +14,7 @@ namespace FacilityAccessService.Persistence.AccessScope.Repositories
     public class UserCategoryRepository : BaseRepository<UserCategory, Business.AccessScope.Models.UserCategory>,
         IUserCategoryRepository
     {
-        public UserCategoryRepository(AppMySQLContext context, IMapper mapper) : base(context, mapper)
+        public UserCategoryRepository(AppDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

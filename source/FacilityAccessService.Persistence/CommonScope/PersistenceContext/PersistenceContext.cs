@@ -19,7 +19,7 @@ namespace FacilityAccessService.Persistence.CommonScope.PersistenceContext
         private readonly IMapper _mapper;
         private ICategoryRepository _categoryRepository;
 
-        private AppMySQLContext _context;
+        private AppDatabaseContext _context;
         private IFacilityRepository _facilityRepository;
 
         private bool _isTransactionProcessed;
@@ -33,7 +33,7 @@ namespace FacilityAccessService.Persistence.CommonScope.PersistenceContext
 
 
         public PersistenceContext(
-            AppMySQLContext context,
+            AppDatabaseContext context,
             IDbContextTransaction transaction,
             IMapper mapper)
         {

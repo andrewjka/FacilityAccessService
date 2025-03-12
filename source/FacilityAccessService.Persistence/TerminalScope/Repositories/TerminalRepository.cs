@@ -14,7 +14,7 @@ namespace FacilityAccessService.Persistence.TerminalScope.Repositories
     public class TerminalRepository : BaseRepository<Terminal, Business.TerminalScope.Models.Terminal>,
         ITerminalRepository
     {
-        public TerminalRepository(AppMySQLContext context, IMapper mapper) : base(context, mapper)
+        public TerminalRepository(AppDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

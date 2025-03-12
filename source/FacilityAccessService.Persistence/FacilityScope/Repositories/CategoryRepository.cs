@@ -14,7 +14,7 @@ namespace FacilityAccessService.Persistence.FacilityScope.Repositories
     public class CategoryRepository : BaseRepository<Category, Business.FacilityScope.Models.Category>,
         ICategoryRepository
     {
-        public CategoryRepository(AppMySQLContext context, IMapper mapper) : base(context, mapper)
+        public CategoryRepository(AppDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

@@ -20,12 +20,12 @@ namespace FacilityAccessService.Persistence.CommonScope.Repositories
         where TEntityDB : class
         where TEntityBusiness : class
     {
-        protected readonly AppMySQLContext _context;
+        protected readonly AppDatabaseContext _context;
 
         protected readonly IMapper _mapper;
 
 
-        public BaseRepository(AppMySQLContext context, IMapper mapper)
+        public BaseRepository(AppDatabaseContext context, IMapper mapper)
         {
             if (context is null) throw new ArgumentNullException(nameof(context));
             if (mapper is null) throw new ArgumentNullException(nameof(mapper));

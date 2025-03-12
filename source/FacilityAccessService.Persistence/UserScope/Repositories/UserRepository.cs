@@ -13,7 +13,7 @@ namespace FacilityAccessService.Persistence.UserScope.Repositories
 {
     public class UserRepository : BaseRepository<User, Business.UserScope.Models.User>, IUserRepository
     {
-        public UserRepository(AppMySQLContext context, IMapper mapper) : base(context, mapper)
+        public UserRepository(AppDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

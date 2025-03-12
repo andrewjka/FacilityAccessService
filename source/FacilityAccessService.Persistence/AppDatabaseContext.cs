@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FacilityAccessService.Persistence
 {
-    public class AppMySQLContext : DbContext
+    public class AppDatabaseContext : DbContext
     {
-        public AppMySQLContext(DbContextOptions<AppMySQLContext> options) : base(options)
+        public AppDatabaseContext(DbContextOptions<AppDatabaseContext> options) : base(options)
         {
         }
 
@@ -21,7 +21,7 @@ namespace FacilityAccessService.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppMySQLContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDatabaseContext).Assembly);
         }
     }
 }
