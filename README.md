@@ -2,6 +2,8 @@
 
 <a href="https://dotnet.microsoft.com/en-us/download/dotnet/9.0">![Static Badge](./docs/badges/dotnet.svg)</a>
 <a href="https://www.nuget.org/packages/xunit/2.9.3">![Static Badge](./docs/badges/xunit.svg)</a>
+<a href="https://www.nuget.org/packages/Moq/4.20.72">![Static Badge](./docs/badges/moq.svg)<a/>
+<a href="https://www.nuget.org/packages/CompareNETObjects/4.83.0">![Static Badge](./docs/badges/comparedotnetobjects.svg)<a/>
 <a href="https://www.nuget.org/packages/FluentValidation/11.11.0">![Static Badge](./docs/badges/fluentValidation.svg)</a>
 <a href="https://www.nuget.org/packages/AutoMapper/14.0.0">![Static Badge](./docs/badges/automapper.svg)<a/>
 <a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">![Static Badge](./docs/badges/entityFrameworkCore.svg)</a>
