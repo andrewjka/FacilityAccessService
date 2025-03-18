@@ -1,0 +1,119 @@
+{
+    "openapi": "3.0.4",
+    "info": {
+        "title": "Facility Access Service API",
+        "description": "The service an access control system for facilities within the enterprise territory.",
+        "version": "1.0.0"
+    },
+    "security": [
+        {
+            "SessionTokenAuth": []
+        }
+    ],
+    "paths": {
+        "/access/terminal/verify": {
+            "get": {
+                "summary": "Verifies employee access to the facility through the terminal.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/verifyAccessViaTerminalDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Boolean value denoting access.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/access/guard/verify": {
+            "get": {
+                "summary": "Verifies employee access to the facility through the guarder.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/verifyAccessViaGuardDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Boolean value denoting access.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "SessionTokenAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "sessionToken"
+            }
+        },
+        "schemas": {
+            "verifyAccessViaTerminalDTO": {
+                "type": "object",
+                "required": [
+                    "userId",
+                    "facilityId",
+                    "terminalToken"
+                ],
+                "properties": {
+                    "userId": {
+                        "type": "string"
+                    },
+                    "facilityId": {
+                        "type": "string"
+                    },
+                    "terminalToken": {
+                        "type": "string"
+                    }
+                }
+            },
+            "verifyAccessViaGuardDTO": {
+                "type": "object",
+                "required": [
+                    "userId",
+                    "facilityId",
+                    "guardId"
+                ],
+                "properties": {
+                    "userId": {
+                        "type": "string"
+                    },
+                    "facilityId": {
+                        "type": "string"
+                    },
+                    "guardId": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
