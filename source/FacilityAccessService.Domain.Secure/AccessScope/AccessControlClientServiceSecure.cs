@@ -9,12 +9,12 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.AccessScope
 {
-    public class AccessControlClientBaseServiceSecure : BaseServiceSecure, IAccessControlClientServiceSecure
+    public class AccessControlClientServiceSecure : BaseServiceSecure, IAccessControlClientServiceSecure
     {
         private readonly IAccessControlClientService _accessControl;
 
 
-        public AccessControlClientBaseServiceSecure(
+        public AccessControlClientServiceSecure(
             IAccessControlClientService accessControl,
             IUserContext userContext
         ) : base(userContext)

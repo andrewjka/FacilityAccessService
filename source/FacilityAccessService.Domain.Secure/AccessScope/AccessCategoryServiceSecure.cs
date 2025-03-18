@@ -9,12 +9,12 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.AccessScope
 {
-    public class AccessCategoryBaseServiceSecure : BaseServiceSecure, IAccessCategoryServiceSecure
+    public class AccessCategoryServiceSecure : BaseServiceSecure, IAccessCategoryServiceSecure
     {
         private readonly IAccessCategoryService _accessCategory;
 
 
-        public AccessCategoryBaseServiceSecure(IAccessCategoryService accessCategory, IUserContext userContext)
+        public AccessCategoryServiceSecure(IAccessCategoryService accessCategory, IUserContext userContext)
             : base(userContext)
         {
             if (accessCategory is null) throw new ArgumentNullException(nameof(accessCategory));
