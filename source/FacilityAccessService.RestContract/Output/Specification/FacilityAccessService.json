@@ -5,24 +5,41 @@
         "description": "The service an access control system for facilities within the enterprise territory.",
         "version": "1.0.0"
     },
+    "tags": [
+        {
+            "name": "Guard access control"
+        },
+        {
+            "name": "Terminal access control"
+        },
+        {
+            "name": "Category access control management"
+        },
+        {
+            "name": "Facility access control management"
+        },
+        {
+            "name": "Category management"
+        },
+        {
+            "name": "Facility management"
+        }
+    ],
     "security": [
         {
             "SessionTokenAuth": []
         }
     ],
     "paths": {
-        "/access/terminal/verify": {
-            "get": {
+        "/access/verify-terminal": {
+            "post": {
+                "tags": [
+                    "Terminal access control"
+                ],
+                "security": [],
                 "summary": "Verifies employee access to the facility through the terminal.",
                 "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/verifyAccessViaTerminalDTO"
-                            }
-                        }
-                    }
+                    "$ref": "#/components/requestBodies/VerifyAccessViaTerminal"
                 },
                 "responses": {
                     "200": {
@@ -38,18 +55,14 @@
                 }
             }
         },
-        "/access/guard/verify": {
-            "get": {
+        "/access/verify-guard": {
+            "post": {
+                "tags": [
+                    "Guard access control"
+                ],
                 "summary": "Verifies employee access to the facility through the guarder.",
                 "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/verifyAccessViaGuardDTO"
-                            }
-                        }
-                    }
+                    "$ref": "#/components/requestBodies/VerifyAccessViaGuard"
                 },
                 "responses": {
                     "200": {
@@ -58,6 +71,430 @@
                             "application/json": {
                                 "schema": {
                                     "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/access/categories": {
+            "get": {
+                "tags": [
+                    "Category access control management"
+                ],
+                "summary": "Gets a list of categories to which the user has access.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of categories to which the user has access.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category access control management"
+                ],
+                "summary": "Creates user access to a category.",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/UserCategoryCreate"
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Access to the category issued."
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/access/categories/{category_id}": {
+            "delete": {
+                "tags": [
+                    "Category access control management"
+                ],
+                "summary": "Removes category access from the user.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "category_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Access to the category has been successfully removed."
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/access/facilities": {
+            "get": {
+                "tags": [
+                    "Facility access control management"
+                ],
+                "summary": "Gets a list of facilities to which the user has access.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of categories to which the user has access.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Facility"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Facility access control management"
+                ],
+                "summary": "Creates user access to a facility.",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/UserFacilityCreate"
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Access to the facility issued."
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/access/facilities/{facility_id}": {
+            "delete": {
+                "tags": [
+                    "Facility access control management"
+                ],
+                "summary": "Removes facility access from the user.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "facility_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Access to the facility has been successfully removed."
+                    }
+                }
+            }
+        },
+        "/facilities": {
+            "get": {
+                "tags": [
+                    "Facility management"
+                ],
+                "summary": "Returns all facilities according to the conditions.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "name",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "required": true,
+                        "name": "take",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 100
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "required": true,
+                        "name": "offset",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of facilities that match the provided query parameters.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Facility"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Facility management"
+                ],
+                "summary": "Creates a facility and returns it.",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/FacilityCreate"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Facility.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Facility"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/facilities/{id}": {
+            "delete": {
+                "tags": [
+                    "Facility management"
+                ],
+                "summary": "Deletes facility by id.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Facility successfully deleted."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Facility management"
+                ],
+                "summary": "Updates a facility partially.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/FacilityUpdate"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Facility successfully updated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Facility"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Category management"
+                ],
+                "summary": "Returns all categories according to the conditions.",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "name",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "required": true,
+                        "name": "take",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 100
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "required": true,
+                        "name": "offset",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of categories that match the provided query parameters.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category management"
+                ],
+                "summary": "Creates a category and returns it.",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/CategoryCreate"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{id}": {
+            "delete": {
+                "tags": [
+                    "Category management"
+                ],
+                "summary": "Deletes category by id.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category successfully deleted."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Category management"
+                ],
+                "summary": "Updates a category partially.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/CategoryUpdate"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category successfully updated..",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
                                 }
                             }
                         }
@@ -75,42 +512,319 @@
                 "name": "sessionToken"
             }
         },
+        "parameters": {
+        },
         "schemas": {
-            "verifyAccessViaTerminalDTO": {
+            "Facility": {
                 "type": "object",
-                "required": [
-                    "userId",
-                    "facilityId",
-                    "terminalToken"
-                ],
                 "properties": {
-                    "userId": {
+                    "Id": {
                         "type": "string"
                     },
-                    "facilityId": {
-                        "type": "string"
-                    },
-                    "terminalToken": {
+                    "Name": {
                         "type": "string"
                     }
                 }
             },
-            "verifyAccessViaGuardDTO": {
+            "Category": {
                 "type": "object",
-                "required": [
-                    "userId",
-                    "facilityId",
-                    "guardId"
-                ],
                 "properties": {
-                    "userId": {
+                    "Id": {
                         "type": "string"
                     },
-                    "facilityId": {
+                    "Name": {
                         "type": "string"
                     },
-                    "guardId": {
+                    "Facilities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Facility"
+                        }
+                    }
+                }
+            },
+            "UserCategory": {
+                "type": "object",
+                "properties": {
+                    "UserId": {
                         "type": "string"
+                    },
+                    "CategoryId": {
+                        "type": "string"
+                    },
+                    "StartDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "EndDate": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+            "UserFacility": {
+                "type": "object",
+                "properties": {
+                    "UserId": {
+                        "type": "string"
+                    },
+                    "FacilityId": {
+                        "type": "string"
+                    },
+                    "StartDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "EndDate": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            }
+        },
+        "requestBodies": {
+            "VerifyAccessViaTerminal": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "userId",
+                                "facilityId",
+                                "terminalToken"
+                            ],
+                            "properties": {
+                                "userId": {
+                                    "type": "string"
+                                },
+                                "facilityId": {
+                                    "type": "string"
+                                },
+                                "terminalToken": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "VerifyAccessViaGuard": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "userId",
+                                "facilityId",
+                                "guardId"
+                            ],
+                            "properties": {
+                                "userId": {
+                                    "type": "string"
+                                },
+                                "facilityId": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "CategoryCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "Name"
+                            ],
+                            "properties": {
+                                "Name": {
+                                    "type": "string"
+                                },
+                                "Facilities": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "CategoryUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "FacilityCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "Name"
+                            ],
+                            "properties": {
+                                "Name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "FacilityUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "UserCategoryCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "UserId",
+                                "CategoryId",
+                                "EndDate",
+                                "StartDate"
+                            ],
+                            "properties": {
+                                "UserId": {
+                                    "type": "string"
+                                },
+                                "CategoryId": {
+                                    "type": "string"
+                                },
+                                "StartDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "EndDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "UserCategoryUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "UserId",
+                                "CategoryId"
+                            ],
+                            "properties": {
+                                "UserId": {
+                                    "type": "string"
+                                },
+                                "CategoryId": {
+                                    "type": "string"
+                                },
+                                "StartDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "EndDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "UserFacilityCreate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "UserId",
+                                "FacilityId",
+                                "EndDate",
+                                "StartDate"
+                            ],
+                            "properties": {
+                                "UserId": {
+                                    "type": "string"
+                                },
+                                "FacilityId": {
+                                    "type": "string"
+                                },
+                                "StartDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "EndDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "UserFacilityUpdate": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "UserId",
+                                "FacilityId"
+                            ],
+                            "properties": {
+                                "UserId": {
+                                    "type": "string"
+                                },
+                                "FacilityId": {
+                                    "type": "string"
+                                },
+                                "StartDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                "EndDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                }
+                            }
+                        }
                     }
                 }
             }
