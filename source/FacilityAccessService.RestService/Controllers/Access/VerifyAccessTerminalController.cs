@@ -23,7 +23,7 @@ namespace FacilityAccessService.RestService.Controllers.Access
         }
 
         [HttpPost]
-        public async Task<ActionResult<bool>> VerifyAccess([FromBody] VerifyAccessViaTerminalDTO request)
+        public async Task<ActionResult<bool>> VerifyAccess([FromBody] VerifyAccessViaTerminalRequest request)
         {
             VerifyAccessViaTerminalModel model = _mapper.Map<VerifyAccessViaTerminalModel>(request);
 

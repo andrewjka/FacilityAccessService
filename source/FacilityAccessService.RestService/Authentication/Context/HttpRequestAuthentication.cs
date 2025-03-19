@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 
 namespace FacilityAccessService.RestService.Authentication.Context
 {
@@ -10,7 +9,7 @@ namespace FacilityAccessService.RestService.Authentication.Context
 
         public static string GetSessionToken(this HttpRequest httpRequest)
         {
-            httpRequest.Headers.TryGetValue(SessionTokenKey, out StringValues values);
+            httpRequest.Headers.TryGetValue(SessionTokenKey, out var values);
 
             return values.ToString();
         }

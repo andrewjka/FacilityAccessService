@@ -10,7 +10,7 @@ namespace FacilityAccessService.RestService.Authentication.Context
 
         public static User GetUserOrDefault(this HttpContext httpContext)
         {
-            return httpContext.Items.TryGetValue(UserKey, out object user) ? user as User : null;
+            return httpContext.Items.TryGetValue(UserKey, out var user) ? user as User : null;
         }
 
         public static void SetUser(this HttpContext httpContext, User user)

@@ -6,12 +6,11 @@ namespace FacilityAccessService.RestService.Authentication.Context
 {
     public class UserContext : IUserContext
     {
-        public User User { get; }
-
-        
         public UserContext(IHttpContextAccessor httpContextAccessor)
         {
             User = httpContextAccessor.HttpContext.GetUserOrDefault();
         }
+
+        public User User { get; }
     }
 }
