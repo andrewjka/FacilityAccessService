@@ -45,7 +45,7 @@ namespace FacilityAccessService.Domain.UserScope.Services
             _userVL.ValidateAndThrow(user);
 
             
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserRepository.CreateAsync(user);
 

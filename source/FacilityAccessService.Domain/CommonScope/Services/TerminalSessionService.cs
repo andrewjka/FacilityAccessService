@@ -29,7 +29,7 @@ namespace FacilityAccessService.Domain.CommonScope.Services
             );
 
             Terminal terminal;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 terminal = await context.TerminalRepository.FirstByAsync(guardByIdSpec);
             }

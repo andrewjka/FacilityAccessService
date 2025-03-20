@@ -58,7 +58,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             User user;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 user = await context.UserRepository.FirstByAsync(userByIdSpec);
             }
@@ -73,7 +73,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             Category category;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 category = await context.CategoryRepository.FirstByAsync(categoryByGuidSpec);
             }
@@ -93,7 +93,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             _userCategoryVL.ValidateAndThrow(userCategory);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserCategoryRepository.UpdateAsync(userCategory);
 
@@ -112,7 +112,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             UserCategory userCategory;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 userCategory = await context.UserCategoryRepository.FirstByAsync(findUserCategorySpec);
 
@@ -124,7 +124,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
                 throw new UserCategoryNotFoundException("There is no such access to the category.");
             }
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserCategoryRepository.DeleteAsync(userCategory);
 
@@ -143,7 +143,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             UserCategory userCategory;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 userCategory = await context.UserCategoryRepository.FirstByAsync(findUserCategorySpec);
             }
@@ -161,7 +161,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             _userCategoryVL.ValidateAndThrow(userCategory);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserCategoryRepository.DeleteAsync(userCategory);
 

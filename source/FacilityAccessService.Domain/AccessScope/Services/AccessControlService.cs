@@ -52,7 +52,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             UserFacility userFacility;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
             }

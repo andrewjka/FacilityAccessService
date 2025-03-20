@@ -10,6 +10,6 @@ namespace FacilityAccessService.Business.CommonScope.PersistenceContext
         /// <summary>
         /// Spawns a data interaction context.
         /// </summary>
-        public Task<IPersistenceContext> CreatePersistenceContext();
+        public Task<IPersistenceContext> CreatePersistenceContextAsync();
     }
 }

@@ -62,7 +62,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             _categoryVL.ValidateAndThrow(category);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.CategoryRepository.CreateAsync(category);
 
@@ -84,7 +84,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             );
 
             Category category;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 category = await context.CategoryRepository.FirstByAsync(findByGuidSpec);
             }
@@ -108,7 +108,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             _categoryVL.ValidateAndThrow(category);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.CategoryRepository.UpdateAsync(category);
 
@@ -128,7 +128,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             );
 
             Category category;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 category = await context.CategoryRepository.FirstByAsync(findByGuidSpec);
             }
@@ -139,7 +139,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             }
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.CategoryRepository.DeleteAsync(category);
 
@@ -152,7 +152,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             SelectAllByFacilitiesId selectAllSpec = new SelectAllByFacilitiesId(guids);
 
             HashSet<Facility> facilities;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 facilities = (await context.FacilityRepository.SelectByAsync(selectAllSpec)).ToHashSet();
             }

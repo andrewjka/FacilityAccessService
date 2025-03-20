@@ -55,7 +55,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             _facilityVl.ValidateAndThrow(facility);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.FacilityRepository.CreateAsync(facility);
 
@@ -75,7 +75,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             );
 
             Facility facility;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 facility = await context.FacilityRepository.FirstByAsync(findByGuidSpec);
             }
@@ -99,7 +99,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             _facilityVl.ValidateAndThrow(facility);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.FacilityRepository.UpdateAsync(facility);
 
@@ -119,7 +119,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             );
 
             Facility facility;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 facility = await context.FacilityRepository.FirstByAsync(findByGuidSpec);
             }
@@ -130,7 +130,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             }
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.FacilityRepository.DeleteAsync(facility);
 

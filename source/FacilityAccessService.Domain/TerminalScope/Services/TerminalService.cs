@@ -57,7 +57,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             _terminalVL.ValidateAndThrow(terminal);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.TerminalRepository.CreateAsync(terminal);
 
@@ -77,7 +77,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             );
 
             Terminal terminal;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 terminal = await context.TerminalRepository.FirstByAsync(findByGuidSpec);
             }
@@ -101,7 +101,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             _terminalVL.ValidateAndThrow(terminal);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.TerminalRepository.UpdateAsync(terminal);
 
@@ -121,7 +121,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             );
 
             Terminal terminal;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 terminal = await context.TerminalRepository.FirstByAsync(findByGuidSpec);
             }
@@ -132,7 +132,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             }
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.TerminalRepository.DeleteAsync(terminal);
 

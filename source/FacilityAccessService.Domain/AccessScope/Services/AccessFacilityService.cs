@@ -62,7 +62,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             User user;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 user = await context.UserRepository.FirstByAsync(userByIdSpec);
             }
@@ -78,7 +78,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             Facility facility;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 facility = await context.FacilityRepository.FirstByAsync(facilityByGuidSpecification);
             }
@@ -98,7 +98,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             _userFacilityVL.ValidateAndThrow(userFacility);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserFacilityRepository.CreateAsync(userFacility);
 
@@ -117,7 +117,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             UserFacility userFacility;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
             }
@@ -128,7 +128,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             }
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserFacilityRepository.DeleteAsync(userFacility);
 
@@ -147,7 +147,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             );
 
             UserFacility userFacility;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
             }
@@ -165,7 +165,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             _userFacilityVL.ValidateAndThrow(userFacility);
 
 
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserFacilityRepository.UpdateAsync(userFacility);
 
