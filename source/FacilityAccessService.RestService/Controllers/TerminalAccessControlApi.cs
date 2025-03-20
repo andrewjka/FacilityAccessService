@@ -9,6 +9,12 @@
  */
 
 using System;
+using System.Threading.Tasks;
+using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
+using FacilityAccessService.Business.TerminalScope.ValueObjects;
+using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
+using FacilityAccessService.RestService.Authentication.Attributes;
 using FacilityAccessService.RestService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -18,22 +24,39 @@ namespace FacilityAccessService.RestService.Controllers
     /// <summary>
     /// </summary>
     [ApiController]
+    [AllowAnonymous]
     public class TerminalAccessControlApiController : ControllerBase
     {
+        private readonly IAccessControlTerminalServiceSecure _service;
+
+        public TerminalAccessControlApiController(IAccessControlTerminalServiceSecure service)
+        {
+            this._service = service;
+        }
+
+
         /// <summary>
         ///     Verifies employee access to the facility through the terminal.
         /// </summary>
-        /// <param name="verifyAccessViaTerminalRequest"></param>
+        /// <param name="terminalAccessToken"></param>
+        /// <param name="request"></param>
         /// <response code="200">Boolean value denoting access.</response>
         [HttpPost]
         [Route("/access/verify-terminal")]
         [Consumes("application/json")]
         [SwaggerOperation("VerifyAccessViaTerminal")]
         [SwaggerResponse(statusCode: 200, type: typeof(bool), description: "Boolean value denoting access.")]
-        public IActionResult VerifyAccessViaTerminal(
-            [FromBody] VerifyAccessViaTerminalRequest verifyAccessViaTerminalRequest)
+        public async Task<IActionResult> VerifyAccessViaTerminal(
+            [FromHeader] string terminalAccessToken,
+            [FromBody] VerifyAccessViaTerminalRequest request
+        )
         {
-            throw new NotImplementedException();
+            var model = new VerifyAccessModel(
+                UserId: request.UserId,
+                FacilityId: Guid.Parse(request.FacilityId)
+            );
+
+            return Ok(await _service.VerifyAccessAsync(model));
         }
     }
 }

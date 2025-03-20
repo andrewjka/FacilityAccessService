@@ -3,13 +3,13 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Actions
 {
-    public class VerifyAccessViaGuardValidator : AbstractValidator<VerifyAccessViaGuardModel>
+    public class GrantAccessFacilityValidator : AbstractValidator<GrantAccessFacilityModel>
     {
-        public VerifyAccessViaGuardValidator()
+        public GrantAccessFacilityValidator()
         {
             RuleFor(model => model.UserId).NotEmpty();
-            RuleFor(model => model.GuarderId).NotEmpty();
             RuleFor(model => model.FacilityId).NotNull();
+            RuleFor(model => model.AccessPeriod).NotNull();
         }
     }
 }

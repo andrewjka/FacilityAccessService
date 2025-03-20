@@ -10,14 +10,12 @@ using FacilityAccessService.Domain.Secure.FacilityScope.Interfaces;
 
 namespace FacilityAccessService.Domain.Secure.FacilityScope
 {
-    public class FacilityBaseServiceSecure : BaseServiceSecure, IFacilityServiceSecure
+    public class FacilityServiceUserSecure : BaseServiceUserSecure, IFacilityServiceSecure
     {
         private readonly IFacilityService _facilityService;
-
-        private IUserContext _userContext;
-
-
-        public FacilityBaseServiceSecure(IFacilityService facilityService, IUserContext userContext) : base(userContext)
+        
+        
+        public FacilityServiceUserSecure(IFacilityService facilityService, IUserContext userContext) : base(userContext)
         {
             if (facilityService is null) throw new ArgumentNullException(nameof(facilityService));
 

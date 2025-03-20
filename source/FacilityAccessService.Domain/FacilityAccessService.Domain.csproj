@@ -12,8 +12,4 @@
       <ProjectReference Include="..\FacilityAccessService.Event\FacilityAccessService.Event.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="CommonScope\Services\" />
-    </ItemGroup>
-
 </Project>

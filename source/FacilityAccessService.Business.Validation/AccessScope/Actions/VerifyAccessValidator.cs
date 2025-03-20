@@ -1,15 +1,15 @@
 using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Actions
 {
-    public class GrantAccessObjectValidator : AbstractValidator<GrantAccessFacilityModel>
+    public class VerifyAccessValidator : AbstractValidator<VerifyAccessModel>
     {
-        public GrantAccessObjectValidator()
+        public VerifyAccessValidator()
         {
             RuleFor(model => model.UserId).NotEmpty();
             RuleFor(model => model.FacilityId).NotNull();
-            RuleFor(model => model.AccessPeriod).NotNull();
         }
     }
 }

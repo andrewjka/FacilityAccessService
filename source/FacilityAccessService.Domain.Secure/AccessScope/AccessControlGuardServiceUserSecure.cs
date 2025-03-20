@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.UserScope.ValueObjects;
 using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
@@ -9,13 +10,13 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.AccessScope
 {
-    public class AccessControlClientServiceSecure : BaseServiceSecure, IAccessControlClientServiceSecure
+    public class AccessControlGuardServiceUserSecure : BaseServiceUserSecure, IAccessControlGuardServiceSecure
     {
-        private readonly IAccessControlClientService _accessControl;
+        private readonly IAccessControlService _accessControl;
 
 
-        public AccessControlClientServiceSecure(
-            IAccessControlClientService accessControl,
+        public AccessControlGuardServiceUserSecure(
+            IAccessControlService accessControl,
             IUserContext userContext
         ) : base(userContext)
         {
@@ -24,13 +25,13 @@ namespace FacilityAccessService.Domain.Secure.AccessScope
             this._accessControl = accessControl;
         }
 
-        
-        public async Task<bool> VerifyAccessAsync(VerifyAccessViaGuardModel verifyAccessModel)
+
+        public async Task<bool> VerifyAccessAsync(VerifyAccessModel verifyAccessModel)
         {
             return await _accessControl.VerifyAccessAsync(verifyAccessModel);
         }
 
-        protected override void EnsureHasPermission()
+        protected override void EnsureHasPermission() // запускается в базовом констукторе BaseServiceUserSecure
         {
             bool hasAccess = _userContext.User.Role.CheckPermission(Permission.CanCheckPass);
             if (hasAccess is false)

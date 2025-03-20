@@ -9,6 +9,12 @@
  */
 
 using System;
+using System.Threading.Tasks;
+using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
+using FacilityAccessService.Business.AccessScope.Services;
+using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
+using FacilityAccessService.Domain.Secure.CommonScope.Context;
 using FacilityAccessService.RestService.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,21 +27,33 @@ namespace FacilityAccessService.RestService.Controllers
     [ApiController]
     public class GuardAccessControlApiController : ControllerBase
     {
+        private readonly IAccessControlGuardServiceSecure _service;
+
+
+        public GuardAccessControlApiController(IAccessControlGuardServiceSecure service)
+        {
+            this._service = service;
+        }
+
         /// <summary>
         ///     Verifies employee access to the facility through the guarder.
         /// </summary>
-        /// <param name="verifyAccessViaTerminalRequest"></param>
+        /// <param name="request"></param>
         /// <response code="200">Boolean value denoting access.</response>
         [HttpPost]
         [Route("/access/verify-guard")]
         [Consumes("application/json")]
         [SwaggerOperation("VerifyAccessViaGuard")]
         [SwaggerResponse(statusCode: 200, type: typeof(bool), description: "Boolean value denoting access.")]
-        public IActionResult VerifyAccessViaGuard(
-            [FromBody] VerifyAccessViaTerminalRequest verifyAccessViaTerminalRequest
+        public async Task<IActionResult> VerifyAccessViaGuard(
+            [FromBody] VerifyAccessViaTerminalRequest request
         )
         {
-            throw new NotImplementedException();
+            var model = new VerifyAccessModel(
+                UserId: request.UserId,
+                FacilityId: Guid.Parse(request.FacilityId));
+
+            return Ok(await _service.VerifyAccessAsync(model));
         }
     }
 }

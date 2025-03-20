@@ -11,12 +11,12 @@ using UnauthorizedAccessException = FacilityAccessService.Business.UserScope.Exc
 
 namespace FacilityAccessService.Domain.Secure.FacilityScope
 {
-    public class CategoryBaseServiceSecure : BaseServiceSecure, ICategoryServiceSecure
+    public class CategoryServiceUserSecure : BaseServiceUserSecure, ICategoryServiceSecure
     {
         private readonly ICategoryService _categoryService;
 
-
-        public CategoryBaseServiceSecure(ICategoryService categoryService, IUserContext userContext) : base(userContext)
+        
+        public CategoryServiceUserSecure(ICategoryService categoryService, IUserContext userContext) : base(userContext)
         {
             if (categoryService is null) throw new ArgumentNullException(nameof(categoryService));
 

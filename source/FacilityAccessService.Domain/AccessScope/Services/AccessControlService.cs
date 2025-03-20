@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
@@ -14,57 +15,36 @@ using FluentValidation;
 
 namespace FacilityAccessService.Domain.AccessScope.Services
 {
-    public class AccessControlTerminalService : IAccessControlTerminalService
+    public class AccessControlService : IAccessControlService
     {
-        private readonly IValidator<VerifyAccessViaTerminalModel> _verifyAccessViaTerminalVL;
+        private readonly IValidator<VerifyAccessModel> _verifyAccessVL;
 
         private readonly IPersistenceContextFactory _persistenceContextFactory;
 
         private IPublisher _publisher;
 
 
-        public AccessControlTerminalService(
-            IValidator<VerifyAccessViaTerminalModel> verifyAccessViaTerminalVl,
+        public AccessControlService(
+            IValidator<VerifyAccessModel> verifyAccessVl,
             IPersistenceContextFactory persistenceContextFactory,
             IPublisher publisher
         )
         {
-            if (verifyAccessViaTerminalVl is null) throw new ArgumentNullException(nameof(verifyAccessViaTerminalVl));
+            if (verifyAccessVl is null) throw new ArgumentNullException(nameof(verifyAccessVl));
 
             if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
 
             if (publisher is null) throw new ArgumentNullException(nameof(publisher));
 
-            this._verifyAccessViaTerminalVL = verifyAccessViaTerminalVl;
+            this._verifyAccessVL = verifyAccessVl;
             this._persistenceContextFactory = persistenceContextFactory;
             this._publisher = publisher;
         }
 
-        public async Task<bool> VerifyAccessAsync(VerifyAccessViaTerminalModel verifyAccessModel)
+        public async Task<bool> VerifyAccessAsync(VerifyAccessModel verifyAccessModel)
         {
-            _verifyAccessViaTerminalVL.ValidateAndThrow(verifyAccessModel);
-
-
-            FindByTerminalTokenSpecification guardByIdSpec = new FindByTerminalTokenSpecification(
-                token: verifyAccessModel.TokenTerminal
-            );
-
-            Terminal terminal;
-            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContext())
-            {
-                terminal = await context.TerminalRepository.FirstByAsync(guardByIdSpec);
-            }
-
-            if (terminal is null)
-            {
-                throw new TerminalTokenInvalidException("The terminal token is invalid.");
-            }
-
-            if (terminal.IsTokenExpired(DateOnly.FromDateTime(DateTime.Today)))
-            {
-                throw new TerminalTokenInvalidException("The terminal token is expired.");
-            }
-
+            _verifyAccessVL.ValidateAndThrow(verifyAccessModel);
+            
 
             FindUserFacilitySpecification findUserFacilitySpec = new FindUserFacilitySpecification(
                 userId: verifyAccessModel.UserId,

@@ -3,12 +3,12 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.CommonScope.Abstractions
 {
-    public abstract class BaseServiceSecure
+    public abstract class BaseServiceUserSecure
     {
         protected IUserContext _userContext;
 
 
-        public BaseServiceSecure(IUserContext userContext)
+        public BaseServiceUserSecure(IUserContext userContext)
         {
             if (userContext is null) throw new ArgumentNullException(nameof(userContext));
 

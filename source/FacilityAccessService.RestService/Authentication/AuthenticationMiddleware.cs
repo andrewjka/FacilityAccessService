@@ -17,13 +17,13 @@ namespace FacilityAccessService.RestService.Authentication
         private readonly Dictionary<Endpoint, bool> _isEndpointAllowAnonymous;
         private readonly RequestDelegate _next;
 
-        private readonly ISessionService _sessionService;
+        private readonly IUserSessionService _userSessionService;
 
 
-        public AuthenticationMiddleware(ISessionService sessionService, RequestDelegate next)
+        public AuthenticationMiddleware(IUserSessionService userSessionService, RequestDelegate next)
         {
             _next = next;
-            _sessionService = sessionService;
+            _userSessionService = userSessionService;
 
             _isEndpointAllowAnonymous = new Dictionary<Endpoint, bool>();
         }
@@ -37,9 +37,9 @@ namespace FacilityAccessService.RestService.Authentication
             // If the session header is found, get the user
             if (string.IsNullOrEmpty(sessionToken) is false)
             {
-                var (user, isValidate) = await _sessionService.ValidateTokenAsync(sessionToken);
+                var user = await _userSessionService.ValidateTokenAsync(sessionToken);
 
-                if (isValidate is false)
+                if (user is null)
                     throw new AuthenticationException(
                         $"The '{HttpRequestAuthentication.SessionTokenKey}' isn't valid."
                     );

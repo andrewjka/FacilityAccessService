@@ -1,5 +1,6 @@
 using System;
 using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
@@ -15,15 +16,15 @@ using Moq;
 
 namespace Domain.Tests.AccessScope.Services
 {
-    public class AccessControlTerminalServiceTest
+    public class AccessControlServiceTest
     {
-        private readonly Mock<IValidator<VerifyAccessViaTerminalModel>> _verifyAccessViaTerminalVlMock;
+        private readonly Mock<IValidator<VerifyAccessModel>> _verifyAccessVlMock;
         private readonly Mock<IPersistenceContextFactory> _persistenceFactoryMock;
         private readonly Mock<IPublisher> _publisherMock;
 
-        private readonly IAccessControlTerminalService _service;
-        
-        
+        private readonly IAccessControlService _service;
+
+
         private readonly Guid _facilityId;
         private readonly string _userId;
 
@@ -32,17 +33,17 @@ namespace Domain.Tests.AccessScope.Services
 
         private readonly UserFacility _userFacility;
 
-        private readonly VerifyAccessViaTerminalModel _verifyAccessModel;
+        private readonly VerifyAccessModel _verifyAccessModel;
 
 
-        public AccessControlTerminalServiceTest()
+        public AccessControlServiceTest()
         {
-            _verifyAccessViaTerminalVlMock = new Mock<IValidator<VerifyAccessViaTerminalModel>>();
+            _verifyAccessVlMock = new Mock<IValidator<VerifyAccessModel>>();
             _persistenceFactoryMock = new Mock<IPersistenceContextFactory>();
             _publisherMock = new Mock<IPublisher>();
 
-            _service = new AccessControlTerminalService(
-                verifyAccessViaTerminalVl: _verifyAccessViaTerminalVlMock.Object,
+            _service = new AccessControlService(
+                verifyAccessVl: _verifyAccessVlMock.Object,
                 persistenceContextFactory: _persistenceFactoryMock.Object,
                 publisher: _publisherMock.Object
             );
@@ -58,27 +59,11 @@ namespace Domain.Tests.AccessScope.Services
                 DateOnly.MinValue, DateOnly.MaxValue)
             );
 
-            this._verifyAccessModel = new VerifyAccessViaTerminalModel(_terminalToken, _userId, _facilityId);
+            this._verifyAccessModel = new VerifyAccessModel(_userId, _facilityId);
         }
 
         [Fact]
-        public async void VerifyAccessAsync_ShouldThrowTerminalTokenInvalidException_WhenTerminalNotFound()
-        {
-            var contextMock = CreatePersistenceContext(null, this._userFacility);
-
-            _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContext()
-            ).ReturnsAsync(contextMock.Object);
-
-
-            // Act + Assert
-            await Assert.ThrowsAsync<TerminalTokenInvalidException>(async () =>
-                await _service.VerifyAccessAsync(this._verifyAccessModel)
-            );
-        }
-
-        [Fact]
-        public async void VerifyAccessAsync_ShouldThrowTerminalTokenInvalidException_WhenThePassNotFound()
+        public async void VerifyAccessAsync_ShouldReturnFalse_WhenThePassNotFound()
         {
             var contextMock = CreatePersistenceContext(this._terminal, null);
 
@@ -92,28 +77,6 @@ namespace Domain.Tests.AccessScope.Services
 
             // Assert
             Assert.False(hasAccess);
-        }
-
-        [Fact]
-        public async void VerifyAccessAsync_ShouldThrowTerminalTokenInvalidException_WhenTerminalTokenExpired()
-        {
-            var terminal = new Terminal(
-                name: "checkpoint1",
-                token: this._terminalToken,
-                expiredTokenOn: DateOnly.FromDateTime(DateTime.Today.AddDays(-1))
-            );
-
-            var contextMock = CreatePersistenceContext(terminal, this._userFacility);
-
-            _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContext()
-            ).ReturnsAsync(contextMock.Object);
-
-
-            // Act + Assert
-            await Assert.ThrowsAsync<TerminalTokenInvalidException>(async () =>
-                await _service.VerifyAccessAsync(this._verifyAccessModel)
-            );
         }
 
         [Fact]

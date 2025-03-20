@@ -11,12 +11,12 @@ using UnauthorizedAccessException = FacilityAccessService.Business.UserScope.Exc
 
 namespace FacilityAccessService.Domain.Secure.TerminalScope
 {
-    public class TerminalBaseServiceSecure : BaseServiceSecure, ITerminalServiceSecure
+    public class TerminalBaseServiceUserSecure : BaseServiceUserSecure, ITerminalServiceSecure
     {
         private readonly ITerminalService _terminalService;
 
 
-        public TerminalBaseServiceSecure(ITerminalService terminalService, IUserContext userContext) : base(userContext)
+        public TerminalBaseServiceUserSecure(ITerminalService terminalService, IUserContext userContext) : base(userContext)
         {
             if (terminalService is null) throw new ArgumentNullException(nameof(terminalService));
 

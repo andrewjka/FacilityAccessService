@@ -5,5 +5,5 @@ namespace FacilityAccessService.Business.AccessScope.Actions.Abstractions
     /// <summary>
     /// The action model for verify access via specific access checker.
     /// </summary>
-    public abstract record VerifyAccessModel(string UserId, Guid FacilityId);
+    public record VerifyAccessModel(string UserId, Guid FacilityId);
 }

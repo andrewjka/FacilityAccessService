@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace FacilityAccessService.Business.Validation.AccessScope.Actions
 {
-    public class UpdateAccessObjectValidator : AbstractValidator<UpdateFacilityModel>
+    public class UpdateAccessFacilityValidator : AbstractValidator<UpdateFacilityModel>
     {
-        public UpdateAccessObjectValidator()
+        public UpdateAccessFacilityValidator()
         {
             RuleFor(model => model.FacilityId).NotNull();
         }
