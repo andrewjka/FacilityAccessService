@@ -9,7 +9,6 @@
 
 
     <ItemGroup>
-        <Folder Include="Controllers\Access\" />
         <Folder Include="Mapping\"/>
     </ItemGroup>
 
@@ -18,12 +17,20 @@
         <PackageReference Include="AutoMapper" Version="14.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore" Version="2.3.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.0.0"/>
     </ItemGroup>
 
 
     <ItemGroup>
         <ProjectReference Include="..\FacilityAccessService.Domain.Secure\FacilityAccessService.Domain.Secure.csproj"/>
         <ProjectReference Include="..\FacilityAccessService.RestContract\FacilityAccessService.RestContract.csproj"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\Properties\launchSettings.json"/>
+        <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\wwwroot\openapi-original.json"/>
     </ItemGroup>
 
 </Project>
