@@ -5,9 +5,5 @@ namespace FacilityAccessService.Business.AccessScope.Actions.Abstractions
     /// <summary>
     /// The action model for grant access to accessed resource.
     /// </summary>
-    public abstract record GrantAccessModel
-    {
-        public string UserId { get; init; }
-        public AccessPeriod AccessPeriod { get; init; }
-    }
+    public abstract record GrantAccessModel(string UserId, AccessPeriod AccessPeriod);
 }
