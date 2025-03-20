@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.FacilityScope.Actions;
@@ -8,21 +10,23 @@ using FacilityAccessService.Domain.Secure.CommonScope.Abstractions;
 using FacilityAccessService.Domain.Secure.CommonScope.Context;
 using FacilityAccessService.Domain.Secure.FacilityScope.Interfaces;
 
+#endregion
+
 namespace FacilityAccessService.Domain.Secure.FacilityScope
 {
-    public class FacilityServiceUserSecure : BaseServiceUserSecure, IFacilityServiceSecure
+    public class FacilityServiceSecure : BaseServiceUserSecure, IFacilityServiceSecure
     {
         private readonly IFacilityService _facilityService;
-        
-        
-        public FacilityServiceUserSecure(IFacilityService facilityService, IUserContext userContext) : base(userContext)
+
+
+        public FacilityServiceSecure(IFacilityService facilityService, IUserContext userContext) : base(userContext)
         {
             if (facilityService is null) throw new ArgumentNullException(nameof(facilityService));
 
             this._facilityService = facilityService;
         }
 
-        
+
         public async Task<Facility> CreateFacilityAsync(CreateFacilityModel createFacilityModel)
         {
             return await _facilityService.CreateFacilityAsync(createFacilityModel);
@@ -37,7 +41,7 @@ namespace FacilityAccessService.Domain.Secure.FacilityScope
         {
             await _facilityService.DeleteFacilityAsync(deleteFacilityModel);
         }
-        
+
         protected override void EnsureHasPermission()
         {
             bool hasAccess = _userContext.User.Role.CheckPermission(Permission.CanMaintenanceFacility);

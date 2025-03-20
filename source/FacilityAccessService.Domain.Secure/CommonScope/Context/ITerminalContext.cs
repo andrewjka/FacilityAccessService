@@ -1,4 +1,8 @@
+#region
+
 using FacilityAccessService.Business.TerminalScope.Models;
+
+#endregion
 
 namespace FacilityAccessService.Domain.Secure.CommonScope.Context
 {

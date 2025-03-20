@@ -1,5 +1,9 @@
+#region
+
 using System;
 using FacilityAccessService.Domain.Secure.CommonScope.Context;
+
+#endregion
 
 namespace FacilityAccessService.Domain.Secure.CommonScope.Abstractions
 {
@@ -17,8 +21,8 @@ namespace FacilityAccessService.Domain.Secure.CommonScope.Abstractions
             EnsureUserNotNull();
             EnsureHasPermission();
         }
-        
-        
+
+
         protected void EnsureUserNotNull()
         {
             if (_userContext.User is null)

@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
@@ -7,35 +9,37 @@ using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
 using FacilityAccessService.Domain.Secure.CommonScope.Abstractions;
 using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
+#endregion
+
 namespace FacilityAccessService.Domain.Secure.AccessScope
 {
-    public class AccessFacilityServiceUserSecure : BaseServiceUserSecure, IAccessFacilityServiceSecure
+    public class AccessCategoryServiceSecure : BaseServiceUserSecure, IAccessCategoryServiceSecure
     {
-        private readonly IAccessFacilityService _accessFacility;
+        private readonly IAccessCategoryService _accessCategory;
 
 
-        public AccessFacilityServiceUserSecure(IAccessFacilityService accessFacility, IUserContext userContext)
+        public AccessCategoryServiceSecure(IAccessCategoryService accessCategory, IUserContext userContext)
             : base(userContext)
         {
-            if (accessFacility is null) throw new ArgumentNullException(nameof(accessFacility));
+            if (accessCategory is null) throw new ArgumentNullException(nameof(accessCategory));
 
-            this._accessFacility = accessFacility;
+            this._accessCategory = accessCategory;
         }
 
 
-        public async Task GrantAccessAsync(GrantAccessFacilityModel grantAccessModel)
+        public async Task GrantAccessAsync(GrantAccessCategoryModel grantAccessModel)
         {
-            await _accessFacility.GrantAccessAsync(grantAccessModel);
+            await _accessCategory.GrantAccessAsync(grantAccessModel);
         }
 
-        public async Task RevokeAccessAsync(RevokeAccessFacilityModel revokeAccessModel)
+        public async Task RevokeAccessAsync(RevokeAccessCategoryModel revokeAccessModel)
         {
-            await _accessFacility.RevokeAccessAsync(revokeAccessModel);
+            await _accessCategory.RevokeAccessAsync(revokeAccessModel);
         }
 
-        public async Task UpdateAccessAsync(UpdateAccessFacilityModel updateAccessModel)
+        public async Task UpdateAccessAsync(UpdateAccessCategoryModel updateAccessModel)
         {
-            await _accessFacility.UpdateAccessAsync(updateAccessModel);
+            await _accessCategory.UpdateAccessAsync(updateAccessModel);
         }
 
         protected override void EnsureHasPermission()

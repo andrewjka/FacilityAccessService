@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.FacilityScope.Actions;
@@ -9,14 +11,16 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 using FacilityAccessService.Domain.Secure.FacilityScope.Interfaces;
 using UnauthorizedAccessException = FacilityAccessService.Business.UserScope.Exceptions.UnauthorizedAccessException;
 
+#endregion
+
 namespace FacilityAccessService.Domain.Secure.FacilityScope
 {
-    public class CategoryServiceUserSecure : BaseServiceUserSecure, ICategoryServiceSecure
+    public class CategoryServiceSecure : BaseServiceUserSecure, ICategoryServiceSecure
     {
         private readonly ICategoryService _categoryService;
 
-        
-        public CategoryServiceUserSecure(ICategoryService categoryService, IUserContext userContext) : base(userContext)
+
+        public CategoryServiceSecure(ICategoryService categoryService, IUserContext userContext) : base(userContext)
         {
             if (categoryService is null) throw new ArgumentNullException(nameof(categoryService));
 
@@ -38,7 +42,7 @@ namespace FacilityAccessService.Domain.Secure.FacilityScope
         {
             await _categoryService.DeleteCategoryAsync(deleteCategoryModel);
         }
-        
+
         protected override void EnsureHasPermission()
         {
             bool hasAccess = _userContext.User.Role.CheckPermission(Permission.CanMaintenanceCategory);

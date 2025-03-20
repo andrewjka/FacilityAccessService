@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.TerminalScope.Actions;
@@ -9,14 +11,16 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 using FacilityAccessService.Domain.Secure.TerminalScope.Interfaces;
 using UnauthorizedAccessException = FacilityAccessService.Business.UserScope.Exceptions.UnauthorizedAccessException;
 
+#endregion
+
 namespace FacilityAccessService.Domain.Secure.TerminalScope
 {
-    public class TerminalBaseServiceUserSecure : BaseServiceUserSecure, ITerminalServiceSecure
+    public class TerminalServiceSecure : BaseServiceUserSecure, ITerminalServiceSecure
     {
         private readonly ITerminalService _terminalService;
 
 
-        public TerminalBaseServiceUserSecure(ITerminalService terminalService, IUserContext userContext) : base(userContext)
+        public TerminalServiceSecure(ITerminalService terminalService, IUserContext userContext) : base(userContext)
         {
             if (terminalService is null) throw new ArgumentNullException(nameof(terminalService));
 
