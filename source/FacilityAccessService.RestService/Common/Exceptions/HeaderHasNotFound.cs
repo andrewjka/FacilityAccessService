@@ -1,4 +1,8 @@
+#region
+
 using System;
+
+#endregion
 
 namespace FacilityAccessService.RestService.Common.Exceptions
 {

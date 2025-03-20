@@ -11,6 +11,8 @@
 #region
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
@@ -22,14 +24,8 @@ namespace FacilityAccessService.RestService.Models
     /// <summary>
     /// </summary>
     [DataContract]
-    public class Facility : IEquatable<Facility>
+    public class UpdateCategoryRequest : IEquatable<UpdateCategoryRequest>
     {
-        /// <summary>
-        ///     Gets or Sets Id
-        /// </summary>
-        [DataMember(Name = "Id", EmitDefaultValue = true)]
-        public Guid Id { get; set; }
-
         /// <summary>
         ///     Gets or Sets Name
         /// </summary>
@@ -37,35 +33,32 @@ namespace FacilityAccessService.RestService.Models
         public string Name { get; set; }
 
         /// <summary>
-        ///     Gets or Sets Description
+        ///     Gets or Sets Facilities
         /// </summary>
-        [DataMember(Name = "Description", EmitDefaultValue = false)]
-        public string Description { get; set; }
+        [DataMember(Name = "Facilities", EmitDefaultValue = false)]
+        public List<Guid> Facilities { get; set; }
 
         /// <summary>
-        ///     Returns true if Facility instances are equal
+        ///     Returns true if UpdateCategoryRequest instances are equal
         /// </summary>
-        /// <param name="other">Instance of Facility to be compared</param>
+        /// <param name="other">Instance of UpdateCategoryRequest to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(Facility other)
+        public bool Equals(UpdateCategoryRequest other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return
                 (
-                    Id == other.Id ||
-                    Id.Equals(other.Id)
-                ) &&
-                (
                     Name == other.Name ||
                     (Name != null &&
                      Name.Equals(other.Name))
                 ) &&
                 (
-                    Description == other.Description ||
-                    (Description != null &&
-                     Description.Equals(other.Description))
+                    Facilities == other.Facilities ||
+                    (Facilities != null &&
+                     other.Facilities != null &&
+                     Facilities.SequenceEqual(other.Facilities))
                 );
         }
 
@@ -76,10 +69,9 @@ namespace FacilityAccessService.RestService.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Facility {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("class UpdateCategoryRequest {\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  Facilities: ").Append(Facilities).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -102,7 +94,7 @@ namespace FacilityAccessService.RestService.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Facility)obj);
+            return obj.GetType() == GetType() && Equals((UpdateCategoryRequest)obj);
         }
 
         /// <summary>
@@ -115,12 +107,10 @@ namespace FacilityAccessService.RestService.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-
-                hashCode = hashCode * 59 + Id.GetHashCode();
                 if (Name != null)
                     hashCode = hashCode * 59 + Name.GetHashCode();
-                if (Description != null)
-                    hashCode = hashCode * 59 + Description.GetHashCode();
+                if (Facilities != null)
+                    hashCode = hashCode * 59 + Facilities.GetHashCode();
                 return hashCode;
             }
         }
@@ -129,12 +119,12 @@ namespace FacilityAccessService.RestService.Models
 
 #pragma warning disable 1591
 
-        public static bool operator ==(Facility left, Facility right)
+        public static bool operator ==(UpdateCategoryRequest left, UpdateCategoryRequest right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Facility left, Facility right)
+        public static bool operator !=(UpdateCategoryRequest left, UpdateCategoryRequest right)
         {
             return !Equals(left, right);
         }

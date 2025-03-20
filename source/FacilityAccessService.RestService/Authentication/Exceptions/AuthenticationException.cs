@@ -1,5 +1,9 @@
+#region
+
 using System;
 using FacilityAccessService.RestService.Common.Exceptions;
+
+#endregion
 
 namespace FacilityAccessService.RestService.Authentication.Exceptions
 {

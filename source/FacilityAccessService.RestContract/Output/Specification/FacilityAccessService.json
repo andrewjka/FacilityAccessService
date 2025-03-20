@@ -121,7 +121,7 @@
                 ],
                 "summary": "Creates user access to a category.",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/UserCategoryCreate"
+                    "$ref": "#/components/requestBodies/CreateUserCategory"
                 },
                 "parameters": [
                     {
@@ -161,7 +161,8 @@
                         "name": "category_id",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -209,7 +210,7 @@
                 ],
                 "summary": "Creates user access to a facility.",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/UserFacilityCreate"
+                    "$ref": "#/components/requestBodies/CreateUserFacility"
                 },
                 "parameters": [
                     {
@@ -249,7 +250,8 @@
                         "name": "facility_id",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -319,7 +321,7 @@
                 ],
                 "summary": "Creates a facility and returns it.",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/FacilityCreate"
+                    "$ref": "#/components/requestBodies/CreateFacility"
                 },
                 "responses": {
                     "200": {
@@ -348,7 +350,8 @@
                         "name": "id",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -370,12 +373,13 @@
                         "name": "id",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/FacilityUpdate"
+                    "$ref": "#/components/requestBodies/UpdateFacility"
                 },
                 "responses": {
                     "200": {
@@ -450,7 +454,7 @@
                 ],
                 "summary": "Creates a category and returns it.",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/CategoryCreate"
+                    "$ref": "#/components/requestBodies/CreateCategory"
                 },
                 "responses": {
                     "200": {
@@ -479,7 +483,8 @@
                         "name": "id",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
@@ -501,12 +506,13 @@
                         "name": "id",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "uuid"
                         }
                     }
                 ],
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/CategoryUpdate"
+                    "$ref": "#/components/requestBodies/UpdateCategory"
                 },
                 "responses": {
                     "200": {
@@ -544,9 +550,13 @@
                 "type": "object",
                 "properties": {
                     "Id": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "uuid"
                     },
                     "Name": {
+                        "type": "string"
+                    },
+                    "Description": {
                         "type": "string"
                     }
                 }
@@ -555,7 +565,8 @@
                 "type": "object",
                 "properties": {
                     "Id": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "uuid"
                     },
                     "Name": {
                         "type": "string"
@@ -575,7 +586,8 @@
                         "type": "string"
                     },
                     "CategoryId": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "uuid"
                     },
                     "StartDate": {
                         "type": "string",
@@ -594,7 +606,8 @@
                         "type": "string"
                     },
                     "FacilityId": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "uuid"
                     },
                     "StartDate": {
                         "type": "string",
@@ -623,7 +636,8 @@
                                     "type": "string"
                                 },
                                 "facilityId": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "format": "uuid"
                                 }
                             }
                         }
@@ -645,14 +659,15 @@
                                     "type": "string"
                                 },
                                 "facilityId": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "format": "uuid"
                                 }
                             }
                         }
                     }
                 }
             },
-            "CategoryCreate": {
+            "CreateCategory": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -668,7 +683,8 @@
                                 "Facilities": {
                                     "type": "array",
                                     "items": {
-                                        "type": "integer"
+                                        "type": "string",
+                                        "format": "uuid"
                                     }
                                 }
                             }
@@ -676,7 +692,7 @@
                     }
                 }
             },
-            "CategoryUpdate": {
+            "UpdateCategory": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -685,23 +701,34 @@
                             "properties": {
                                 "Name": {
                                     "type": "string"
+                                },
+                                "Facilities": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                    }
                                 }
                             }
                         }
                     }
                 }
             },
-            "FacilityCreate": {
+            "CreateFacility": {
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
                             "type": "object",
                             "required": [
-                                "Name"
+                                "Name",
+                                "Description"
                             ],
                             "properties": {
                                 "Name": {
+                                    "type": "string"
+                                },
+                                "Description": {
                                     "type": "string"
                                 }
                             }
@@ -709,7 +736,7 @@
                     }
                 }
             },
-            "FacilityUpdate": {
+            "UpdateFacility": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -718,13 +745,16 @@
                             "properties": {
                                 "Name": {
                                     "type": "string"
+                                },
+                                "Description": {
+                                    "type": "string"
                                 }
                             }
                         }
                     }
                 }
             },
-            "UserCategoryCreate": {
+            "CreateUserCategory": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -741,7 +771,8 @@
                                     "type": "string"
                                 },
                                 "CategoryId": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "format": "uuid"
                                 },
                                 "StartDate": {
                                     "type": "string",
@@ -756,7 +787,7 @@
                     }
                 }
             },
-            "UserCategoryUpdate": {
+            "UpdateUserCategory": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -771,7 +802,8 @@
                                     "type": "string"
                                 },
                                 "CategoryId": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "format": "uuid"
                                 },
                                 "StartDate": {
                                     "type": "string",
@@ -786,7 +818,7 @@
                     }
                 }
             },
-            "UserFacilityCreate": {
+            "CreateUserFacility": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -803,7 +835,8 @@
                                     "type": "string"
                                 },
                                 "FacilityId": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "format": "uuid"
                                 },
                                 "StartDate": {
                                     "type": "string",
@@ -818,7 +851,7 @@
                     }
                 }
             },
-            "UserFacilityUpdate": {
+            "UpdateUserFacility": {
                 "required": true,
                 "content": {
                     "application/json": {
@@ -833,7 +866,8 @@
                                     "type": "string"
                                 },
                                 "FacilityId": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "format": "uuid"
                                 },
                                 "StartDate": {
                                     "type": "string",
