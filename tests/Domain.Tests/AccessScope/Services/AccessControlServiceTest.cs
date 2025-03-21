@@ -119,7 +119,7 @@ namespace Domain.Tests.AccessScope.Services
             // Assert
             Assert.True(hasAccess);
 
-            _publisherMock.Verify(cfg => cfg.PublishAsync(It.IsAny<object>()), Times.Once);
+            _publisherMock.Verify(cfg => cfg.PublishAsync(It.IsAny<IEvent>()), Times.Once);
         }
 
 
