@@ -2,12 +2,10 @@ using System;
 
 namespace FacilityAccessService.Event
 {
-    public abstract record BaseEvent
+    public abstract record BaseEvent : IEvent
     {
         public Guid EventId { get; init; }
-
         public string EventType { get; init; }
-
         public DateTime TimeStamp { get; init; }
 
 

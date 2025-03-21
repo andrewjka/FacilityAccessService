@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package Events;
+
+message UserEnteredFacilityEvent
+{
+    GUID EventId = 1;
+    string EventType = 2;
+    google.protobuf.Timestamp TimeStamp = 3;
+    GUID FacilityId = 4;
+    string UserId = 5;
+}
+
+message GUID {
+    bytes Value = 1;
+}
