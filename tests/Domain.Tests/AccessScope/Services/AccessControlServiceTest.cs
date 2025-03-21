@@ -68,7 +68,7 @@ namespace Domain.Tests.AccessScope.Services
             var contextMock = CreatePersistenceContext(this._terminal, null);
 
             _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContext()
+                cfg => cfg.CreatePersistenceContextAsync()
             ).ReturnsAsync(contextMock.Object);
 
 
@@ -92,7 +92,7 @@ namespace Domain.Tests.AccessScope.Services
             var contextMock = CreatePersistenceContext(this._terminal, userFacility);
 
             _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContext()
+                cfg => cfg.CreatePersistenceContextAsync()
             ).ReturnsAsync(contextMock.Object);
 
 
@@ -109,7 +109,7 @@ namespace Domain.Tests.AccessScope.Services
             var contextMock = CreatePersistenceContext(this._terminal, this._userFacility);
 
             _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContext()
+                cfg => cfg.CreatePersistenceContextAsync()
             ).ReturnsAsync(contextMock.Object);
 
 
