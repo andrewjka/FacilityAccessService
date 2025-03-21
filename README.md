@@ -6,6 +6,7 @@
 <a href="https://www.nuget.org/packages/CompareNETObjects/4.83.0">![Static Badge](./docs/badges/comparedotnetobjects.svg)<a/>
 <a href="https://www.nuget.org/packages/FluentValidation/11.11.0">![Static Badge](./docs/badges/fluentValidation.svg)</a>
 <a href="https://www.nuget.org/packages/AutoMapper/14.0.0">![Static Badge](./docs/badges/automapper.svg)<a/>
+<a href="https://www.nuget.org/packages/EasyNetQ/7.8.0">![Static Badge](./docs/badges/easynetq.svg)<a/>
 <a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">![Static Badge](./docs/badges/entityFrameworkCore.svg)</a>
 
 ## Navigation list
@@ -104,9 +105,31 @@ It references the business layer and implements repository interfaces through in
 
 **References:** *Business*.
 
-**Packages:** *<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">EntityFrameworkCore(9.0.2)</a>,
+**Packages:** *<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">EntityFrameworkCore(
+9.0.2)</a>,
 <a href="https://www.nuget.org/packages/AutoMapper/14.0.0">AutoMapper(14.0.0)<a/>*.
 
+***
+
+### Messaging
+
+**Description:** In this layer, the messaging pattern between services is implemented. In this case, RabbitMQ is used.
+
+**References:** *Event, MessagingContract*.
+
+**Packages:** *<a href="https://www.nuget.org/packages/EasyNetQ/7.8.0">EasyNetQ(7.8.0)<a/>*.
+
+***
+
+### RestService
+
+**Description:** This project is an API interface for interaction via HTTP, following the REST architecture. It contains
+controllers that forward external requests to Domain.Secure, after first authorizing the user or terminal making the
+request.
+
+**References:** *Domain.Secure, RestContract*.
+
+**Packages:** *none*.
 
 
 
