@@ -7,6 +7,11 @@
 <a href="https://www.nuget.org/packages/FluentValidation/11.11.0">![Static Badge](./docs/badges/fluentValidation.svg)</a>
 <a href="https://www.nuget.org/packages/AutoMapper/14.0.0">![Static Badge](./docs/badges/automapper.svg)<a/>
 <a href="https://www.nuget.org/packages/EasyNetQ/7.8.0">![Static Badge](./docs/badges/easynetq.svg)<a/>
+<a href="https://www.nuget.org/packages/Google.Protobuf/3.30.1">![Static Badge](./docs/badges/googleProtobuf.svg)<a/>
+<a href="https://protobuf.dev/programming-guides/proto3/">![Static Badge](./docs/badges/protobuf.svg)<a/>
+<a href="https://spec.openapis.org/oas/v3.0.4.html">![Static Badge](./docs/badges/openapi.svg)<a/>
+<a href="https://www.rabbitmq.com/blog/2025/02/26/rabbitmq-4.0.7-is-released">![Static Badge](./docs/badges/rabbitmq.svg)<a/>
+<a href="https://dev.mysql.com/downloads/mysql/8.4.html">![Static Badge](./docs/badges/mysql.svg)<a/>
 <a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">![Static Badge](./docs/badges/entityFrameworkCore.svg)</a>
 
 ## Navigation list
@@ -111,11 +116,23 @@ It references the business layer and implements repository interfaces through in
 
 ***
 
-### Messaging
+### MessagingClient
 
-**Description:** In this layer, the messaging pattern between services is implemented. In this case, RabbitMQ is used.
+**Description:** This layer in the message distribution architecture is responsible for implementing the Publisher and
+mapping internal event models to Protobuf contracts.
 
 **References:** *Event, MessagingContract*.
+
+**Packages:** *<a href="https://www.nuget.org/packages/EasyNetQ/7.8.0">EasyNetQ(7.8.0)<a/>*.
+
+***
+
+### MessagingService
+
+**Description:** This layer in the message distribution architecture is responsible for receiving and processing new
+events in the system coming from other services.
+
+**References:** *Domain, MessagingContract*.
 
 **Packages:** *<a href="https://www.nuget.org/packages/EasyNetQ/7.8.0">EasyNetQ(7.8.0)<a/>*.
 
