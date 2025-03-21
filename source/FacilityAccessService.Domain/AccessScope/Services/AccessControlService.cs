@@ -44,7 +44,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
         public async Task<bool> VerifyAccessAsync(VerifyAccessModel verifyAccessModel)
         {
             _verifyAccessVL.ValidateAndThrow(verifyAccessModel);
-            
+
 
             FindUserFacilitySpecification findUserFacilitySpec = new FindUserFacilitySpecification(
                 userId: verifyAccessModel.UserId,
@@ -67,8 +67,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             {
                 UserEnteredFacilityEvent @event = new UserEnteredFacilityEvent(
                     UserId: userFacility.UserId,
-                    FacilityId: userFacility.FacilityId.ToString(),
-                    EnteredTime: DateTime.Now
+                    FacilityId: userFacility.FacilityId
                 );
 
                 await _publisher.PublishAsync(@event);

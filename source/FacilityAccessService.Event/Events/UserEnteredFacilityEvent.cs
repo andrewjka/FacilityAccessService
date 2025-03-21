@@ -2,5 +2,6 @@ using System;
 
 namespace FacilityAccessService.Event.Events
 {
-    public record UserEnteredFacilityEvent(string UserId, string FacilityId, DateTime EnteredTime);
+    public record UserEnteredFacilityEvent(Guid FacilityId, string UserId)
+        : BaseEvent(nameof(UserEnteredFacilityEvent));
 }
