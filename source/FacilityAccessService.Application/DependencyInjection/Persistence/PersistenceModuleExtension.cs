@@ -1,4 +1,3 @@
-using System;
 using FacilityAccessService.Application.DependencyInjection.Persistence.Hosted;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Persistence;
@@ -7,7 +6,6 @@ using FacilityAccessService.Persistence.UserScope.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace FacilityAccessService.Application.DependencyInjection.Persistence
 {
@@ -22,11 +20,7 @@ namespace FacilityAccessService.Application.DependencyInjection.Persistence
             builder.Services.AddScoped<IPersistenceContextFactory, PersistenceContextFactory>();
 
             // DbContext
-            builder.Services.AddDbContext<AppDatabaseContext>(options =>
-            {
-                options.UseMySql(connectMySqlString, new MySqlServerVersion(new Version(8, 4, 4)));
-            });
-            // builder.Services.AddDbContext<AppDatabaseContext>(options => { options.UseMySQL(connectMySqlString); });
+            builder.Services.AddDbContext<AppDatabaseContext>(options => { options.UseMySQL(connectMySqlString); });
 
             // AutoMapper
             builder.Services.AddAutoMapper(typeof(UserMapping).Assembly);
