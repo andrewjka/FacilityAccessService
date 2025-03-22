@@ -1,3 +1,4 @@
+using FacilityAccessService.Business.TerminalScope.ValueObjects;
 using FacilityAccessService.Persistence.AccessScope.Models;
 using FacilityAccessService.Persistence.FacilityScope.Models;
 using FacilityAccessService.Persistence.TerminalScope.Models;
@@ -21,6 +22,10 @@ namespace FacilityAccessService.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Not sure why, but specifically this valueObject EntityFrameworkCore tries to interpret as an entity
+            // for the database.
+            modelBuilder.Ignore<TerminalToken>();
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDatabaseContext).Assembly);
         }
     }
