@@ -76,3 +76,6 @@ packages/
 .vscode/settings.json
 
 # Other
+
+# Persistence
+source/FacilityAccessService.Persistence/Migrations/Stages
