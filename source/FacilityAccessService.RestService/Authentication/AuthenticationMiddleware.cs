@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using FacilityAccessService.RestService.Common.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.Extensions.DependencyInjection;
 
 #endregion
 
@@ -24,20 +26,13 @@ namespace FacilityAccessService.RestService.Authentication
         private readonly Dictionary<Endpoint, bool> _isEndpointAllowAnonymous;
         private readonly RequestDelegate _next;
 
-        private readonly IUserSessionService _userSessionService;
-
-        private readonly ITerminalSessionService _terminalSessionService;
+        private readonly IServiceScopeFactory _scopeFactory;
 
 
-        public AuthenticationMiddleware(
-            IUserSessionService userSessionService,
-            ITerminalSessionService terminalSessionService,
-            RequestDelegate next
-        )
+        public AuthenticationMiddleware(IServiceScopeFactory scopeFactory, RequestDelegate next)
         {
             _next = next;
-            _userSessionService = userSessionService;
-            _terminalSessionService = terminalSessionService;
+            _scopeFactory = scopeFactory;
 
             _isEndpointAllowAnonymous = new Dictionary<Endpoint, bool>();
         }
@@ -45,6 +40,15 @@ namespace FacilityAccessService.RestService.Authentication
 
         public async Task InvokeAsync(HttpContext context)
         {
+            await using AsyncServiceScope scope = _scopeFactory.CreateAsyncScope();
+
+            IUserSessionService userSessionService = scope.ServiceProvider
+                .GetService<IUserSessionService>();
+
+            ITerminalSessionService terminalSessionService = scope.ServiceProvider
+                .GetService<ITerminalSessionService>();
+
+
             bool isAllowAnonymous = CheckAllowAnonymous(context.GetEndpoint());
 
             string sessionToken = context.Request.GetSessionToken();
@@ -53,7 +57,7 @@ namespace FacilityAccessService.RestService.Authentication
             // If the session header is found, get the user
             if (string.IsNullOrEmpty(sessionToken) is false)
             {
-                User user = await _userSessionService.ValidateTokenAsync(sessionToken);
+                User user = await userSessionService.ValidateTokenAsync(sessionToken);
 
                 if (user is null)
                     throw new AuthenticationException(
@@ -65,7 +69,7 @@ namespace FacilityAccessService.RestService.Authentication
             // If the terminal session header is found, get the terminal
             else if (string.IsNullOrEmpty(terminalSessionToken) is false)
             {
-                Terminal terminal = await _terminalSessionService.ValidateTokenAsync(
+                Terminal terminal = await terminalSessionService.ValidateTokenAsync(
                     TerminalToken.GetFromHex(terminalSessionToken)
                 );
 
