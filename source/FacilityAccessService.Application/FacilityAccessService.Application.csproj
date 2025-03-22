@@ -11,7 +11,11 @@
         <PackageReference Include="EasyNetQ" Version="7.8.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1"/>
-        <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0-preview.3.efcore.9.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FacilityAccessService.Domain.Secure\FacilityAccessService.Domain.Secure.csproj" />
+      <ProjectReference Include="..\FacilityAccessService.GrpcClient\FacilityAccessService.GrpcClient.csproj" />
       <ProjectReference Include="..\FacilityAccessService.MessagingClient\FacilityAccessService.MessagingClient.csproj" />
       <ProjectReference Include="..\FacilityAccessService.Persistence\FacilityAccessService.Persistence.csproj" />
       <ProjectReference Include="..\FacilityAccessService.RestService\FacilityAccessService.RestService.csproj" />
