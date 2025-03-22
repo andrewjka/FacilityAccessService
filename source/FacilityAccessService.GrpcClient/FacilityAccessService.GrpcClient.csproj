@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FacilityAccessService.Business\FacilityAccessService.Business.csproj" />
+    </ItemGroup>
+
 </Project>
