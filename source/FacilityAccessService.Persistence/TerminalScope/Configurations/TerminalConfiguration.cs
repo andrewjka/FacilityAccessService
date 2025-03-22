@@ -7,7 +7,7 @@ namespace FacilityAccessService.Persistence.TerminalScope.Configurations
 {
     public class TerminalConfiguration : BaseEntityConfiguration<Terminal>
     {
-        public void Configure(EntityTypeBuilder<Terminal> builder)
+        public new void Configure(EntityTypeBuilder<Terminal> builder)
         {
             base.Configure(builder);
 

@@ -6,7 +6,7 @@ namespace FacilityAccessService.Persistence.FacilityScope.Configurations
 {
     public class FacilityConfiguration : BaseEntityConfiguration<Facility>
     {
-        public void Configure(EntityTypeBuilder<Facility> builder)
+        public new void Configure(EntityTypeBuilder<Facility> builder)
         {
             base.Configure(builder);
 
