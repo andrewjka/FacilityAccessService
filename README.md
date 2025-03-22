@@ -11,9 +11,9 @@
 <a href="https://protobuf.dev/programming-guides/proto3/">![Static Badge](./docs/badges/protobuf.svg)<a/>
 <a href="https://spec.openapis.org/oas/v3.0.4.html">![Static Badge](./docs/badges/openapi.svg)<a/>
 <a href="https://www.rabbitmq.com/blog/2025/02/26/rabbitmq-4.0.7-is-released">![Static Badge](./docs/badges/rabbitmq.svg)<a/>
-<a href="https://dev.mysql.com/downloads/mysql/8.4.html">![Static Badge](./docs/badges/mysql.svg)<a/>
-<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/8.0.14">![Static Badge](./docs/badges/entityFrameworkCore.svg)</a>
-<a href="https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/8.0.3">![Static Badge](./docs/badges/pomelo.svg)</a>
+<a href="https://dev.mysql.com/downloads/mysql/8.4.4.html">![Static Badge](./docs/badges/mysql.svg)<a/>
+<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">![Static Badge](./docs/badges/entityFrameworkCore.svg)</a>
+<a href="https://www.nuget.org/packages/MySql.EntityFrameworkCore/9.0.0">![Static Badge](./docs/badges/mysqlefcore.svg)</a>
 
 ## Navigation list
 
@@ -111,10 +111,10 @@ It references the business layer and implements repository interfaces through in
 
 **References:** *Business*.
 
-**Packages:** *<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/8.0.14">
+**Packages:** *<a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.2">
 EntityFrameworkCore(9.0.2)</a>,
-<a href="https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/8.0.3">
-Pomelo.EntityFrameworkCore(8.0.3)</a>,
+<a href="https://www.nuget.org/packages/MySql.EntityFrameworkCore/9.0.0">
+MySql.EntityFrameworkCore(9.0.0)</a>,
 <a href="https://www.nuget.org/packages/AutoMapper/14.0.0">AutoMapper(14.0.0)<a/>*.
 
 ***
