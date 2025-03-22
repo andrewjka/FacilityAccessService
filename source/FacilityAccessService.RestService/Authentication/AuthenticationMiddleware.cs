@@ -48,8 +48,16 @@ namespace FacilityAccessService.RestService.Authentication
             ITerminalSessionService terminalSessionService = scope.ServiceProvider
                 .GetService<ITerminalSessionService>();
 
+            Endpoint endpoint = context.GetEndpoint();
 
-            bool isAllowAnonymous = CheckAllowAnonymous(context.GetEndpoint());
+            if (endpoint is null)
+            {
+                await _next.Invoke(context);
+
+                return;
+            }
+
+            bool isAllowAnonymous = CheckAllowAnonymous(endpoint);
 
             string sessionToken = context.Request.GetSessionToken();
             string terminalSessionToken = context.Request.GetTerminalSessionToken();
