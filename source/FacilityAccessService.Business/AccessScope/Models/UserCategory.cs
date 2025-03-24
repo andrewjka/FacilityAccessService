@@ -15,7 +15,7 @@ namespace FacilityAccessService.Business.AccessScope.Models
             string userId,
             Guid categoryId,
             AccessPeriod accessPeriod
-        ) : base()
+        )
         {
             this.UserId = userId;
             this.CategoryId = categoryId;
@@ -26,8 +26,11 @@ namespace FacilityAccessService.Business.AccessScope.Models
         {
             this.AccessPeriod = accessPeriod;
         }
-
-        public bool ValidateAccessValidity()
+        
+        /// <summary>
+        /// Checks whether the access permit has expired.
+        /// </summary>
+        public bool IsAccessValid()
         {
             return AccessPeriod.IsWithinAccessPeriod(DateOnly.FromDateTime(DateTime.Today));
         }

@@ -15,13 +15,13 @@ namespace FacilityAccessService.Business.AccessScope.ValueObjects
             this.StartDate = startDate;
             this.EndDate = endDate;
         }
-        
+
         /// <summary>
         /// Checks if the date is within the access period.
         /// </summary>
         public bool IsWithinAccessPeriod(DateOnly currentDate)
         {
-            return EndDate >= currentDate && currentDate >= StartDate;
+            return currentDate >= StartDate && currentDate <= EndDate;
         }
     }
 }
