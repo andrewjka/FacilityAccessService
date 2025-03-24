@@ -149,12 +149,12 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
 
         private async Task<HashSet<Facility>> GetAllFacilitiesByIds(HashSet<Guid> guids)
         {
-            SelectAllByFacilitiesId selectAllSpec = new SelectAllByFacilitiesId(guids);
+            FindAllFacilitiesByIds findAllFacilitiesSpec = new FindAllFacilitiesByIds(guids);
 
             HashSet<Facility> facilities;
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
-                facilities = (await context.FacilityRepository.SelectByAsync(selectAllSpec)).ToHashSet();
+                facilities = (await context.FacilityRepository.SelectByAsync(findAllFacilitiesSpec)).ToHashSet();
             }
 
             if (guids.Count != facilities.Count)

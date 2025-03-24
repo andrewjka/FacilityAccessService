@@ -3,17 +3,14 @@ using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
 using FacilityAccessService.Business.AccessScope.Exceptions;
 using FacilityAccessService.Business.AccessScope.Models;
-using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
-using FacilityAccessService.Business.FacilityScope.Repositories;
 using FacilityAccessService.Business.UserScope.Exceptions;
 using FacilityAccessService.Business.UserScope.Models;
-using FacilityAccessService.Business.UserScope.Repositories;
 using FacilityAccessService.Business.UserScope.Specifications;
 using FluentValidation;
 
@@ -111,7 +108,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             _revokeAccessVL.ValidateAndThrow(revokeAccessModel);
 
 
-            FindUserFacilitySpecification findUserFacilitySpec = new FindUserFacilitySpecification(
+            FindUserFacilitySpecification findActiveUserFacilitySpec = new FindUserFacilitySpecification(
                 userId: revokeAccessModel.UserId,
                 facilityId: revokeAccessModel.FacilityId
             );
@@ -119,7 +116,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             UserFacility userFacility;
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
-                userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
+                userFacility = await context.UserFacilityRepository.FirstByAsync(findActiveUserFacilitySpec);
             }
 
             if (userFacility is null)
@@ -141,7 +138,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             _updateAccessVL.ValidateAndThrow(updateAccessModel);
 
 
-            FindUserFacilitySpecification findUserFacilitySpec = new FindUserFacilitySpecification(
+            FindUserFacilitySpecification findActiveUserFacilitySpec = new FindUserFacilitySpecification(
                 userId: updateAccessModel.UserId,
                 facilityId: updateAccessModel.FacilityId
             );
@@ -149,7 +146,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             UserFacility userFacility;
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
-                userFacility = await context.UserFacilityRepository.FirstByAsync(findUserFacilitySpec);
+                userFacility = await context.UserFacilityRepository.FirstByAsync(findActiveUserFacilitySpec);
             }
 
             if (userFacility is null)
