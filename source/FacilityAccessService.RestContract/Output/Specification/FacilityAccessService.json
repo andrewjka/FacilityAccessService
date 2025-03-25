@@ -23,6 +23,9 @@
         },
         {
             "name": "Facility management"
+        },
+        {
+            "name": "User management"
         }
     ],
     "security": [
@@ -77,6 +80,72 @@
                             "application/json": {
                                 "schema": {
                                     "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/": {
+            "get": {
+                "operationId": "GetAllUsers",
+                "tags": [
+                    "User management"
+                ],
+                "summary": "Gets a list of all users.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/TakeQueryParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/OffsetQueryParam"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of all users.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "operationId": "GetUser",
+                "tags": [
+                    "User management"
+                ],
+                "summary": "Gets the user.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "user_id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/SearchNameQueryParam"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The user.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
                                 }
                             }
                         }
@@ -553,6 +622,23 @@
             }
         },
         "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "Id": {
+                        "type": "string"
+                    },
+                    "Role": {
+                        "type": "string",
+                        "enum": [
+                            "guest",
+                            "employee",
+                            "guard",
+                            "administrator"
+                        ]
+                    }
+                }
+            },
             "Facility": {
                 "type": "object",
                 "properties": {
