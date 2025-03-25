@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
@@ -7,6 +9,7 @@ using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.Specifications;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
 
+#endregion
 
 namespace FacilityAccessService.Domain.CommonScope.Services
 {

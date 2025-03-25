@@ -1,12 +1,18 @@
+#region
+
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Business.FacilityScope.Services;
 using FluentValidation;
+
+#endregion
 
 namespace FacilityAccessService.Domain.FacilityScope.Services
 {
@@ -66,6 +72,28 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             return facility;
         }
 
+        public async Task<Facility> GetFacilityAsync(Specification<Facility> specification)
+        {
+            Facility facility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                facility = await context.FacilityRepository.FirstByAsync(specification);
+            }
+
+            return facility;
+        }
+
+        public async Task<ReadOnlyCollection<Facility>> GetFacilitiesAsync(Specification<Facility> specification)
+        {
+            ReadOnlyCollection<Facility> facilities;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                facilities = await context.FacilityRepository.SelectByAsync(specification);
+            }
+
+            return facilities;
+        }
+
         public async Task<Facility> UpdateFacilityAsync(UpdateFacilityModel updateFacilityModel)
         {
             _updateFacilityVL.ValidateAndThrow(updateFacilityModel);
@@ -86,7 +114,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
                 throw new FacilityNotFoundException("The facility with the specified id does not exist.");
             }
 
-            
+
             if (updateFacilityModel.Name is not null)
             {
                 facility.ChangeName(updateFacilityModel.Name);

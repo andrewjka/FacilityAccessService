@@ -1,9 +1,12 @@
+#region
+
 using System;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
 
+#endregion
 
 namespace FacilityAccessService.Domain.AccessScope.Services
 {

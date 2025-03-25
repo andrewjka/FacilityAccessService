@@ -1,6 +1,10 @@
+#region
+
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.TerminalScope.Actions;
 using FacilityAccessService.Business.TerminalScope.Exceptions;
@@ -8,6 +12,8 @@ using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.Services;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
 using FluentValidation;
+
+#endregion
 
 namespace FacilityAccessService.Domain.TerminalScope.Services
 {
@@ -66,6 +72,28 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             }
 
             return terminal;
+        }
+
+        public async Task<Terminal> GetTerminalAsync(Specification<Terminal> specification)
+        {
+            Terminal terminal;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                terminal = await context.TerminalRepository.FirstByAsync(specification);
+            }
+
+            return terminal;
+        }
+
+        public async Task<ReadOnlyCollection<Terminal>> GetTerminalsAsync(Specification<Terminal> specification)
+        {
+            ReadOnlyCollection<Terminal> terminals;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                terminals = await context.TerminalRepository.SelectByAsync(specification);
+            }
+
+            return terminals;
         }
 
         public async Task<Terminal> UpdateTerminalAsync(UpdateTerminalModel updateTerminalModel)

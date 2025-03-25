@@ -1,3 +1,5 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +15,8 @@ using FacilityAccessService.Business.FacilityScope.Specifications;
 using FacilityAccessService.Event;
 using FacilityAccessService.Event.Events;
 using FluentValidation;
+
+#endregion
 
 namespace FacilityAccessService.Domain.AccessScope.Services
 {

@@ -1,4 +1,7 @@
+#region
+
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
 using FacilityAccessService.Business.AccessScope.Exceptions;
@@ -6,6 +9,7 @@ using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.Services;
 using FacilityAccessService.Business.AccessScope.Specifications;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
 using FacilityAccessService.Business.FacilityScope.Models;
@@ -13,6 +17,8 @@ using FacilityAccessService.Business.UserScope.Exceptions;
 using FacilityAccessService.Business.UserScope.Models;
 using FacilityAccessService.Business.UserScope.Specifications;
 using FluentValidation;
+
+#endregion
 
 namespace FacilityAccessService.Domain.AccessScope.Services
 {
@@ -171,6 +177,30 @@ namespace FacilityAccessService.Domain.AccessScope.Services
                 await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
+        }
+
+        public async Task<UserFacility> GetAccessUserFacilityAsync(Specification<UserFacility> specification)
+        {
+            UserFacility userFacility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                userFacility = await context.UserFacilityRepository.FirstByAsync(specification);
+            }
+
+            return userFacility;
+        }
+
+        public async Task<ReadOnlyCollection<UserFacility>> GetAccessUserFacilitiesAsync(
+            Specification<UserFacility> specification
+        )
+        {
+            ReadOnlyCollection<UserFacility> userFacility;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                userFacility = await context.UserFacilityRepository.SelectByAsync(specification);
+            }
+
+            return userFacility;
         }
     }
 }

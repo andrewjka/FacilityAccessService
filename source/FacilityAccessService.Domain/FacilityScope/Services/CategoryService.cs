@@ -1,9 +1,13 @@
+#region
+
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.CommonScope.PersistenceContext;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.CommonScope.Specifications.Generic;
 using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Exceptions;
@@ -11,6 +15,8 @@ using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Business.FacilityScope.Services;
 using FacilityAccessService.Business.FacilityScope.Specifications;
 using FluentValidation;
+
+#endregion
 
 namespace FacilityAccessService.Domain.FacilityScope.Services
 {
@@ -73,10 +79,32 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             return category;
         }
 
+        public async Task<Category> GetCategoryAsync(Specification<Category> specification)
+        {
+            Category category;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                category = await context.CategoryRepository.FirstByAsync(specification);
+            }
+
+            return category;
+        }
+
+        public async Task<ReadOnlyCollection<Category>> GetCategoriesAsync(Specification<Category> specification)
+        {
+            ReadOnlyCollection<Category> categories;
+            await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                categories = await context.CategoryRepository.SelectByAsync(specification);
+            }
+
+            return categories;
+        }
+
         public async Task<Category> UpdateCategoryAsync(UpdateCategoryModel updateCategoryModel)
         {
             _updateCategoryVL.ValidateAndThrow(updateCategoryModel);
-            
+
 
             FindByGUIDSpecification<Category> findByGuidSpec = new FindByGUIDSpecification<Category>(
                 guid: updateCategoryModel.CategoryId
@@ -102,7 +130,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             if (updateCategoryModel.FacilitiesId is not null)
             {
                 HashSet<Facility> facilities = await GetAllFacilitiesByIds(updateCategoryModel.FacilitiesId);
-                
+
                 category.ChangeFacilities(facilities);
             }
 
