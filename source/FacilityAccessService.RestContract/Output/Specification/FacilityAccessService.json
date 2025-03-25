@@ -99,6 +99,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#/components/parameters/TakeQueryParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/OffsetQueryParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SearchNameQueryParam"
                     }
                 ],
                 "responses": {
@@ -188,6 +197,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#/components/parameters/TakeQueryParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/OffsetQueryParam"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SearchNameQueryParam"
                     }
                 ],
                 "responses": {
@@ -271,31 +289,13 @@
                 "summary": "Returns all facilities according to the conditions.",
                 "parameters": [
                     {
-                        "in": "query",
-                        "required": false,
-                        "name": "name",
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/TakeQueryParam"
                     },
                     {
-                        "in": "query",
-                        "required": true,
-                        "name": "take",
-                        "schema": {
-                            "type": "integer",
-                            "minimum": 1,
-                            "maximum": 100
-                        }
+                        "$ref": "#/components/parameters/OffsetQueryParam"
                     },
                     {
-                        "in": "query",
-                        "required": true,
-                        "name": "offset",
-                        "schema": {
-                            "type": "integer",
-                            "minimum": 1
-                        }
+                        "$ref": "#/components/parameters/SearchNameQueryParam"
                     }
                 ],
                 "responses": {
@@ -404,31 +404,13 @@
                 "summary": "Returns all categories according to the conditions.",
                 "parameters": [
                     {
-                        "in": "query",
-                        "required": false,
-                        "name": "name",
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/TakeQueryParam"
                     },
                     {
-                        "in": "query",
-                        "required": true,
-                        "name": "take",
-                        "schema": {
-                            "type": "integer",
-                            "minimum": 1,
-                            "maximum": 100
-                        }
+                        "$ref": "#/components/parameters/OffsetQueryParam"
                     },
                     {
-                        "in": "query",
-                        "required": true,
-                        "name": "offset",
-                        "schema": {
-                            "type": "integer",
-                            "minimum": 1
-                        }
+                        "$ref": "#/components/parameters/SearchNameQueryParam"
                     }
                 ],
                 "responses": {
@@ -544,6 +526,31 @@
             }
         },
         "parameters": {
+            "TakeQueryParam": {
+                "in": "query",
+                "name": "take",
+                "schema": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 100
+                }
+            },
+            "OffsetQueryParam": {
+                "in": "query",
+                "name": "offset",
+                "schema": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 100
+                }
+            },
+            "SearchNameQueryParam": {
+                "in": "query",
+                "name": "searchName",
+                "schema": {
+                    "type": "string"
+                }
+            }
         },
         "schemas": {
             "Facility": {
@@ -761,15 +768,11 @@
                         "schema": {
                             "type": "object",
                             "required": [
-                                "UserId",
                                 "CategoryId",
                                 "EndDate",
                                 "StartDate"
                             ],
                             "properties": {
-                                "UserId": {
-                                    "type": "string"
-                                },
                                 "CategoryId": {
                                     "type": "string",
                                     "format": "uuid"
@@ -794,13 +797,9 @@
                         "schema": {
                             "type": "object",
                             "required": [
-                                "UserId",
                                 "CategoryId"
                             ],
                             "properties": {
-                                "UserId": {
-                                    "type": "string"
-                                },
                                 "CategoryId": {
                                     "type": "string",
                                     "format": "uuid"
@@ -825,15 +824,11 @@
                         "schema": {
                             "type": "object",
                             "required": [
-                                "UserId",
                                 "FacilityId",
                                 "EndDate",
                                 "StartDate"
                             ],
                             "properties": {
-                                "UserId": {
-                                    "type": "string"
-                                },
                                 "FacilityId": {
                                     "type": "string",
                                     "format": "uuid"
@@ -858,13 +853,9 @@
                         "schema": {
                             "type": "object",
                             "required": [
-                                "UserId",
                                 "FacilityId"
                             ],
                             "properties": {
-                                "UserId": {
-                                    "type": "string"
-                                },
                                 "FacilityId": {
                                     "type": "string",
                                     "format": "uuid"
