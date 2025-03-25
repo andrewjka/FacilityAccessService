@@ -24,21 +24,53 @@ namespace FacilityAccessService.RestService.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class CreateFacilityRequest : IEquatable<CreateFacilityRequest>
+    public partial class User : IEquatable<User>
     {
         /// <summary>
-        /// Gets or Sets Name
+        /// Gets or Sets Id
         /// </summary>
-        [Required]
-        [DataMember(Name="Name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+        [DataMember(Name="Id", EmitDefaultValue=false)]
+        public string Id { get; set; }
+
 
         /// <summary>
-        /// Gets or Sets Description
+        /// Gets or Sets Role
         /// </summary>
-        [Required]
-        [DataMember(Name="Description", EmitDefaultValue=false)]
-        public string Description { get; set; }
+        [TypeConverter(typeof(CustomEnumConverter<RoleEnum>))]
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public enum RoleEnum
+        {
+            
+            /// <summary>
+            /// Enum GuestEnum for guest
+            /// </summary>
+            [EnumMember(Value = "guest")]
+            GuestEnum = 1,
+            
+            /// <summary>
+            /// Enum EmployeeEnum for employee
+            /// </summary>
+            [EnumMember(Value = "employee")]
+            EmployeeEnum = 2,
+            
+            /// <summary>
+            /// Enum GuardEnum for guard
+            /// </summary>
+            [EnumMember(Value = "guard")]
+            GuardEnum = 3,
+            
+            /// <summary>
+            /// Enum AdministratorEnum for administrator
+            /// </summary>
+            [EnumMember(Value = "administrator")]
+            AdministratorEnum = 4
+        }
+
+        /// <summary>
+        /// Gets or Sets Role
+        /// </summary>
+        [DataMember(Name="Role", EmitDefaultValue=true)]
+        public RoleEnum Role { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -47,9 +79,9 @@ namespace FacilityAccessService.RestService.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class CreateFacilityRequest {\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("class User {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Role: ").Append(Role).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -72,29 +104,29 @@ namespace FacilityAccessService.RestService.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((CreateFacilityRequest)obj);
+            return obj.GetType() == GetType() && Equals((User)obj);
         }
 
         /// <summary>
-        /// Returns true if CreateFacilityRequest instances are equal
+        /// Returns true if User instances are equal
         /// </summary>
-        /// <param name="other">Instance of CreateFacilityRequest to be compared</param>
+        /// <param name="other">Instance of User to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(CreateFacilityRequest other)
+        public bool Equals(User other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Name == other.Name ||
-                    Name != null &&
-                    Name.Equals(other.Name)
+                    Id == other.Id ||
+                    Id != null &&
+                    Id.Equals(other.Id)
                 ) && 
                 (
-                    Description == other.Description ||
-                    Description != null &&
-                    Description.Equals(other.Description)
+                    Role == other.Role ||
+                    
+                    Role.Equals(other.Role)
                 );
         }
 
@@ -108,10 +140,10 @@ namespace FacilityAccessService.RestService.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
-                    if (Description != null)
-                    hashCode = hashCode * 59 + Description.GetHashCode();
+                    if (Id != null)
+                    hashCode = hashCode * 59 + Id.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + Role.GetHashCode();
                 return hashCode;
             }
         }
@@ -119,12 +151,12 @@ namespace FacilityAccessService.RestService.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(CreateFacilityRequest left, CreateFacilityRequest right)
+        public static bool operator ==(User left, User right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(CreateFacilityRequest left, CreateFacilityRequest right)
+        public static bool operator !=(User left, User right)
         {
             return !Equals(left, right);
         }
