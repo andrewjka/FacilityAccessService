@@ -29,7 +29,7 @@ namespace FacilityAccessService.Business.FacilityScope.Models
         /// <summary>
         /// Changes the set of object included in the category.
         /// </summary>
-        public void ChangeObjects(HashSet<Facility> facilities)
+        public void ChangeFacilities(HashSet<Facility> facilities)
         {
             this.Facilities = facilities;
         }
