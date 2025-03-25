@@ -19,42 +19,36 @@ using Newtonsoft.Json;
 #endregion
 
 namespace FacilityAccessService.RestService.Models
-{
+{ 
     /// <summary>
+    /// 
     /// </summary>
     [DataContract]
-    public class GrantUserAccessFacilityRequest : IEquatable<GrantUserAccessFacilityRequest>
+    public partial class GrantUserAccessFacilityRequest : IEquatable<GrantUserAccessFacilityRequest>
     {
         /// <summary>
-        ///     Gets or Sets UserId
+        /// Gets or Sets FacilityId
         /// </summary>
         [Required]
-        [DataMember(Name = "UserId", EmitDefaultValue = false)]
-        public string UserId { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets FacilityId
-        /// </summary>
-        [Required]
-        [DataMember(Name = "FacilityId", EmitDefaultValue = true)]
+        [DataMember(Name="FacilityId", EmitDefaultValue=true)]
         public Guid FacilityId { get; set; }
 
         /// <summary>
-        ///     Gets or Sets StartDate
+        /// Gets or Sets StartDate
         /// </summary>
         [Required]
-        [DataMember(Name = "StartDate", EmitDefaultValue = true)]
+        [DataMember(Name="StartDate", EmitDefaultValue=true)]
         public DateOnly StartDate { get; set; }
 
         /// <summary>
-        ///     Gets or Sets EndDate
+        /// Gets or Sets EndDate
         /// </summary>
         [Required]
-        [DataMember(Name = "EndDate", EmitDefaultValue = true)]
+        [DataMember(Name="EndDate", EmitDefaultValue=true)]
         public DateOnly EndDate { get; set; }
 
         /// <summary>
-        ///     Returns true if GrantUserAccessFacilityRequest instances are equal
+        /// Returns true if GrantUserAccessFacilityRequest instances are equal
         /// </summary>
         /// <param name="other">Instance of GrantUserAccessFacilityRequest to be compared</param>
         /// <returns>Boolean</returns>
@@ -63,35 +57,32 @@ namespace FacilityAccessService.RestService.Models
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return
-                (
-                    UserId == other.UserId ||
-                    (UserId != null &&
-                     UserId.Equals(other.UserId))
-                ) &&
+            return 
                 (
                     FacilityId == other.FacilityId ||
+                    
                     FacilityId.Equals(other.FacilityId)
-                ) &&
+                ) && 
                 (
                     StartDate == other.StartDate ||
+                    
                     StartDate.Equals(other.StartDate)
-                ) &&
+                ) && 
                 (
                     EndDate == other.EndDate ||
+                    
                     EndDate.Equals(other.EndDate)
                 );
         }
 
         /// <summary>
-        ///     Returns the string presentation of the object
+        /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
             sb.Append("class GrantUserAccessFacilityRequest {\n");
-            sb.Append("  UserId: ").Append(UserId).Append("\n");
             sb.Append("  FacilityId: ").Append(FacilityId).Append("\n");
             sb.Append("  StartDate: ").Append(StartDate).Append("\n");
             sb.Append("  EndDate: ").Append(EndDate).Append("\n");
@@ -100,7 +91,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns the JSON string presentation of the object
+        /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
@@ -109,7 +100,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns true if objects are equal
+        /// Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -121,7 +112,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Gets the hash code
+        /// Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -130,14 +121,12 @@ namespace FacilityAccessService.RestService.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                if (UserId != null)
-                    hashCode = hashCode * 59 + UserId.GetHashCode();
-
-                hashCode = hashCode * 59 + FacilityId.GetHashCode();
-
-                hashCode = hashCode * 59 + StartDate.GetHashCode();
-
-                hashCode = hashCode * 59 + EndDate.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + FacilityId.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + StartDate.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + EndDate.GetHashCode();
                 return hashCode;
             }
         }

@@ -20,32 +20,33 @@ using Newtonsoft.Json;
 #endregion
 
 namespace FacilityAccessService.RestService.Models
-{
+{ 
     /// <summary>
+    /// 
     /// </summary>
     [DataContract]
-    public class Category : IEquatable<Category>
+    public partial class Category : IEquatable<Category>
     {
         /// <summary>
-        ///     Gets or Sets Id
+        /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "Id", EmitDefaultValue = true)]
+        [DataMember(Name="Id", EmitDefaultValue=true)]
         public Guid Id { get; set; }
 
         /// <summary>
-        ///     Gets or Sets Name
+        /// Gets or Sets Name
         /// </summary>
-        [DataMember(Name = "Name", EmitDefaultValue = false)]
+        [DataMember(Name="Name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
-        ///     Gets or Sets Facilities
+        /// Gets or Sets Facilities
         /// </summary>
-        [DataMember(Name = "Facilities", EmitDefaultValue = false)]
+        [DataMember(Name="Facilities", EmitDefaultValue=false)]
         public List<Facility> Facilities { get; set; }
 
         /// <summary>
-        ///     Returns true if Category instances are equal
+        /// Returns true if Category instances are equal
         /// </summary>
         /// <param name="other">Instance of Category to be compared</param>
         /// <returns>Boolean</returns>
@@ -54,26 +55,27 @@ namespace FacilityAccessService.RestService.Models
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return
+            return 
                 (
                     Id == other.Id ||
+                    
                     Id.Equals(other.Id)
-                ) &&
+                ) && 
                 (
                     Name == other.Name ||
-                    (Name != null &&
-                     Name.Equals(other.Name))
-                ) &&
+                    Name != null &&
+                    Name.Equals(other.Name)
+                ) && 
                 (
                     Facilities == other.Facilities ||
-                    (Facilities != null &&
-                     other.Facilities != null &&
-                     Facilities.SequenceEqual(other.Facilities))
+                    Facilities != null &&
+                    other.Facilities != null &&
+                    Facilities.SequenceEqual(other.Facilities)
                 );
         }
 
         /// <summary>
-        ///     Returns the string presentation of the object
+        /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -88,7 +90,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns the JSON string presentation of the object
+        /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
@@ -97,7 +99,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns true if objects are equal
+        /// Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -109,7 +111,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Gets the hash code
+        /// Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -118,11 +120,11 @@ namespace FacilityAccessService.RestService.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-
-                hashCode = hashCode * 59 + Id.GetHashCode();
-                if (Name != null)
+                    
+                    hashCode = hashCode * 59 + Id.GetHashCode();
+                    if (Name != null)
                     hashCode = hashCode * 59 + Name.GetHashCode();
-                if (Facilities != null)
+                    if (Facilities != null)
                     hashCode = hashCode * 59 + Facilities.GetHashCode();
                 return hashCode;
             }

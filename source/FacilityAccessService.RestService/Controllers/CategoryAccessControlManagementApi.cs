@@ -47,7 +47,14 @@ namespace FacilityAccessService.RestService.Controllers
         [SwaggerOperation("GetAccessUserCategories")]
         [SwaggerResponse(200, type: typeof(Category),
             description: "List of categories to which the user has access.")]
-        public IActionResult GetAccessUserCategories([FromRoute(Name = "user_id")] [Required] string userId)
+        public async Task<IActionResult> GetAccessUserCategories(
+            [FromRoute(Name = "user_id")] [Required]
+            string userId,
+            [FromQuery(Name = "take")] [Range(1, 100)]
+            decimal? take,
+            [FromQuery(Name = "offset")] [Range(1, 100)]
+            decimal? offset,
+            [FromQuery(Name = "searchName")] string searchName)
         {
             throw new NotImplementedException();
         }

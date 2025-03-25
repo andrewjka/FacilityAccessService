@@ -27,6 +27,8 @@
         <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\wwwroot\openapi-original.json"/>
         <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\appsettings.Development.json"/>
         <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\appsettings.json"/>
+        <_ContentIncludedByDefault Remove="FacilityAccessService.RestService\wwwroot\openapi-original.json" />
+        <_ContentIncludedByDefault Remove="FacilityAccessService.RestService\Properties\launchSettings.json" />
     </ItemGroup>
 
 </Project>

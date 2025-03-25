@@ -18,38 +18,39 @@ using Newtonsoft.Json;
 #endregion
 
 namespace FacilityAccessService.RestService.Models
-{
+{ 
     /// <summary>
+    /// 
     /// </summary>
     [DataContract]
-    public class UserFacility : IEquatable<UserFacility>
+    public partial class UserFacility : IEquatable<UserFacility>
     {
         /// <summary>
-        ///     Gets or Sets UserId
+        /// Gets or Sets UserId
         /// </summary>
-        [DataMember(Name = "UserId", EmitDefaultValue = false)]
+        [DataMember(Name="UserId", EmitDefaultValue=false)]
         public string UserId { get; set; }
 
         /// <summary>
-        ///     Gets or Sets FacilityId
+        /// Gets or Sets FacilityId
         /// </summary>
-        [DataMember(Name = "FacilityId", EmitDefaultValue = true)]
+        [DataMember(Name="FacilityId", EmitDefaultValue=true)]
         public Guid FacilityId { get; set; }
 
         /// <summary>
-        ///     Gets or Sets StartDate
+        /// Gets or Sets StartDate
         /// </summary>
-        [DataMember(Name = "StartDate", EmitDefaultValue = true)]
+        [DataMember(Name="StartDate", EmitDefaultValue=true)]
         public DateOnly StartDate { get; set; }
 
         /// <summary>
-        ///     Gets or Sets EndDate
+        /// Gets or Sets EndDate
         /// </summary>
-        [DataMember(Name = "EndDate", EmitDefaultValue = true)]
+        [DataMember(Name="EndDate", EmitDefaultValue=true)]
         public DateOnly EndDate { get; set; }
 
         /// <summary>
-        ///     Returns true if UserFacility instances are equal
+        /// Returns true if UserFacility instances are equal
         /// </summary>
         /// <param name="other">Instance of UserFacility to be compared</param>
         /// <returns>Boolean</returns>
@@ -58,28 +59,31 @@ namespace FacilityAccessService.RestService.Models
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return
+            return 
                 (
                     UserId == other.UserId ||
-                    (UserId != null &&
-                     UserId.Equals(other.UserId))
-                ) &&
+                    UserId != null &&
+                    UserId.Equals(other.UserId)
+                ) && 
                 (
                     FacilityId == other.FacilityId ||
+                    
                     FacilityId.Equals(other.FacilityId)
-                ) &&
+                ) && 
                 (
                     StartDate == other.StartDate ||
+                    
                     StartDate.Equals(other.StartDate)
-                ) &&
+                ) && 
                 (
                     EndDate == other.EndDate ||
+                    
                     EndDate.Equals(other.EndDate)
                 );
         }
 
         /// <summary>
-        ///     Returns the string presentation of the object
+        /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -95,7 +99,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns the JSON string presentation of the object
+        /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
@@ -104,7 +108,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns true if objects are equal
+        /// Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -116,7 +120,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Gets the hash code
+        /// Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -125,14 +129,14 @@ namespace FacilityAccessService.RestService.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                if (UserId != null)
+                    if (UserId != null)
                     hashCode = hashCode * 59 + UserId.GetHashCode();
-
-                hashCode = hashCode * 59 + FacilityId.GetHashCode();
-
-                hashCode = hashCode * 59 + StartDate.GetHashCode();
-
-                hashCode = hashCode * 59 + EndDate.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + FacilityId.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + StartDate.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + EndDate.GetHashCode();
                 return hashCode;
             }
         }

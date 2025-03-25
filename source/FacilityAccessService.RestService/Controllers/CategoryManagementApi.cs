@@ -89,12 +89,13 @@ namespace FacilityAccessService.RestService.Controllers
         [SwaggerOperation("GetAllCategories")]
         [SwaggerResponse(200, type: typeof(List<Category>),
             description: "A list of categories that match the provided query parameters.")]
-        public IActionResult GetAllCategories(
-            [FromQuery(Name = "take")] [Required] [Range(1, 100)]
-            int take,
-            [FromQuery(Name = "offset")] [Required]
-            int offset, [FromQuery(Name = "name")] string name
-        )
+        public async Task<IActionResult> GetAllCategories(
+            [FromQuery(Name = "take")] [Range(1, 100)]
+            decimal? take,
+            [FromQuery(Name = "offset")] [Range(1, 100)]
+            decimal? offset,
+            [FromQuery(Name = "searchName")] string searchName)
+
         {
             throw new NotImplementedException();
         }
@@ -118,7 +119,7 @@ namespace FacilityAccessService.RestService.Controllers
             UpdateCategoryModel model = new UpdateCategoryModel(
                 CategoryId: id,
                 Name: request.Name,
-                FacilitiesId: request.Facilities.ToHashSet()
+                FacilitiesId: request.Facilities?.ToHashSet()
             );
 
             return Ok(await _service.UpdateCategoryAsync(model));

@@ -19,28 +19,29 @@ using Newtonsoft.Json;
 #endregion
 
 namespace FacilityAccessService.RestService.Models
-{
+{ 
     /// <summary>
+    /// 
     /// </summary>
     [DataContract]
-    public class VerifyAccessViaTerminalRequest : IEquatable<VerifyAccessViaTerminalRequest>
+    public partial class VerifyAccessViaTerminalRequest : IEquatable<VerifyAccessViaTerminalRequest>
     {
         /// <summary>
-        ///     Gets or Sets UserId
+        /// Gets or Sets UserId
         /// </summary>
         [Required]
-        [DataMember(Name = "userId", EmitDefaultValue = false)]
+        [DataMember(Name="userId", EmitDefaultValue=false)]
         public string UserId { get; set; }
 
         /// <summary>
-        ///     Gets or Sets FacilityId
+        /// Gets or Sets FacilityId
         /// </summary>
         [Required]
-        [DataMember(Name = "facilityId", EmitDefaultValue = true)]
+        [DataMember(Name="facilityId", EmitDefaultValue=true)]
         public Guid FacilityId { get; set; }
 
         /// <summary>
-        ///     Returns true if VerifyAccessViaTerminalRequest instances are equal
+        /// Returns true if VerifyAccessViaTerminalRequest instances are equal
         /// </summary>
         /// <param name="other">Instance of VerifyAccessViaTerminalRequest to be compared</param>
         /// <returns>Boolean</returns>
@@ -49,20 +50,21 @@ namespace FacilityAccessService.RestService.Models
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return
+            return 
                 (
                     UserId == other.UserId ||
-                    (UserId != null &&
-                     UserId.Equals(other.UserId))
-                ) &&
+                    UserId != null &&
+                    UserId.Equals(other.UserId)
+                ) && 
                 (
                     FacilityId == other.FacilityId ||
+                    
                     FacilityId.Equals(other.FacilityId)
                 );
         }
 
         /// <summary>
-        ///     Returns the string presentation of the object
+        /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -76,7 +78,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns the JSON string presentation of the object
+        /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
@@ -85,7 +87,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Returns true if objects are equal
+        /// Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -97,7 +99,7 @@ namespace FacilityAccessService.RestService.Models
         }
 
         /// <summary>
-        ///     Gets the hash code
+        /// Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -106,10 +108,10 @@ namespace FacilityAccessService.RestService.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                if (UserId != null)
+                    if (UserId != null)
                     hashCode = hashCode * 59 + UserId.GetHashCode();
-
-                hashCode = hashCode * 59 + FacilityId.GetHashCode();
+                    
+                    hashCode = hashCode * 59 + FacilityId.GetHashCode();
                 return hashCode;
             }
         }

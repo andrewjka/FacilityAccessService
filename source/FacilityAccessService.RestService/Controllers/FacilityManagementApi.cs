@@ -86,12 +86,13 @@ namespace FacilityAccessService.RestService.Controllers
         [SwaggerOperation("GetAllFacilities")]
         [SwaggerResponse(200, type: typeof(List<Facility>),
             description: "A list of facilities that match the provided query parameters.")]
-        public IActionResult GetAllFacilities(
-            [FromQuery(Name = "take")] [Required] [Range(1, 100)]
-            int take,
-            [FromQuery(Name = "offset")] [Required]
-            int offset, [FromQuery(Name = "name")] string name
-        )
+        public Task<IActionResult> GetAllFacilities(
+            [FromQuery(Name = "take")] [Range(1, 100)]
+            decimal? take,
+            [FromQuery(Name = "offset")] [Range(1, 100)]
+            decimal? offset,
+            [FromQuery(Name = "searchName")] string searchName)
+
         {
             throw new NotImplementedException();
         }
