@@ -95,8 +95,9 @@ namespace FacilityAccessService.Domain.AccessScope.Services
 
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
-                await context.UserCategoryRepository.UpdateAsync(userCategory);
+                await context.UserCategoryRepository.CreateAsync(userCategory);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
         }
@@ -115,8 +116,6 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 userCategory = await context.UserCategoryRepository.FirstByAsync(findUserCategorySpec);
-
-                await context.CommitAsync();
             }
 
             if (userCategory is null)
@@ -128,6 +127,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             {
                 await context.UserCategoryRepository.DeleteAsync(userCategory);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
         }
@@ -165,6 +165,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             {
                 await context.UserCategoryRepository.DeleteAsync(userCategory);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
         }

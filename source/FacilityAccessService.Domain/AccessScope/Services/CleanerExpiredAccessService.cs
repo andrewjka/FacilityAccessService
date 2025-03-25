@@ -33,6 +33,9 @@ namespace FacilityAccessService.Domain.AccessScope.Services
                 await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
                 {
                     deletedCount = await context.UserCategoryRepository.DeleteByAsync(expiredCategorySpec);
+                    
+                    await context.ApplyChangesAsync();
+                    await context.CommitAsync();
                 }
 
                 if (deletedCount <= 0)
@@ -52,6 +55,9 @@ namespace FacilityAccessService.Domain.AccessScope.Services
                 await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
                 {
                     deletedCount = await context.UserFacilityRepository.DeleteByAsync(expiredFacilitySpec);
+                    
+                    await context.ApplyChangesAsync();
+                    await context.CommitAsync();
                 }
 
                 if (deletedCount <= 0)

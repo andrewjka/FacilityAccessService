@@ -25,7 +25,7 @@ namespace FacilityAccessService.Domain.UserScope.Services
         {
             if (registryUserVL is null) throw new ArgumentNullException(nameof(registryUserVL));
             if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
-            
+
             this._registryUserVL = registryUserVL;
             this._userVL = userVl;
             this._persistenceContextFactory = persistenceContextFactory;
@@ -44,12 +44,13 @@ namespace FacilityAccessService.Domain.UserScope.Services
 
             _userVL.ValidateAndThrow(user);
 
-            
+
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
             {
                 await context.UserRepository.CreateAsync(user);
 
-                context.CommitAsync();
+                await context.ApplyChangesAsync();
+                await context.CommitAsync();
             }
 
             return user;

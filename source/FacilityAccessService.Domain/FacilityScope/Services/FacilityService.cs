@@ -59,6 +59,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             {
                 await context.FacilityRepository.CreateAsync(facility);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
 
@@ -103,6 +104,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             {
                 await context.FacilityRepository.UpdateAsync(facility);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
 
@@ -134,6 +136,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             {
                 await context.FacilityRepository.DeleteAsync(facility);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
         }

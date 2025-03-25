@@ -61,6 +61,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             {
                 await context.TerminalRepository.CreateAsync(terminal);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
 
@@ -105,6 +106,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             {
                 await context.TerminalRepository.UpdateAsync(terminal);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
 
@@ -136,6 +138,7 @@ namespace FacilityAccessService.Domain.TerminalScope.Services
             {
                 await context.TerminalRepository.DeleteAsync(terminal);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
         }

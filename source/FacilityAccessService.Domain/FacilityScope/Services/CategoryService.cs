@@ -66,6 +66,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             {
                 await context.CategoryRepository.CreateAsync(category);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
 
@@ -75,9 +76,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
         public async Task<Category> UpdateCategoryAsync(UpdateCategoryModel updateCategoryModel)
         {
             _updateCategoryVL.ValidateAndThrow(updateCategoryModel);
-
-
-            HashSet<Facility> facilities = await GetAllFacilitiesByIds(updateCategoryModel.FacilitiesId);
+            
 
             FindByGUIDSpecification<Category> findByGuidSpec = new FindByGUIDSpecification<Category>(
                 guid: updateCategoryModel.CategoryId
@@ -102,7 +101,9 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
 
             if (updateCategoryModel.FacilitiesId is not null)
             {
-                category.ChangeObjects(facilities);
+                HashSet<Facility> facilities = await GetAllFacilitiesByIds(updateCategoryModel.FacilitiesId);
+                
+                category.ChangeFacilities(facilities);
             }
 
             _categoryVL.ValidateAndThrow(category);
@@ -112,6 +113,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             {
                 await context.CategoryRepository.UpdateAsync(category);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
 
@@ -143,6 +145,7 @@ namespace FacilityAccessService.Domain.FacilityScope.Services
             {
                 await context.CategoryRepository.DeleteAsync(category);
 
+                await context.ApplyChangesAsync();
                 await context.CommitAsync();
             }
         }
