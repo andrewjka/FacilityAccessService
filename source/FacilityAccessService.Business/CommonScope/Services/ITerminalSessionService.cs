@@ -1,6 +1,10 @@
+#region
+
 using System.Threading.Tasks;
 using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.Services
 {

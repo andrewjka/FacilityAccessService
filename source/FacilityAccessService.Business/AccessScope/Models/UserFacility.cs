@@ -1,6 +1,9 @@
+#region
+
 using System;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
-using FacilityAccessService.Business.CommonScope.Models;
+
+#endregion
 
 namespace FacilityAccessService.Business.AccessScope.Models
 {

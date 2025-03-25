@@ -1,4 +1,8 @@
+#region
+
 using System;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.PersistenceContext
 {
@@ -6,6 +10,5 @@ namespace FacilityAccessService.Business.CommonScope.PersistenceContext
     /// Describes the context for interacting with the data.
     /// </summary>
     public interface IPersistenceContext : ITransaction, IUnitWork, IAsyncDisposable
-    {
-    }
+    {}
 }

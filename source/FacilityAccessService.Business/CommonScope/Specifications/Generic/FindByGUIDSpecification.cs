@@ -1,6 +1,10 @@
+#region
+
 using System;
 using FacilityAccessService.Business.CommonScope.Models;
 using FacilityAccessService.Business.CommonScope.Specification;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.Specifications.Generic
 {

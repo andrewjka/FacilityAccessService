@@ -1,7 +1,11 @@
+#region
+
 using FacilityAccessService.Business.AccessScope.Repositories;
 using FacilityAccessService.Business.FacilityScope.Repositories;
 using FacilityAccessService.Business.TerminalScope.Repositories;
 using FacilityAccessService.Business.UserScope.Repositories;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.PersistenceContext
 {

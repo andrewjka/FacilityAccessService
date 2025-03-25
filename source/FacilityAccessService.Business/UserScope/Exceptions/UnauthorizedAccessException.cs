@@ -1,5 +1,9 @@
+#region
+
 using System;
 using FacilityAccessService.Business.CommonScope.Exceptions;
+
+#endregion
 
 namespace FacilityAccessService.Business.UserScope.Exceptions
 {

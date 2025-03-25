@@ -1,6 +1,10 @@
+#region
+
 using System;
 using FacilityAccessService.Business.CommonScope.Models;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
+
+#endregion
 
 namespace FacilityAccessService.Business.TerminalScope.Models
 {
@@ -9,17 +13,16 @@ namespace FacilityAccessService.Business.TerminalScope.Models
     /// </summary>
     public class Terminal : BaseEntity
     {
-        public string Name { get; private set; }
-        public TerminalToken Token { get; private set; }
-        public DateOnly ExpiredTokenOn { get; private set; }
-
-
         public Terminal(string name, TerminalToken token, DateOnly expiredTokenOn) : base()
         {
             this.Name = name;
             this.Token = token;
             this.ExpiredTokenOn = expiredTokenOn;
         }
+
+        public string Name { get; private set; }
+        public TerminalToken Token { get; private set; }
+        public DateOnly ExpiredTokenOn { get; private set; }
 
         /// <summary>
         /// Changes the Terminal name.

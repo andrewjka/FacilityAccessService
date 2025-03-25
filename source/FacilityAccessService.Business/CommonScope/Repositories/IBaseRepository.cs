@@ -1,6 +1,10 @@
+#region
+
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.CommonScope.Specification;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.Repositories
 {
@@ -16,7 +20,7 @@ namespace FacilityAccessService.Business.CommonScope.Repositories
 
         public Task<T> FirstByAsync(Specification<T> specification);
         public Task<ReadOnlyCollection<T>> SelectByAsync(Specification<T> specification);
-        
+
         public Task DeleteAsync(T model);
         public Task<int> DeleteByAsync(Specification<T> specification);
     }

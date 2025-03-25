@@ -1,4 +1,8 @@
+#region
+
 using System.Threading.Tasks;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.PersistenceContext
 {

@@ -1,4 +1,8 @@
+#region
+
 using System;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.Models
 {
@@ -7,11 +11,11 @@ namespace FacilityAccessService.Business.CommonScope.Models
     /// </summary>
     public abstract class BaseEntity
     {
-        public Guid Id { get; protected set; }
-
         protected BaseEntity()
         {
             this.Id = Guid.NewGuid();
         }
+
+        public Guid Id { get; protected set; }
     }
 }

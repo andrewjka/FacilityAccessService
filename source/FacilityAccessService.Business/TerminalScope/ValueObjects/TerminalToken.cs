@@ -1,5 +1,9 @@
+#region
+
 using System;
 using System.Security.Cryptography;
+
+#endregion
 
 namespace FacilityAccessService.Business.TerminalScope.ValueObjects
 {
@@ -27,7 +31,7 @@ namespace FacilityAccessService.Business.TerminalScope.ValueObjects
                 _token[i] = token[i];
             }
         }
-        
+
         /// <summary>
         /// Returns the token in a hexadecimal representation as a string.
         /// </summary>

@@ -1,4 +1,8 @@
+#region
+
 using FacilityAccessService.Business.CommonScope.Models;
+
+#endregion
 
 namespace FacilityAccessService.Business.FacilityScope.Models
 {
@@ -7,15 +11,15 @@ namespace FacilityAccessService.Business.FacilityScope.Models
     /// </summary>
     public class Facility : BaseEntity, IAccessedResource
     {
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-
         public Facility(string name, string description) : base()
         {
             this.Name = name;
             this.Description = description;
         }
-        
+
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+
         /// <summary>
         /// Changes the Facility name.
         /// </summary>

@@ -1,7 +1,9 @@
+#region
+
 using System.Threading.Tasks;
-using FacilityAccessService.Business.AccessScope.Actions;
 using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
-using FacilityAccessService.Business.AccessScope.Services.Generic;
+
+#endregion
 
 namespace FacilityAccessService.Business.AccessScope.Services
 {

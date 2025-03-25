@@ -1,6 +1,10 @@
+#region
+
 using System;
 using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
+
+#endregion
 
 namespace FacilityAccessService.Business.AccessScope.Actions
 {

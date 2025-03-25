@@ -1,5 +1,9 @@
+#region
+
 using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace FacilityAccessService.Business.FacilityScope.Actions
 {

@@ -1,5 +1,9 @@
+#region
+
 using System.Threading.Tasks;
 using FacilityAccessService.Business.UserScope.Models;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.Services
 {

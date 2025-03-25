@@ -1,6 +1,10 @@
+#region
+
 using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
+
+#endregion
 
 namespace FacilityAccessService.Business.TerminalScope.Specifications
 {

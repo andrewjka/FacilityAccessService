@@ -1,5 +1,9 @@
+#region
+
 using System;
 using System.Threading.Tasks;
+
+#endregion
 
 namespace FacilityAccessService.Business.CommonScope.PersistenceContext
 {
@@ -12,12 +16,12 @@ namespace FacilityAccessService.Business.CommonScope.PersistenceContext
         /// Applies the changes but doesn't commit them.
         /// </summary>
         public Task ApplyChangesAsync();
-        
+
         /// <summary>
         /// Commits the all changes.
         /// </summary>
         public Task CommitAsync();
-        
+
         /// <summary>
         /// Reverts all changes.
         /// </summary>

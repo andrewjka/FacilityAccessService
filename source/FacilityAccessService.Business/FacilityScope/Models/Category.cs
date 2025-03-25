@@ -1,5 +1,9 @@
+#region
+
 using System.Collections.Generic;
 using FacilityAccessService.Business.CommonScope.Models;
+
+#endregion
 
 namespace FacilityAccessService.Business.FacilityScope.Models
 {
@@ -8,15 +12,14 @@ namespace FacilityAccessService.Business.FacilityScope.Models
     /// </summary>
     public class Category : BaseEntity, IAccessedResource
     {
-        public string Name { get; private set; }
-        public HashSet<Facility> Facilities { get; private set; }
-
-
         public Category(string name, HashSet<Facility> facilities) : base()
         {
             this.Name = name;
             this.Facilities = facilities;
         }
+
+        public string Name { get; private set; }
+        public HashSet<Facility> Facilities { get; private set; }
 
         /// <summary>
         /// Changes the Category name.

@@ -1,5 +1,9 @@
+#region
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
+#endregion
 
 namespace FacilityAccessService.Business.UserScope.ValueObjects
 {
@@ -8,47 +12,6 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
     /// </summary>
     public record Role
     {
-        public readonly string Name;
-        public readonly ReadOnlyCollection<Permission> Permissions;
-
-        protected Role(string name, ReadOnlyCollection<Permission> permissions)
-        {
-            this.Name = name;
-            this.Permissions = permissions;
-        }
-
-
-        public bool CheckPermission(Permission permission)
-        {
-            return Role.CheckPermission(this, permission);
-        }
-
-        public static bool CheckPermission(Role role, Permission permission)
-        {
-            return role.Permissions.Contains(permission);
-        }
-
-        public static Role GetRoleByName(string name)
-        {
-            switch (name.ToLower())
-            {
-                case ("guest"):
-                    return Role.Guest;
-
-                case ("employee"):
-                    return Role.Employee;
-
-                case ("guard"):
-                    return Role.Guard;
-
-                case ("administrator"):
-                    return Role.Administrator;
-
-                default:
-                    return Role.Guest;
-            }
-        }
-
         public static readonly Role Guest = new Role(
             name: "Guest",
             permissions: new List<Permission>()
@@ -78,8 +41,50 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
             {
                 Permission.CanEnterFacility, Permission.CanCheckPass,
                 Permission.CanMaintenanceFacility, Permission.CanMaintenanceCategory,
-                Permission.CanMaintenanceAccess, Permission.CanMaintenanceTerminal
+                Permission.CanMaintenanceAccess, Permission.CanMaintenanceTerminal,
+                Permission.CanMaintenanceUsers
             }.AsReadOnly()
         );
+
+        public readonly string Name;
+        public readonly ReadOnlyCollection<Permission> Permissions;
+
+        protected Role(string name, ReadOnlyCollection<Permission> permissions)
+        {
+            this.Name = name;
+            this.Permissions = permissions;
+        }
+
+
+        public bool CheckPermission(Permission permission)
+        {
+            return CheckPermission(this, permission);
+        }
+
+        public static bool CheckPermission(Role role, Permission permission)
+        {
+            return role.Permissions.Contains(permission);
+        }
+
+        public static Role GetRoleByName(string name)
+        {
+            switch (name.ToLower())
+            {
+                case ("guest"):
+                    return Guest;
+
+                case ("employee"):
+                    return Employee;
+
+                case ("guard"):
+                    return Guard;
+
+                case ("administrator"):
+                    return Administrator;
+
+                default:
+                    return Guest;
+            }
+        }
     }
 }

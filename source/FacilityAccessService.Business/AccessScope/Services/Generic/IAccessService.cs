@@ -1,5 +1,9 @@
+#region
+
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
+
+#endregion
 
 namespace FacilityAccessService.Business.AccessScope.Services.Generic
 {
@@ -15,12 +19,12 @@ namespace FacilityAccessService.Business.AccessScope.Services.Generic
         /// Gives the User access to a specific accessed model.
         /// </summary>
         public Task GrantAccessAsync(TGrantAccessModel grantAccessModel);
-        
+
         /// <summary>
         /// Revoke the User access to a specific accessed model.
         /// </summary>
         public Task RevokeAccessAsync(TRevokeAccessModel revokeAccessModel);
-        
+
         /// <summary>
         /// Updates the user access to a specific accessed model.
         /// </summary>

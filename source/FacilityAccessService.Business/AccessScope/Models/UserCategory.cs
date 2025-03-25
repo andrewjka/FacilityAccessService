@@ -1,6 +1,9 @@
+#region
+
 using System;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
-using FacilityAccessService.Business.CommonScope.Models;
+
+#endregion
 
 namespace FacilityAccessService.Business.AccessScope.Models
 {
@@ -26,7 +29,7 @@ namespace FacilityAccessService.Business.AccessScope.Models
         {
             this.AccessPeriod = accessPeriod;
         }
-        
+
         /// <summary>
         /// Checks whether the access permit has expired.
         /// </summary>

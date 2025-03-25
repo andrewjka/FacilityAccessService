@@ -1,5 +1,9 @@
+#region
+
 using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.CommonScope.Repositories;
+
+#endregion
 
 namespace FacilityAccessService.Business.AccessScope.Repositories
 {
@@ -8,6 +12,5 @@ namespace FacilityAccessService.Business.AccessScope.Repositories
     /// </summary>
     public interface IUserCategoryRepository : IBaseRepository<UserCategory>
     {
-
     }
 }

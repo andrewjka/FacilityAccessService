@@ -1,6 +1,12 @@
+#region
+
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.UserScope.Actions;
 using FacilityAccessService.Business.UserScope.Models;
+
+#endregion
 
 namespace FacilityAccessService.Business.UserScope.Services
 {
@@ -12,6 +18,16 @@ namespace FacilityAccessService.Business.UserScope.Services
         /// <summary>
         /// Registers a new User.
         /// </summary>
-        public Task<User> RegistryUserAsync(RegistryUserModel registryUserModel);
+        public Task<User> RegistryUserAsync(RegistryUserModel registryUserModel); // mainstream approach (using request models)
+
+        /// <summary>
+        /// Get the User by specification.
+        /// </summary>
+        public Task<User> GetUserAsync(Specification<User> specification);
+
+        /// <summary>
+        /// Get all Users by specification.
+        /// </summary>
+        public Task<ReadOnlyCollection<User>> GetUsersAsync(Specification<User> specification);
     }
 }
