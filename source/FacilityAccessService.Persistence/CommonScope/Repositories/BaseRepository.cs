@@ -50,7 +50,7 @@ namespace FacilityAccessService.Persistence.CommonScope.Repositories
 
         public virtual Task CreateAsync(TEntityBusiness model)
         {
-            _context.Add((object)_mapper.Map<TEntityDB>(model));
+            _context.Add(_mapper.Map<TEntityDB>(model));
 
             return Task.CompletedTask;
         }

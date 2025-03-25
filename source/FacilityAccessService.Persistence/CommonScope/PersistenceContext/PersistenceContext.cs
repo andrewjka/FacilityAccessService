@@ -17,19 +17,17 @@ namespace FacilityAccessService.Persistence.CommonScope.PersistenceContext
     public class PersistenceContext : IPersistenceContext
     {
         private readonly IMapper _mapper;
-        private ICategoryRepository _categoryRepository;
-
-        private AppDatabaseContext _context;
-        private IFacilityRepository _facilityRepository;
-
+        
         private bool _isTransactionProcessed;
         private ITerminalRepository _terminalRepository;
-        private IDbContextTransaction _transaction;
+        private ICategoryRepository _categoryRepository;
+        private IFacilityRepository _facilityRepository;
         private IUserCategoryRepository _userCategoryRepository;
         private IUserFacilityRepository _userFacilityRepository;
-
-
         private IUserRepository _userRepository;
+        
+        private IDbContextTransaction _transaction;
+        private AppDatabaseContext _context;
 
 
         public PersistenceContext(

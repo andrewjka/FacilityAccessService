@@ -14,7 +14,10 @@ namespace FacilityAccessService.Persistence.FacilityScope.Configurations
             builder.HasIndex(entity => entity.Name).IsUnique();
 
             builder.HasMany(entity => entity.Facilities)
-                .WithMany();
+                .WithMany()
+                .UsingEntity<CategoryFacility>();
+
+            builder.Navigation(entity => entity.Facilities).AutoInclude();
         }
     }
 }
