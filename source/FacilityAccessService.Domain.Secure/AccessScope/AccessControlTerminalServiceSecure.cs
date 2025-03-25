@@ -12,7 +12,7 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.AccessScope
 {
-    public class AccessControlTerminalServiceSecure : BaseServiceTerminalSecure, IAccessControlTerminalServiceSecure
+    public class AccessControlTerminalServiceSecure : BaseTerminalAuthorization, IAccessControlTerminalServiceSecure
     {
         private readonly IAccessControlService _accessControl;
 

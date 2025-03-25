@@ -1,7 +1,9 @@
 #region
 
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Business.FacilityScope.Services;
@@ -15,7 +17,7 @@ using UnauthorizedAccessException = FacilityAccessService.Business.UserScope.Exc
 
 namespace FacilityAccessService.Domain.Secure.FacilityScope
 {
-    public class CategoryServiceSecure : BaseServiceUserSecure, ICategoryServiceSecure
+    public class CategoryServiceSecure : BaseUserAuthorization, ICategoryServiceSecure
     {
         private readonly ICategoryService _categoryService;
 
@@ -31,6 +33,16 @@ namespace FacilityAccessService.Domain.Secure.FacilityScope
         public async Task<Category> CreateCategoryAsync(CreateCategoryModel createCategoryModel)
         {
             return await _categoryService.CreateCategoryAsync(createCategoryModel);
+        }
+
+        public async Task<Category> GetCategoryAsync(Specification<Category> specification)
+        {
+            return await _categoryService.GetCategoryAsync(specification);
+        }
+
+        public async Task<ReadOnlyCollection<Category>> GetCategoriesAsync(Specification<Category> specification)
+        {
+            return await _categoryService.GetCategoriesAsync(specification);
         }
 
         public async Task<Category> UpdateCategoryAsync(UpdateCategoryModel updateCategoryModel)

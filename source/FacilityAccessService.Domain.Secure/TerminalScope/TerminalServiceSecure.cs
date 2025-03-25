@@ -1,7 +1,9 @@
 #region
 
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.TerminalScope.Actions;
 using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.Services;
@@ -15,7 +17,7 @@ using UnauthorizedAccessException = FacilityAccessService.Business.UserScope.Exc
 
 namespace FacilityAccessService.Domain.Secure.TerminalScope
 {
-    public class TerminalServiceSecure : BaseServiceUserSecure, ITerminalServiceSecure
+    public class TerminalServiceSecure : BaseUserAuthorization, ITerminalServiceSecure
     {
         private readonly ITerminalService _terminalService;
 
@@ -30,6 +32,16 @@ namespace FacilityAccessService.Domain.Secure.TerminalScope
         public async Task<Terminal> CreateTerminalAsync(CreateTerminalModel createTerminalModel)
         {
             return await _terminalService.CreateTerminalAsync(createTerminalModel);
+        }
+
+        public async Task<Terminal> GetTerminalAsync(Specification<Terminal> specification)
+        {
+            return await _terminalService.GetTerminalAsync(specification);
+        }
+
+        public async Task<ReadOnlyCollection<Terminal>> GetTerminalsAsync(Specification<Terminal> specification)
+        {
+            return await _terminalService.GetTerminalsAsync(specification);
         }
 
         public async Task<Terminal> UpdateTerminalAsync(UpdateTerminalModel updateTerminalModel)

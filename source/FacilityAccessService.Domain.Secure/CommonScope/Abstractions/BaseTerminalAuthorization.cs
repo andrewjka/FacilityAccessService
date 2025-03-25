@@ -7,12 +7,12 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.CommonScope.Abstractions
 {
-    public abstract class BaseServiceTerminalSecure
+    public abstract class BaseTerminalAuthorization
     {
         protected ITerminalContext _terminalContext;
 
 
-        public BaseServiceTerminalSecure(ITerminalContext terminalContext)
+        public BaseTerminalAuthorization(ITerminalContext terminalContext)
         {
             if (terminalContext is null) throw new ArgumentNullException(nameof(terminalContext));
 

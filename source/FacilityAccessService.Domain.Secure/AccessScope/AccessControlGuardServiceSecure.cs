@@ -13,7 +13,7 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.AccessScope
 {
-    public class AccessControlGuardServiceSecure : BaseServiceUserSecure, IAccessControlGuardServiceSecure
+    public class AccessControlGuardServiceSecure : BaseUserAuthorization, IAccessControlGuardServiceSecure
     {
         private readonly IAccessControlService _accessControl;
 
@@ -34,7 +34,7 @@ namespace FacilityAccessService.Domain.Secure.AccessScope
             return await _accessControl.VerifyAccessAsync(verifyAccessModel);
         }
 
-        protected override void EnsureHasPermission() // запускается в базовом констукторе BaseServiceUserSecure
+        protected override void EnsureHasPermission() // запускается в базовом констукторе BaseUserAuthorization
         {
             bool hasAccess = _userContext.User.Role.CheckPermission(Permission.CanCheckPass);
             if (hasAccess is false)

@@ -1,9 +1,12 @@
 #region
 
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Models;
 using FacilityAccessService.Business.AccessScope.Services;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.UserScope.ValueObjects;
 using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
 using FacilityAccessService.Domain.Secure.CommonScope.Abstractions;
@@ -13,7 +16,7 @@ using FacilityAccessService.Domain.Secure.CommonScope.Context;
 
 namespace FacilityAccessService.Domain.Secure.AccessScope
 {
-    public class AccessFacilityServiceSecure : BaseServiceUserSecure, IAccessFacilityServiceSecure
+    public class AccessFacilityServiceSecure : BaseUserAuthorization, IAccessFacilityServiceSecure
     {
         private readonly IAccessFacilityService _accessFacility;
 
@@ -40,6 +43,18 @@ namespace FacilityAccessService.Domain.Secure.AccessScope
         public async Task UpdateAccessAsync(UpdateAccessFacilityModel updateAccessModel)
         {
             await _accessFacility.UpdateAccessAsync(updateAccessModel);
+        }
+
+        public async Task<UserFacility> GetAccessUserFacilityAsync(Specification<UserFacility> specification)
+        {
+            return await _accessFacility.GetAccessUserFacilityAsync(specification);
+        }
+
+        public async Task<ReadOnlyCollection<UserFacility>> GetAccessUserFacilitiesAsync(
+            Specification<UserFacility> specification
+        )
+        {
+            return await _accessFacility.GetAccessUserFacilitiesAsync(specification);
         }
 
         protected override void EnsureHasPermission()

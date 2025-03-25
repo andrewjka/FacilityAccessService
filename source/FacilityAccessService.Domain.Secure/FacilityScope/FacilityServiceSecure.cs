@@ -1,7 +1,9 @@
 #region
 
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.FacilityScope.Actions;
 using FacilityAccessService.Business.FacilityScope.Models;
 using FacilityAccessService.Business.FacilityScope.Services;
@@ -14,7 +16,7 @@ using FacilityAccessService.Domain.Secure.FacilityScope.Interfaces;
 
 namespace FacilityAccessService.Domain.Secure.FacilityScope
 {
-    public class FacilityServiceSecure : BaseServiceUserSecure, IFacilityServiceSecure
+    public class FacilityServiceSecure : BaseUserAuthorization, IFacilityServiceSecure
     {
         private readonly IFacilityService _facilityService;
 
@@ -30,6 +32,16 @@ namespace FacilityAccessService.Domain.Secure.FacilityScope
         public async Task<Facility> CreateFacilityAsync(CreateFacilityModel createFacilityModel)
         {
             return await _facilityService.CreateFacilityAsync(createFacilityModel);
+        }
+
+        public async Task<Facility> GetFacilityAsync(Specification<Facility> specification)
+        {
+            return await _facilityService.GetFacilityAsync(specification);
+        }
+
+        public async Task<ReadOnlyCollection<Facility>> GetFacilitiesAsync(Specification<Facility> specification)
+        {
+            return await _facilityService.GetFacilitiesAsync(specification);
         }
 
         public async Task<Facility> UpdateFacilityAsync(UpdateFacilityModel updateFacilityModel)
