@@ -5,6 +5,15 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
     /// </summary>
     public record Permission
     {
+        public string Name { get; init; }
+
+
+        protected Permission(string name)
+        {
+            Name = name;
+        }
+
+
         // Has the ability to enter the facility
         public static readonly Permission CanEnterFacility = new Permission("CanEnterFacility");
 
@@ -22,15 +31,8 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
 
         // Has the ability to grant and revoke access to facilities
         public static readonly Permission CanMaintenanceAccess = new Permission("CanMaintenanceAccess");
-        
+
         // Has the ability to do CRUD operations with users
         public static readonly Permission CanMaintenanceUsers = new Permission("CanMaintenanceUsers");
-
-        protected Permission(string name)
-        {
-            Name = name;
-        }
-
-        public string Name { get; init; }
     }
 }

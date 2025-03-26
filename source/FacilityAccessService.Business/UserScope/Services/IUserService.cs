@@ -18,7 +18,7 @@ namespace FacilityAccessService.Business.UserScope.Services
         /// <summary>
         /// Registers a new User.
         /// </summary>
-        public Task<User> RegistryUserAsync(RegistryUserModel registryUserModel); // mainstream approach (using request models)
+        public Task<User> RegistryUserAsync(RegistryUserModel registryUserModel);
 
         /// <summary>
         /// Get the User by specification.

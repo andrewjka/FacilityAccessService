@@ -12,6 +12,50 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
     /// </summary>
     public record Role
     {
+        public readonly string Name;
+        public readonly ReadOnlyCollection<Permission> Permissions;
+
+
+        protected Role(string name, ReadOnlyCollection<Permission> permissions)
+        {
+            this.Name = name;
+            this.Permissions = permissions;
+        }
+
+
+        public bool CheckPermission(Permission permission)
+        {
+            return CheckPermission(this, permission);
+        }
+
+
+        public static bool CheckPermission(Role role, Permission permission)
+        {
+            return role.Permissions.Contains(permission);
+        }
+
+        public static Role GetRoleByName(string name)
+        {
+            switch (name.ToLower())
+            {
+                case ("guest"):
+                    return Guest;
+
+                case ("employee"):
+                    return Employee;
+
+                case ("guard"):
+                    return Guard;
+
+                case ("administrator"):
+                    return Administrator;
+
+                default:
+                    return Guest;
+            }
+        }
+
+
         public static readonly Role Guest = new Role(
             name: "Guest",
             permissions: new List<Permission>()
@@ -45,46 +89,5 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
                 Permission.CanMaintenanceUsers
             }.AsReadOnly()
         );
-
-        public readonly string Name;
-        public readonly ReadOnlyCollection<Permission> Permissions;
-
-        protected Role(string name, ReadOnlyCollection<Permission> permissions)
-        {
-            this.Name = name;
-            this.Permissions = permissions;
-        }
-
-
-        public bool CheckPermission(Permission permission)
-        {
-            return CheckPermission(this, permission);
-        }
-
-        public static bool CheckPermission(Role role, Permission permission)
-        {
-            return role.Permissions.Contains(permission);
-        }
-
-        public static Role GetRoleByName(string name)
-        {
-            switch (name.ToLower())
-            {
-                case ("guest"):
-                    return Guest;
-
-                case ("employee"):
-                    return Employee;
-
-                case ("guard"):
-                    return Guard;
-
-                case ("administrator"):
-                    return Administrator;
-
-                default:
-                    return Guest;
-            }
-        }
     }
 }

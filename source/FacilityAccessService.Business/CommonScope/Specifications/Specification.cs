@@ -22,14 +22,9 @@ namespace FacilityAccessService.Business.CommonScope.Specification
         public bool IsOrderingUsed { get; private set; }
 
         // Paginating
-        public int? Skip { get; protected set; }
+        public int? Offset { get; protected set; }
         public int? Take { get; protected set; }
         public bool IsPaginatingUsed { get; private set; }
-
-        // Like expression
-        public Expression<Func<TEntity, string>> MatchingField { get; private set; }
-        public string ApproximateSearchValue { get; private set; }
-        public bool IsLikeUsed { get; private set; }
 
 
         /// <summary>
@@ -61,21 +56,11 @@ namespace FacilityAccessService.Business.CommonScope.Specification
         }
 
         /// <summary>
-        /// Applies a match search per string field.
-        /// </summary>
-        protected void ApplyLike(Expression<Func<TEntity, string>> matchingField, string approximateSearchValue)
-        {
-            MatchingField = matchingField;
-            ApproximateSearchValue = approximateSearchValue;
-            IsLikeUsed = true;
-        }
-
-        /// <summary>
         /// Applies the pagination once.
         /// </summary>
-        protected void ApplyPaging(int skip, int take)
+        protected void ApplyPaging(int offset = 0, int take = 100)
         {
-            Skip = skip;
+            Offset = offset;
             Take = take;
             IsPaginatingUsed = true;
         }
