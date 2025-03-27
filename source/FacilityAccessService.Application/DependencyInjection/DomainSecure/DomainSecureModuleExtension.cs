@@ -4,6 +4,8 @@ using FacilityAccessService.Domain.Secure.FacilityScope;
 using FacilityAccessService.Domain.Secure.FacilityScope.Interfaces;
 using FacilityAccessService.Domain.Secure.TerminalScope;
 using FacilityAccessService.Domain.Secure.TerminalScope.Interfaces;
+using FacilityAccessService.Domain.Secure.UserScope;
+using FacilityAccessService.Domain.Secure.UserScope.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -23,6 +25,8 @@ namespace FacilityAccessService.Application.DependencyInjection.DomainSecure
             builder.Services.AddScoped<IAccessFacilityServiceSecure, AccessFacilityServiceSecure>();
             builder.Services.AddScoped<IAccessControlGuardServiceSecure, AccessControlGuardServiceSecure>();
             builder.Services.AddScoped<IAccessControlTerminalServiceSecure, AccessControlTerminalServiceSecure>();
+
+            builder.Services.AddScoped<IUserServiceSecure, UserServiceSecure>();
         }
     }
 }
