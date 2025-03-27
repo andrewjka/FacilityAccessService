@@ -13,7 +13,6 @@
 using System.Threading.Tasks;
 using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
 using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
-using FacilityAccessService.RestService.Authentication.Attributes;
 using FacilityAccessService.RestService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -23,9 +22,9 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace FacilityAccessService.RestService.Controllers
 {
     /// <summary>
+    /// 
     /// </summary>
     [ApiController]
-    [AllowAnonymous]
     public class TerminalAccessControlApiController : ControllerBase
     {
         private readonly IAccessControlTerminalServiceSecure _service;
@@ -33,21 +32,20 @@ namespace FacilityAccessService.RestService.Controllers
 
         public TerminalAccessControlApiController(IAccessControlTerminalServiceSecure service)
         {
-            _service = service;
+            this._service = service;
         }
 
 
         /// <summary>
-        ///     Verifies employee access to the facility through the terminal.
+        /// Verifies employee access to the facility through the terminal.
         /// </summary>
-        /// <param name="terminalAccessToken"></param>
         /// <param name="request"></param>
         /// <response code="200">Boolean value denoting access.</response>
         [HttpPost]
         [Route("/access/verify-terminal")]
         [Consumes("application/json")]
         [SwaggerOperation("VerifyAccessViaTerminal")]
-        [SwaggerResponse(200, type: typeof(bool), description: "Boolean value denoting access.")]
+        [SwaggerResponse(statusCode: 200, type: typeof(bool), description: "Boolean value denoting access.")]
         public async Task<IActionResult> VerifyAccessViaTerminal([FromBody] VerifyAccessViaTerminalRequest request)
         {
             var model = new VerifyAccessModel(

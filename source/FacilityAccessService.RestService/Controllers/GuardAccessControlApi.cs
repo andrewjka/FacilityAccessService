@@ -20,8 +20,9 @@ using Swashbuckle.AspNetCore.Annotations;
 #endregion
 
 namespace FacilityAccessService.RestService.Controllers
-{
+{ 
     /// <summary>
+    /// 
     /// </summary>
     [ApiController]
     public class GuardAccessControlApiController : ControllerBase
@@ -36,7 +37,7 @@ namespace FacilityAccessService.RestService.Controllers
 
 
         /// <summary>
-        ///     Verifies employee access to the facility through the guarder.
+        /// Verifies employee access to the facility through the guarder.
         /// </summary>
         /// <param name="request"></param>
         /// <response code="200">Boolean value denoting access.</response>
@@ -44,8 +45,8 @@ namespace FacilityAccessService.RestService.Controllers
         [Route("/access/verify-guard")]
         [Consumes("application/json")]
         [SwaggerOperation("VerifyAccessViaGuard")]
-        [SwaggerResponse(200, type: typeof(bool), description: "Boolean value denoting access.")]
-        public async Task<IActionResult> VerifyAccessViaGuard([FromBody] VerifyAccessViaTerminalRequest request)
+        [SwaggerResponse(statusCode: 200, type: typeof(bool), description: "Boolean value denoting access.")]
+        public async Task<IActionResult> VerifyAccessViaGuard([FromBody]VerifyAccessViaTerminalRequest request)
         {
             var model = new VerifyAccessModel(
                 request.UserId,

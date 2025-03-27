@@ -11,9 +11,12 @@
 #region
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using AutoMapper;
 using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Specifications;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
 using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
 using FacilityAccessService.RestService.Models;
@@ -25,42 +28,57 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace FacilityAccessService.RestService.Controllers
 {
     /// <summary>
+    /// 
     /// </summary>
     [ApiController]
     public class CategoryAccessControlManagementApiController : ControllerBase
     {
         private readonly IAccessCategoryServiceSecure _service;
 
+        private readonly IMapper _mapper;
 
-        public CategoryAccessControlManagementApiController(IAccessCategoryServiceSecure service)
+
+        public CategoryAccessControlManagementApiController(IAccessCategoryServiceSecure service, IMapper mapper)
         {
-            _service = service;
+            this._service = service;
+            this._mapper = mapper;
         }
 
         /// <summary>
-        ///     Gets a list of categories to which the user has access.
+        /// Gets a list of categories to which the user has access.
         /// </summary>
         /// <param name="userId"></param>
+        /// <param name="take"></param>
+        /// <param name="offset"></param>
+        /// <param name="searchName"></param>
         /// <response code="200">List of categories to which the user has access.</response>
         [HttpGet]
         [Route("/users/{user_id}/access/categories")]
         [SwaggerOperation("GetAccessUserCategories")]
-        [SwaggerResponse(200, type: typeof(Category),
+        [SwaggerResponse(statusCode: 200, type: typeof(Category),
             description: "List of categories to which the user has access.")]
         public async Task<IActionResult> GetAccessUserCategories(
             [FromRoute(Name = "user_id")] [Required]
             string userId,
             [FromQuery(Name = "take")] [Range(1, 100)]
-            decimal? take,
+            int? take,
             [FromQuery(Name = "offset")] [Range(1, 100)]
-            decimal? offset,
-            [FromQuery(Name = "searchName")] string searchName)
+            int? offset
+        )
         {
-            throw new NotImplementedException();
+            DynamicUserCategorySpecification specification = new DynamicUserCategorySpecification(
+                userId: userId,
+                take: take,
+                offset: offset
+            );
+
+            var userCategories = await _service.GetAccessUserCategoriesAsync(specification);
+
+            return Ok(_mapper.Map<ReadOnlyCollection<UserCategory>>(userCategories));
         }
 
         /// <summary>
-        ///     Creates user access to a category.
+        /// Creates user access to a category.
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="request"></param>
@@ -86,7 +104,7 @@ namespace FacilityAccessService.RestService.Controllers
         }
 
         /// <summary>
-        ///     Removes category access from the user.
+        /// Removes category access from the user.
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="categoryId"></param>
@@ -98,7 +116,8 @@ namespace FacilityAccessService.RestService.Controllers
             [FromRoute(Name = "user_id")] [Required]
             string userId,
             [FromRoute(Name = "category_id")] [Required]
-            Guid categoryId)
+            Guid categoryId
+        )
         {
             var model = new RevokeAccessCategoryModel(
                 CategoryId: categoryId,

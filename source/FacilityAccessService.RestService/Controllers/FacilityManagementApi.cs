@@ -12,9 +12,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using AutoMapper;
+using FacilityAccessService.Business.CommonScope.Specification;
 using FacilityAccessService.Business.FacilityScope.Actions;
+using FacilityAccessService.Business.FacilityScope.Specifications;
+using FacilityAccessService.Business.UserScope.Specifications;
 using FacilityAccessService.Domain.Secure.FacilityScope.Interfaces;
 using FacilityAccessService.RestService.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -25,20 +30,25 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace FacilityAccessService.RestService.Controllers
 {
     /// <summary>
+    /// 
     /// </summary>
     [ApiController]
     public class FacilityManagementApiController : ControllerBase
     {
         private readonly IFacilityServiceSecure _service;
 
+        private readonly IMapper _mapper;
 
-        public FacilityManagementApiController(IFacilityServiceSecure service)
+
+        public FacilityManagementApiController(IFacilityServiceSecure service, IMapper mapper)
         {
-            _service = service;
+            this._service = service;
+            this._mapper = mapper;
         }
 
+
         /// <summary>
-        ///     Creates a facility and returns it.
+        /// Creates a facility and returns it.
         /// </summary>
         /// <param name="request"></param>
         /// <response code="200">Facility.</response>
@@ -46,7 +56,7 @@ namespace FacilityAccessService.RestService.Controllers
         [Route("/facilities")]
         [Consumes("application/json")]
         [SwaggerOperation("CreateFacility")]
-        [SwaggerResponse(200, type: typeof(Facility), description: "Facility.")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Facility), description: "Facility.")]
         public async Task<IActionResult> CreateFacility([FromBody] CreateFacilityRequest request)
         {
             var model = new CreateFacilityModel(
@@ -54,20 +64,22 @@ namespace FacilityAccessService.RestService.Controllers
                 Description: request.Description
             );
 
-            return Ok(await _service.CreateFacilityAsync(model));
+            var facility = await _service.CreateFacilityAsync(model);
+
+            return Ok(_mapper.Map<Facility>(facility));
         }
 
         /// <summary>
-        ///     Deletes facility by id.
+        /// Deletes facility by id.
         /// </summary>
         /// <param name="id"></param>
         /// <response code="200">Facility successfully deleted.</response>
         [HttpDelete]
         [Route("/facilities/{id}")]
         [SwaggerOperation("DeleteFacility")]
-        public async Task<IActionResult> DeleteFacility([FromRoute(Name = "id")] [Required] string id)
+        public async Task<IActionResult> DeleteFacility([FromRoute(Name = "id")] [Required] Guid id)
         {
-            var model = new DeleteFacilityModel(Guid.Parse(id));
+            var model = new DeleteFacilityModel(id);
 
             await _service.DeleteFacilityAsync(model);
 
@@ -75,30 +87,37 @@ namespace FacilityAccessService.RestService.Controllers
         }
 
         /// <summary>
-        ///     Returns all facilities according to the conditions.
+        /// Returns all facilities according to the conditions.
         /// </summary>
         /// <param name="take"></param>
         /// <param name="offset"></param>
-        /// <param name="name"></param>
+        /// <param name="searchName"></param>
         /// <response code="200">A list of facilities that match the provided query parameters.</response>
         [HttpGet]
         [Route("/facilities")]
         [SwaggerOperation("GetAllFacilities")]
-        [SwaggerResponse(200, type: typeof(List<Facility>),
+        [SwaggerResponse(statusCode: 200, type: typeof(List<Facility>),
             description: "A list of facilities that match the provided query parameters.")]
-        public Task<IActionResult> GetAllFacilities(
+        public async Task<IActionResult> GetAllFacilities(
             [FromQuery(Name = "take")] [Range(1, 100)]
-            decimal? take,
-            [FromQuery(Name = "offset")] [Range(1, 100)]
-            decimal? offset,
-            [FromQuery(Name = "searchName")] string searchName)
-
+            int? take,
+            [FromQuery(Name = "offset")] [Range(0, 100)]
+            int? offset,
+            [FromQuery(Name = "searchName")] string searchName
+        )
         {
-            throw new NotImplementedException();
+            DynamicFacilitySpecification specification = new DynamicFacilitySpecification(
+                take: take, offset: offset,
+                searchName: searchName
+            );
+
+            var facilities = await _service.GetFacilitiesAsync(specification);
+
+            return Ok(_mapper.Map<ReadOnlyCollection<Facility>>(facilities));
         }
 
         /// <summary>
-        ///     Updates a facility partially.
+        /// Updates a facility partially.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="request"></param>
@@ -107,7 +126,7 @@ namespace FacilityAccessService.RestService.Controllers
         [Route("/facilities/{id}")]
         [Consumes("application/json")]
         [SwaggerOperation("UpdateFacility")]
-        [SwaggerResponse(200, type: typeof(Facility), description: "Facility successfully updated.")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Facility), description: "Facility successfully updated.")]
         public async Task<IActionResult> UpdateFacility(
             [FromRoute(Name = "id")] [Required] Guid id,
             [FromBody] UpdateFacilityRequest request
@@ -119,7 +138,9 @@ namespace FacilityAccessService.RestService.Controllers
                 Description: request.Description
             );
 
-            return Ok(await _service.UpdateFacilityAsync(model));
+            var facility = await _service.UpdateFacilityAsync(model);
+
+            return Ok(_mapper.Map<Facility>(facility));
         }
     }
 }

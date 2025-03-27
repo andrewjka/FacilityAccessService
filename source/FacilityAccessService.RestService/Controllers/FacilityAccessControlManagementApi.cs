@@ -11,9 +11,13 @@
 #region
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using AutoMapper;
 using FacilityAccessService.Business.AccessScope.Actions;
+using FacilityAccessService.Business.AccessScope.Specifications;
 using FacilityAccessService.Business.AccessScope.ValueObjects;
 using FacilityAccessService.Domain.Secure.AccessScope.Interfaces;
 using FacilityAccessService.RestService.Models;
@@ -25,43 +29,58 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace FacilityAccessService.RestService.Controllers
 {
     /// <summary>
+    /// 
     /// </summary>
     [ApiController]
     public class FacilityAccessControlManagementApiController : ControllerBase
     {
         private readonly IAccessFacilityServiceSecure _service;
 
+        private readonly IMapper _mapper;
 
-        public FacilityAccessControlManagementApiController(IAccessFacilityServiceSecure service)
+
+        public FacilityAccessControlManagementApiController(IAccessFacilityServiceSecure service, IMapper mapper)
         {
-            _service = service;
+            this._service = service;
+            this._mapper = mapper;
         }
 
 
         /// <summary>
-        ///     Gets a list of facilities to which the user has access.
+        /// Gets a list of facilities to which the user has access.
         /// </summary>
         /// <param name="userId"></param>
+        /// <param name="take"></param>
+        /// <param name="offset"></param>
+        /// <param name="searchName"></param>
         /// <response code="200">List of categories to which the user has access.</response>
         [HttpGet]
         [Route("/users/{user_id}/access/facilities")]
         [SwaggerOperation("GetAccessUserFacilities")]
-        [SwaggerResponse(200, type: typeof(Facility),
+        [SwaggerResponse(statusCode: 200, type: typeof(Facility),
             description: "List of categories to which the user has access.")]
-        public Task<IActionResult> GetAccessUserFacilities(
+        public async Task<IActionResult> GetAccessUserFacilities(
             [FromRoute(Name = "user_id")] [Required]
             string userId,
             [FromQuery(Name = "take")] [Range(1, 100)]
-            decimal? take,
-            [FromQuery(Name = "offset")] [Range(1, 100)]
-            decimal? offset,
-            [FromQuery(Name = "searchName")] string searchName)
+            int? take,
+            [FromQuery(Name = "offset")] [Range(0, 100)]
+            int? offset
+        )
         {
-            throw new NotImplementedException();
+            DynamicUserFacilitySpecification specification = new DynamicUserFacilitySpecification(
+                userId: userId,
+                take: take,
+                offset: offset
+            );
+
+            var userFacilities = await _service.GetAccessUserFacilitiesAsync(specification);
+
+            return Ok(_mapper.Map<List<UserFacility>>(userFacilities));
         }
 
         /// <summary>
-        ///     Creates user access to a facility.
+        /// Creates user access to a facility.
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="request"></param>
@@ -88,7 +107,7 @@ namespace FacilityAccessService.RestService.Controllers
         }
 
         /// <summary>
-        ///     Removes facility access from the user.
+        /// Removes facility access from the user.
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="facilityId"></param>
