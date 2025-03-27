@@ -32,6 +32,8 @@ namespace FacilityAccessService.Persistence
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

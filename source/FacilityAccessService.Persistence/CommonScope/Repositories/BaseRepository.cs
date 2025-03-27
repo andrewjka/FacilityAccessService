@@ -1,12 +1,15 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.Execution;
 using AutoMapper.Extensions.ExpressionMapping;
 using FacilityAccessService.Business.CommonScope.Repositories;
 using FacilityAccessService.Business.CommonScope.Specification;
+using Microsoft.EntityFrameworkCore;
 
 namespace FacilityAccessService.Persistence.CommonScope.Repositories
 {
@@ -98,9 +101,11 @@ namespace FacilityAccessService.Persistence.CommonScope.Repositories
                 queryable = queryable.OrderByDescending(_orderByDescending);
             }
 
-            if (specification.Skip is not null) queryable = queryable.Skip((int)specification.Skip);
-
-            if (specification.Take is not null) queryable = queryable.Take((int)specification.Take);
+            if (specification.IsPaginatingUsed)
+            {
+                queryable = queryable.Take((int)specification.Take);
+                queryable = queryable.Skip((int)specification.Offset);
+            }
         }
     }
 }
