@@ -176,6 +176,18 @@
                 "tags": [
                     "Terminal management"
                 ],
+                "summary": "Update the terminal partially",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "terminal_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "$ref": "#/components/requestBodies/UpdateTerminal"
                 },
