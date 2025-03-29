@@ -29,7 +29,7 @@ namespace FacilityAccessService.Business.UserScope.ValueObjects
         // Has the ability to do CRUD operations with terminal
         public static readonly Permission CanMaintenanceTerminal = new Permission("CanMaintenanceTerminal");
 
-        // Has the ability to grant and revoke access to facilities
+        // Has the ability to grant and revoke access
         public static readonly Permission CanMaintenanceAccess = new Permission("CanMaintenanceAccess");
 
         // Has the ability to do CRUD operations with users

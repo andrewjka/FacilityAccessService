@@ -18,14 +18,14 @@ namespace FacilityAccessService.Business.AccessScope.Services
         /// <summary>
         /// Get the access User to Facility by specification.
         /// </summary>
-        public Task<UserFacility> GetAccessUserFacilityAsync(
+        public Task<UserFacility> GetAccessAsync(
             Specification<UserFacility> specification
         );
 
         /// <summary>
         /// Get all access User to Facility by specification.
         /// </summary>
-        public Task<ReadOnlyCollection<UserFacility>> GetAccessUserFacilitiesAsync(
+        public Task<ReadOnlyCollection<UserFacility>> GetAccessesAsync(
             Specification<UserFacility> specification
         );
     }
