@@ -34,7 +34,7 @@ namespace FacilityAccessService.Domain.Secure.AccessScope
             return await _accessControl.VerifyAccessAsync(verifyAccessModel);
         }
 
-        protected override void EnsureHasPermission() // запускается в базовом констукторе BaseUserAuthorization
+        protected override void EnsureHasPermission()
         {
             bool hasAccess = _userContext.User.Role.CheckPermission(Permission.CanCheckPass);
             if (hasAccess is false)
