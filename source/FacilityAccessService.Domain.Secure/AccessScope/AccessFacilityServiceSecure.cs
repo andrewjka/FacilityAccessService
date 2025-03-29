@@ -104,7 +104,7 @@ namespace FacilityAccessService.Domain.Secure.AccessScope
 
 
             throw new UnauthorizedAccessException(
-                "The current user does not have permission to maintenance access to categories."
+                "The current user does not have permission to maintenance access to facilities."
             );
         }
     }
