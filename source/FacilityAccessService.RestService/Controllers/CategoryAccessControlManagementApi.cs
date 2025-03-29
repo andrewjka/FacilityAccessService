@@ -62,7 +62,7 @@ namespace FacilityAccessService.RestService.Controllers
             string userId,
             [FromQuery(Name = "take")] [Range(1, 100)]
             int? take,
-            [FromQuery(Name = "offset")] [Range(1, 100)]
+            [FromQuery(Name = "offset")] [Range(0, 100)]
             int? offset
         )
         {
@@ -72,7 +72,7 @@ namespace FacilityAccessService.RestService.Controllers
                 offset: offset
             );
 
-            var userCategories = await _service.GetAccessUserCategoriesAsync(specification);
+            var userCategories = await _service.GetAccessesAsync(specification);
 
             return Ok(_mapper.Map<ReadOnlyCollection<UserCategory>>(userCategories));
         }

@@ -74,7 +74,7 @@ namespace FacilityAccessService.RestService.Controllers
                 offset: offset
             );
 
-            var userFacilities = await _service.GetAccessUserFacilitiesAsync(specification);
+            var userFacilities = await _service.GetAccessesAsync(specification);
 
             return Ok(_mapper.Map<List<UserFacility>>(userFacilities));
         }

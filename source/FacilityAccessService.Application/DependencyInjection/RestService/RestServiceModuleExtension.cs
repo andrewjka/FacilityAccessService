@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
+using FacilityAccessService.Domain.Secure.AccessScope.Context;
 using FacilityAccessService.Domain.Secure.CommonScope.Context;
 using FacilityAccessService.RestService.Authentication.Context;
+using FacilityAccessService.RestService.Common.Context;
 using FacilityAccessService.RestService.Controllers;
 using FacilityAccessService.RestService.Mapping;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ namespace FacilityAccessService.Application.DependencyInjection.RestService
                 .AddNewtonsoftJson();
 
             // Context
+            builder.Services.AddScoped<IUserQueryContext, UserQueryContext>();
             builder.Services.AddScoped<IUserContext, UserContext>();
             builder.Services.AddScoped<ITerminalContext, TerminalContext>();
 
