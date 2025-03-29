@@ -179,7 +179,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             }
         }
 
-        public async Task<UserFacility> GetAccessUserFacilityAsync(Specification<UserFacility> specification)
+        public async Task<UserFacility> GetAccessAsync(Specification<UserFacility> specification)
         {
             UserFacility userFacility;
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
@@ -190,7 +190,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             return userFacility;
         }
 
-        public async Task<ReadOnlyCollection<UserFacility>> GetAccessUserFacilitiesAsync(
+        public async Task<ReadOnlyCollection<UserFacility>> GetAccessesAsync(
             Specification<UserFacility> specification
         )
         {

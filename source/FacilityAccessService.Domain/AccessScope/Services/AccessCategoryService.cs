@@ -176,7 +176,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             }
         }
 
-        public async Task<UserCategory> GetAccessUserCategoryAsync(Specification<UserCategory> specification)
+        public async Task<UserCategory> GetAccessAsync(Specification<UserCategory> specification)
         {
             UserCategory userCategory;
             await using (IPersistenceContext context = await _persistenceContextFactory.CreatePersistenceContextAsync())
@@ -187,7 +187,7 @@ namespace FacilityAccessService.Domain.AccessScope.Services
             return userCategory;
         }
 
-        public async Task<ReadOnlyCollection<UserCategory>> GetAccessUserCategoriesAsync(
+        public async Task<ReadOnlyCollection<UserCategory>> GetAccessesAsync(
             Specification<UserCategory> specification)
         {
             ReadOnlyCollection<UserCategory> userCategories;
