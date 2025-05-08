@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using EasyNetQ;
 using FacilityAccessService.Event;
+using FacilityAccessService.MessagingContract;
 
 namespace FacilityAccessService.MessagingClient
 {

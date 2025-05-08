@@ -11,6 +11,7 @@ using FacilityAccessService.Business.TerminalScope.Models;
 using FacilityAccessService.Business.TerminalScope.ValueObjects;
 using FacilityAccessService.Domain.AccessScope.Services;
 using FacilityAccessService.Event;
+using FacilityAccessService.MessagingContract;
 using FluentValidation;
 using Moq;
 

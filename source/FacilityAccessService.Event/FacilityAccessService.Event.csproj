@@ -6,4 +6,8 @@
         <Nullable>disable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FacilityAccessService.MessagingContract\FacilityAccessService.MessagingContract.csproj" />
+    </ItemGroup>
+
 </Project>

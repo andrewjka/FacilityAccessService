@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FacilityAccessService.MessagingContract;
 
 namespace FacilityAccessService.Event
 {

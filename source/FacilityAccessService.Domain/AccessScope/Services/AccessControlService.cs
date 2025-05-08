@@ -52,8 +52,8 @@ namespace FacilityAccessService.Domain.AccessScope.Services
 
 
             UserEnteredFacilityEvent @event = new UserEnteredFacilityEvent(
-                UserId: verifyAccessModel.UserId,
-                FacilityId: verifyAccessModel.FacilityId
+                userId: verifyAccessModel.UserId,
+                facilityId: verifyAccessModel.FacilityId
             );
 
 
