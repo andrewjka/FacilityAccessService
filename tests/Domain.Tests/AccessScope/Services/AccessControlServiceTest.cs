@@ -1,145 +1,135 @@
 using System;
-using FacilityAccessService.Business.AccessScope.Actions;
-using FacilityAccessService.Business.AccessScope.Actions.Abstractions;
-using FacilityAccessService.Business.AccessScope.Models;
-using FacilityAccessService.Business.AccessScope.Services;
-using FacilityAccessService.Business.AccessScope.ValueObjects;
-using FacilityAccessService.Business.CommonScope.PersistenceContext;
-using FacilityAccessService.Business.CommonScope.Specification;
-using FacilityAccessService.Business.TerminalScope.Exceptions;
-using FacilityAccessService.Business.TerminalScope.Models;
-using FacilityAccessService.Business.TerminalScope.ValueObjects;
-using FacilityAccessService.Domain.AccessScope.Services;
-using FacilityAccessService.Event;
-using FacilityAccessService.MessagingContract;
+using Business.AccessScope.Services;
+using Domain.AccessScope.Actions.Abstractions;
+using Domain.AccessScope.Models;
+using Domain.AccessScope.Services;
+using Domain.AccessScope.ValueObjects;
+using Domain.CommonScope.PersistenceContext;
+using Domain.CommonScope.Specification;
+using Domain.TerminalScope.Models;
+using Domain.TerminalScope.ValueObjects;
+using Event;
 using FluentValidation;
+using MessagingContract;
 using Moq;
 
-namespace Domain.Tests.AccessScope.Services
+namespace Domain.Tests.AccessScope.Services;
+
+public class AccessControlServiceTest
 {
-    public class AccessControlServiceTest
+    private readonly Guid _facilityId;
+    private readonly Mock<IPersistenceContextFactory> _persistenceFactoryMock;
+    private readonly Mock<IPublisher> _publisherMock;
+
+    private readonly IAccessControlService _service;
+
+    private readonly Terminal _terminal;
+    private readonly TerminalToken _terminalToken;
+
+    private readonly UserFacility _userFacility;
+    private readonly string _userId;
+
+    private readonly VerifyAccessModel _verifyAccessModel;
+    private readonly Mock<IValidator<VerifyAccessModel>> _verifyAccessVlMock;
+
+
+    public AccessControlServiceTest()
     {
-        private readonly Mock<IValidator<VerifyAccessModel>> _verifyAccessVlMock;
-        private readonly Mock<IPersistenceContextFactory> _persistenceFactoryMock;
-        private readonly Mock<IPublisher> _publisherMock;
+        _verifyAccessVlMock = new Mock<IValidator<VerifyAccessModel>>();
+        _persistenceFactoryMock = new Mock<IPersistenceContextFactory>();
+        _publisherMock = new Mock<IPublisher>();
 
-        private readonly IAccessControlService _service;
-
-
-        private readonly Guid _facilityId;
-        private readonly string _userId;
-
-        private readonly Terminal _terminal;
-        private readonly TerminalToken _terminalToken;
-
-        private readonly UserFacility _userFacility;
-
-        private readonly VerifyAccessModel _verifyAccessModel;
+        _service = new AccessControlService(
+            _verifyAccessVlMock.Object,
+            _persistenceFactoryMock.Object,
+            _publisherMock.Object
+        );
 
 
-        public AccessControlServiceTest()
-        {
-            _verifyAccessVlMock = new Mock<IValidator<VerifyAccessModel>>();
-            _persistenceFactoryMock = new Mock<IPersistenceContextFactory>();
-            _publisherMock = new Mock<IPublisher>();
+        _facilityId = Guid.NewGuid();
+        _userId = Guid.NewGuid().ToString();
 
-            _service = new AccessControlService(
-                verifyAccessVl: _verifyAccessVlMock.Object,
-                persistenceContextFactory: _persistenceFactoryMock.Object,
-                publisher: _publisherMock.Object
-            );
+        _terminalToken = TerminalToken.GenerateToken();
+        _terminal = new Terminal("checkpoint", _terminalToken, DateOnly.FromDateTime(DateTime.Today));
 
+        _userFacility = new UserFacility(_userId, _facilityId, new AccessPeriod(
+            DateOnly.MinValue, DateOnly.MaxValue)
+        );
 
-            this._facilityId = Guid.NewGuid();
-            this._userId = Guid.NewGuid().ToString();
+        _verifyAccessModel = new VerifyAccessModel(_userId, _facilityId);
+    }
 
-            this._terminalToken = TerminalToken.GenerateToken();
-            this._terminal = new Terminal("checkpoint", this._terminalToken, DateOnly.FromDateTime(DateTime.Today));
+    [Fact]
+    public async void VerifyAccessAsync_ShouldReturnFalse_WhenThePassNotFound()
+    {
+        var contextMock = CreatePersistenceContext(_terminal);
 
-            this._userFacility = new UserFacility(this._userId, this._facilityId, new AccessPeriod(
-                DateOnly.MinValue, DateOnly.MaxValue)
-            );
-
-            this._verifyAccessModel = new VerifyAccessModel(_userId, _facilityId);
-        }
-
-        [Fact]
-        public async void VerifyAccessAsync_ShouldReturnFalse_WhenThePassNotFound()
-        {
-            var contextMock = CreatePersistenceContext(this._terminal, null);
-
-            _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContextAsync()
-            ).ReturnsAsync(contextMock.Object);
+        _persistenceFactoryMock.Setup(cfg => cfg.CreatePersistenceContextAsync()
+        ).ReturnsAsync(contextMock.Object);
 
 
-            // Act
-            bool hasAccess = await _service.VerifyAccessAsync(this._verifyAccessModel);
+        // Act
+        var hasAccess = await _service.VerifyAccessAsync(_verifyAccessModel);
 
-            // Assert
-            Assert.False(hasAccess);
-        }
+        // Assert
+        Assert.False(hasAccess);
+    }
 
-        [Fact]
-        public async void VerifyAccessAsync_ShouldReturnFalse_WhenAccessPeriodIsExpired()
-        {
-            var userFacility = new UserFacility(
-                userId: this._userId,
-                facilityId: this._facilityId,
-                accessPeriod: new AccessPeriod(DateOnly.MinValue, DateOnly.FromDateTime(DateTime.Today.AddDays(-1))
-                )
-            );
+    [Fact]
+    public async void VerifyAccessAsync_ShouldReturnFalse_WhenAccessPeriodIsExpired()
+    {
+        var userFacility = new UserFacility(
+            _userId,
+            _facilityId,
+            new AccessPeriod(DateOnly.MinValue, DateOnly.FromDateTime(DateTime.Today.AddDays(-1))
+            )
+        );
 
-            var contextMock = CreatePersistenceContext(this._terminal, userFacility);
+        var contextMock = CreatePersistenceContext(_terminal, userFacility);
 
-            _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContextAsync()
-            ).ReturnsAsync(contextMock.Object);
-
-
-            // Act
-            bool hasAccess = await _service.VerifyAccessAsync(this._verifyAccessModel);
-
-            // Assert
-            Assert.False(hasAccess);
-        }
-
-        [Fact]
-        public async void VerifyAccessAsync_ShouldReturnTrue_AndPublishEvent_WhenAllConditionsAreOK()
-        {
-            var contextMock = CreatePersistenceContext(this._terminal, this._userFacility);
-
-            _persistenceFactoryMock.Setup(
-                cfg => cfg.CreatePersistenceContextAsync()
-            ).ReturnsAsync(contextMock.Object);
+        _persistenceFactoryMock.Setup(cfg => cfg.CreatePersistenceContextAsync()
+        ).ReturnsAsync(contextMock.Object);
 
 
-            // Act
-            bool hasAccess = await _service.VerifyAccessAsync(this._verifyAccessModel);
+        // Act
+        var hasAccess = await _service.VerifyAccessAsync(_verifyAccessModel);
 
-            // Assert
-            Assert.True(hasAccess);
+        // Assert
+        Assert.False(hasAccess);
+    }
 
-            _publisherMock.Verify(cfg => cfg.PublishAsync(It.IsAny<IEvent>()), Times.Once);
-        }
+    [Fact]
+    public async void VerifyAccessAsync_ShouldReturnTrue_AndPublishEvent_WhenAllConditionsAreOK()
+    {
+        var contextMock = CreatePersistenceContext(_terminal, _userFacility);
+
+        _persistenceFactoryMock.Setup(cfg => cfg.CreatePersistenceContextAsync()
+        ).ReturnsAsync(contextMock.Object);
 
 
-        private Mock<IPersistenceContext> CreatePersistenceContext(
-            Terminal terminal = null,
-            UserFacility userFacility = null
-        )
-        {
-            var contextMock = new Mock<IPersistenceContext>();
+        // Act
+        var hasAccess = await _service.VerifyAccessAsync(_verifyAccessModel);
 
-            contextMock.Setup(
-                cfg => cfg.TerminalRepository.FirstByAsync(It.IsAny<Specification<Terminal>>())
-            ).ReturnsAsync(terminal);
+        // Assert
+        Assert.True(hasAccess);
 
-            contextMock.Setup(
-                cfg => cfg.UserFacilityRepository.FirstByAsync(It.IsAny<Specification<UserFacility>>())
-            ).ReturnsAsync(userFacility);
+        _publisherMock.Verify(cfg => cfg.PublishAsync(It.IsAny<IEvent>()), Times.Once);
+    }
 
-            return contextMock;
-        }
+
+    private Mock<IPersistenceContext> CreatePersistenceContext(
+        Terminal terminal = null,
+        UserFacility userFacility = null
+    )
+    {
+        var contextMock = new Mock<IPersistenceContext>();
+
+        contextMock.Setup(cfg => cfg.TerminalRepository.FirstByAsync(It.IsAny<Specification<Terminal>>())
+        ).ReturnsAsync(terminal);
+
+        contextMock.Setup(cfg => cfg.UserFacilityRepository.FirstByAsync(It.IsAny<Specification<UserFacility>>())
+        ).ReturnsAsync(userFacility);
+
+        return contextMock;
     }
 }

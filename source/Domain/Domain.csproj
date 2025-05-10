@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="CommonScope\Actions\"/>
+        <Folder Include="CommonScope\ValueObjects\"/>
+        <Folder Include="FacilityScope\ValueObjects\"/>
+    </ItemGroup>
+
+</Project>

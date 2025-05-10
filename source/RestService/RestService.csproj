@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <OutputType>Library</OutputType>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="14.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.3.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.0.0"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\Business.Secure\Business.Secure.csproj"/>
+        <ProjectReference Include="..\RestContract\RestContract.csproj"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\Properties\launchSettings.json"/>
+        <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\wwwroot\openapi-original.json"/>
+        <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\appsettings.Development.json"/>
+        <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\appsettings.json"/>
+        <_ContentIncludedByDefault Remove="FacilityAccessService.RestService\wwwroot\openapi-original.json"/>
+        <_ContentIncludedByDefault Remove="FacilityAccessService.RestService\Properties\launchSettings.json"/>
+    </ItemGroup>
+
+</Project>
