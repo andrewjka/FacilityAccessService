@@ -32,7 +32,7 @@ public class UserServiceSecure : BaseUserAuthorization, IUserServiceSecure
     /// </summary>
     /// <returns>Always returns exception</returns>
     /// <exception cref="UnauthorizedAccessException"></exception>
-    public async Task<User> RegistryUserAsync(RegistryUserModel registryUserModel)
+    public async Task<User> RegistryUserAsync(RegistryUserModel registryModel)
     {
         throw new UnauthorizedAccessException("Forbidden action.");
     }

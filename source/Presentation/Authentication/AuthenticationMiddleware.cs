@@ -3,8 +3,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using Domain.CommonScope.Services;
-using Domain.TerminalScope.ValueObjects;
+using Domain.AuthScope.Services;
+using Domain.CommonScope.ValueObjects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -75,7 +75,7 @@ public class AuthenticationMiddleware
         else if (string.IsNullOrEmpty(terminalSessionToken) is false)
         {
             var terminal = await terminalSessionService.ValidateTokenAsync(
-                TerminalToken.GetFromHex(terminalSessionToken)
+                Token512Bit.GetFromHex(terminalSessionToken)
             );
 
             if (terminal is null)

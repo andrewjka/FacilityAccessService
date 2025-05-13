@@ -9,5 +9,7 @@ public class UserValidator : AbstractValidator<User>
     {
         RuleFor(model => model.Id).NotEmpty();
         RuleFor(model => model.Role).NotNull();
+        RuleFor(model => model.Email).EmailAddress().MaximumLength(512);
+        RuleFor(model => model.Password).NotNull().MinimumLength(8).MaximumLength(512);
     }
 }

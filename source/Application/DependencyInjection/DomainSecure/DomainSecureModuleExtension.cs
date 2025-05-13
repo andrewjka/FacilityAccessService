@@ -23,8 +23,8 @@ public static class DomainSecureModuleExtension
 
         builder.Services.AddScoped<IAccessCategoryServiceSecure, AccessCategoryServiceSecure>();
         builder.Services.AddScoped<IAccessFacilityServiceSecure, AccessFacilityServiceSecure>();
-        builder.Services.AddScoped<IAccessControlGuardServiceSecure, AccessControlGuardServiceSecure>();
-        builder.Services.AddScoped<IAccessControlTerminalServiceSecure, AccessControlTerminalServiceSecure>();
+        builder.Services.AddScoped<IAccessGuardServiceSecure, AccessGuardServiceSecure>();
+        builder.Services.AddScoped<IAccessTerminalServiceSecure, AccessTerminalServiceSecure>();
 
         builder.Services.AddScoped<IUserServiceSecure, UserServiceSecure>();
     }

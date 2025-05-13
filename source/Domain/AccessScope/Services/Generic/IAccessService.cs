@@ -1,7 +1,7 @@
 #region
 
 using System.Threading.Tasks;
-using Domain.AccessScope.Actions.Abstractions;
+using Domain.AccessScope.Actions;
 
 #endregion
 

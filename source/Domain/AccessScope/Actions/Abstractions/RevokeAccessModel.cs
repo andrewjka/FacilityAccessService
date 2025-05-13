@@ -1,4 +1,4 @@
-namespace Domain.AccessScope.Actions.Abstractions;
+namespace Domain.AccessScope.Actions;
 
 /// <summary>
 ///     The action model for revoke access to accessed resource.

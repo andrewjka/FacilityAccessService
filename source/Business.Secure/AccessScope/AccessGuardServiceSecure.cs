@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Business.Secure.AccessScope.Interfaces;
 using Business.Secure.CommonScope.Abstractions;
 using Business.Secure.CommonScope.Context;
-using Domain.AccessScope.Actions.Abstractions;
+using Domain.AccessScope.Actions;
 using Domain.AccessScope.Services;
 using Domain.UserScope.ValueObjects;
 
@@ -13,25 +13,25 @@ using Domain.UserScope.ValueObjects;
 
 namespace Business.Secure.AccessScope;
 
-public class AccessControlGuardServiceSecure : BaseUserAuthorization, IAccessControlGuardServiceSecure
+public class AccessGuardServiceSecure : BaseUserAuthorization, IAccessGuardServiceSecure
 {
-    private readonly IAccessControlService _accessControl;
+    private readonly IAccessService _access;
 
 
-    public AccessControlGuardServiceSecure(
-        IAccessControlService accessControl,
+    public AccessGuardServiceSecure(
+        IAccessService access,
         IUserContext userContext
     ) : base(userContext)
     {
-        if (accessControl is null) throw new ArgumentNullException(nameof(accessControl));
+        if (access is null) throw new ArgumentNullException(nameof(access));
 
-        _accessControl = accessControl;
+        _access = access;
     }
 
 
     public async Task<bool> VerifyAccessAsync(VerifyAccessModel verifyAccessModel)
     {
-        return await _accessControl.VerifyAccessAsync(verifyAccessModel);
+        return await _access.VerifyAccessAsync(verifyAccessModel);
     }
 
     protected override void EnsureHasPermission()

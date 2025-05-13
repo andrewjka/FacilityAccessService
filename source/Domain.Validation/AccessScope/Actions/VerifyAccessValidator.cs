@@ -1,4 +1,4 @@
-using Domain.AccessScope.Actions.Abstractions;
+using Domain.AccessScope.Actions;
 using FluentValidation;
 
 namespace Domain.Validation.AccessScope.Actions;

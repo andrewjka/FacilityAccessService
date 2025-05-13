@@ -61,7 +61,7 @@ public class AccessCategoryServiceSecure : BaseUserAuthorization, IAccessCategor
 
     public async Task<UserCategory> GetAccessAsync(Specification<UserCategory> specification)
     {
-        EnsureHasSelectPermission();
+        EnsureSelfRequest();
         return await _accessCategory.GetAccessAsync(specification);
     }
 
@@ -69,7 +69,7 @@ public class AccessCategoryServiceSecure : BaseUserAuthorization, IAccessCategor
         Specification<UserCategory> specification
     )
     {
-        EnsureHasSelectPermission();
+        EnsureSelfRequest();
         return await _accessCategory.GetAccessesAsync(specification);
     }
 
@@ -86,22 +86,13 @@ public class AccessCategoryServiceSecure : BaseUserAuthorization, IAccessCategor
             );
     }
 
-    protected void EnsureHasSelectPermission()
+    protected void EnsureSelfRequest()
     {
         var hasMaintenancePermission = _userContext.User.Role.CheckPermission(Permission.CanMaintenanceAccess);
 
         if (hasMaintenancePermission) return;
 
 
-        if (string.IsNullOrEmpty(_queryContext.UserId)) throw new ArgumentNullException(nameof(_queryContext.UserId));
-
-        var isSelfRequested = _userContext.User.Id == _queryContext.UserId;
-
-        if (isSelfRequested) return;
-
-
-        throw new UnauthorizedAccessException(
-            "The current user does not have permission to maintenance access to categories."
-        );
+        EnsureHasMaintenancePermission();
     }
 }

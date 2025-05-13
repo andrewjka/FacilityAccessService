@@ -18,7 +18,7 @@ public interface IUserService
     /// <summary>
     ///     Registers a new User.
     /// </summary>
-    public Task<User> RegistryUserAsync(RegistryUserModel registryUserModel);
+    public Task<User> RegistryUserAsync(RegistryUserModel registryModel);
 
     /// <summary>
     ///     Get the User by specification.

@@ -1,12 +1,8 @@
-#region
-
 using System.Threading.Tasks;
+using Domain.CommonScope.ValueObjects;
 using Domain.TerminalScope.Models;
-using Domain.TerminalScope.ValueObjects;
 
-#endregion
-
-namespace Domain.CommonScope.Services;
+namespace Domain.AuthScope.Services;
 
 /// <summary>
 ///     Describes a service for verifying Terminal session.
@@ -17,5 +13,5 @@ public interface ITerminalSessionService
     ///     Validates the token session and returns the Terminal if successful.
     /// </summary>
     /// <param name="token">Session token.</param>
-    Task<Terminal> ValidateTokenAsync(TerminalToken token);
+    Task<Terminal> ValidateTokenAsync(Token512Bit token);
 }

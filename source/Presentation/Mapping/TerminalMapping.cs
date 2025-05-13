@@ -1,6 +1,6 @@
 using AutoMapper;
+using Domain.CommonScope.ValueObjects;
 using Domain.TerminalScope.Models;
-using Domain.TerminalScope.ValueObjects;
 
 namespace Presentation.Mapping;
 
@@ -17,6 +17,6 @@ public class TerminalMapping : Profile
             .ForMember(dest => dest.Token, opt =>
                 opt.Ignore())
             .ConstructUsing(src =>
-                new Terminal(src.Name, TerminalToken.GetFromHex(src.Token), src.ExpiredTokenOn));
+                new Terminal(src.Name, Token512Bit.GetFromHex(src.Token), src.ExpiredTokenOn));
     }
 }

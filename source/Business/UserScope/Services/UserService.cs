@@ -37,15 +37,12 @@ public class UserService : IUserService
     }
 
 
-    public async Task<User> RegistryUserAsync(RegistryUserModel registryUserModel)
+    public async Task<User> RegistryUserAsync(RegistryUserModel registryModel)
     {
-        _registryUserVL.ValidateAndThrow(registryUserModel);
+        _registryUserVL.ValidateAndThrow(registryModel);
 
 
-        var user = new User(
-            registryUserModel.ExternalUserId,
-            Role.Employee
-        );
+        var user = new User(registryModel.Email, registryModel.Password, Role.Employee);
 
         _userVL.ValidateAndThrow(user);
 

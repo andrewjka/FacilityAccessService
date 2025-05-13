@@ -1,7 +1,7 @@
 #region
 
 using System;
-using Domain.AccessScope.Actions.Abstractions;
+using Domain.AccessScope.Actions;
 
 #endregion
 

@@ -14,5 +14,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(entity => entity.Role)
             .IsRequired()
             .HasConversion<RoleConverter>();
+
+        builder.Property(entity => entity.Email)
+            .IsRequired()
+            .HasMaxLength(512);
+
+        builder.Property(entity => entity.Password)
+            .IsRequired()
+            .HasMaxLength(512);
     }
 }

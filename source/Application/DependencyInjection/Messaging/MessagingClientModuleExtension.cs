@@ -13,9 +13,9 @@ public static class MessagingModuleExtension
     )
     {
         // Bus
-        builder.Services.AddEasyNetQ(connectRabbitMqString);
+        // builder.Services.AddEasyNetQ(connectRabbitMqString);
 
         // Publisher 
-        builder.Services.AddSingleton<IPublisher, RabbitMqPublisher>();
+        builder.Services.AddSingleton<IPublisher, EmptyPublisher>();
     }
 }

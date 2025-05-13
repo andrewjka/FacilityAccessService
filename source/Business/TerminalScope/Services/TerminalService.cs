@@ -1,19 +1,16 @@
-#region
-
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Domain.CommonScope.PersistenceContext;
 using Domain.CommonScope.Specification;
 using Domain.CommonScope.Specifications.Generic;
+using Domain.CommonScope.ValueObjects;
 using Domain.TerminalScope.Actions;
 using Domain.TerminalScope.Exceptions;
 using Domain.TerminalScope.Models;
 using Domain.TerminalScope.Services;
-using Domain.TerminalScope.ValueObjects;
 using FluentValidation;
 
-#endregion
 
 namespace Business.TerminalScope.Services;
 
@@ -56,7 +53,7 @@ public class TerminalService : ITerminalService
 
         var terminal = new Terminal(
             createTerminalModel.Name,
-            TerminalToken.GenerateToken(),
+            Token512Bit.GenerateToken(),
             createTerminalModel.ExpiredTokenOn
         );
 

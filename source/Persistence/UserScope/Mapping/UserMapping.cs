@@ -11,8 +11,11 @@ public class UserMapping : Profile
 
         CreateMap<Models.User, User>()
             .ConstructUsing(from => new User(
-                from.Id,
-                from.Role)
+                    from.Id,
+                    from.Email,
+                    from.Password,
+                    from.Role
+                )
             );
     }
 }

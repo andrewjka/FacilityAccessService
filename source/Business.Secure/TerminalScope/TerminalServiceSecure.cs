@@ -57,7 +57,7 @@ public class TerminalServiceSecure : BaseUserAuthorization, ITerminalServiceSecu
 
     protected override void EnsureHasPermission()
     {
-        var hasAccess = _userContext.User.Role.CheckPermission(Permission.CanMaintenanceCategory);
+        var hasAccess = _userContext.User.Role.CheckPermission(Permission.CanMaintenanceTerminal);
         if (hasAccess is false)
             throw new UnauthorizedAccessException(
                 "The current user does not have permission to maintain terminals."

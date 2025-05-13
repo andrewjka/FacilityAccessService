@@ -1,14 +1,14 @@
-using Domain.TerminalScope.ValueObjects;
+using Domain.CommonScope.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Persistence.TerminalScope.Converters;
 
-public class TerminalTokenConverter : ValueConverter<TerminalToken, string>
+public class TerminalTokenConverter : ValueConverter<Token512Bit, string>
 {
     public TerminalTokenConverter(
     ) : base(
         ToProvider => ToProvider.GetHexFormat(),
-        FromProvider => TerminalToken.GetFromHex(FromProvider)
+        FromProvider => Token512Bit.GetFromHex(FromProvider)
     )
     {
     }

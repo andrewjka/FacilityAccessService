@@ -1,10 +1,7 @@
-#region
-
 using System;
 using Domain.CommonScope.Models;
-using Domain.TerminalScope.ValueObjects;
+using Domain.CommonScope.ValueObjects;
 
-#endregion
 
 namespace Domain.TerminalScope.Models;
 
@@ -13,7 +10,7 @@ namespace Domain.TerminalScope.Models;
 /// </summary>
 public class Terminal : BaseEntity
 {
-    public Terminal(string name, TerminalToken token, DateOnly expiredTokenOn)
+    public Terminal(string name, Token512Bit token, DateOnly expiredTokenOn)
     {
         Name = name;
         Token = token;
@@ -21,7 +18,7 @@ public class Terminal : BaseEntity
     }
 
     public string Name { get; private set; }
-    public TerminalToken Token { get; private set; }
+    public Token512Bit Token { get; private set; }
     public DateOnly ExpiredTokenOn { get; private set; }
 
     /// <summary>

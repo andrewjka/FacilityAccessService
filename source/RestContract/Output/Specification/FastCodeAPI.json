@@ -738,6 +738,9 @@
                             "guard",
                             "administrator"
                         ]
+                    },
+                    "Email": {
+                        "type": "string"
                     }
                 }
             },

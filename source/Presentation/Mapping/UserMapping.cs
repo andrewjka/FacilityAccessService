@@ -13,9 +13,9 @@ public class UserMapping : Profile
                 opt.MapFrom(src => src.Role.Name)
             );
 
-        CreateMap<Models.User, User>()
-            .ForMember(dest => dest.Role, opt =>
-                opt.MapFrom(src => Role.GetRoleByName(src.Role.ToString()))
-            ).ConstructUsing(src => new User(src.Id, Role.GetRoleByName(src.Role.ToString())));
+        // CreateMap<Models.User, User>()
+        //     .ForMember(dest => dest.Role, opt =>
+        //         opt.MapFrom(src => Role.GetRoleByName(src.Role.ToString()))
+        //     ).ConstructUsing(src => new User(src.Id, Role.GetRoleByName(src.Role.ToString())));
     }
 }

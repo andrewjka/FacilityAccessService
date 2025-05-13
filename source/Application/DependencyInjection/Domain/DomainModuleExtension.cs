@@ -4,7 +4,7 @@ using Business.FacilityScope.Services;
 using Business.TerminalScope.Services;
 using Business.UserScope.Services;
 using Domain.AccessScope.Services;
-using Domain.CommonScope.Services;
+using Domain.AuthScope.Services;
 using Domain.FacilityScope.Services;
 using Domain.TerminalScope.Services;
 using Domain.UserScope.Services;
@@ -29,7 +29,7 @@ public static class DomainModuleExtension
 
         builder.Services.AddScoped<IAccessCategoryService, AccessCategoryService>();
         builder.Services.AddScoped<IAccessFacilityService, AccessFacilityService>();
-        builder.Services.AddScoped<IAccessControlService, AccessControlService>();
+        builder.Services.AddScoped<IAccessService, AccessService>();
         builder.Services.AddScoped<IFacilityService, FacilityService>();
     }
 }

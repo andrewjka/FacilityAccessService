@@ -4,7 +4,7 @@ using Domain.AccessScope.ValueObjects;
 
 #endregion
 
-namespace Domain.AccessScope.Actions.Abstractions;
+namespace Domain.AccessScope.Actions;
 
 /// <summary>
 ///     The action model for update access to accessed resource.

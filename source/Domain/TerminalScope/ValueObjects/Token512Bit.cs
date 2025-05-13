@@ -5,21 +5,21 @@ using System.Security.Cryptography;
 
 #endregion
 
-namespace Domain.TerminalScope.ValueObjects;
+namespace Domain.CommonScope.ValueObjects;
 
 /// <summary>
 ///     Describes a 512 bit terminal API token key.
 /// </summary>
-public record TerminalToken
+public record Token512Bit
 {
     private readonly byte[] _token = new byte[64];
 
-    protected TerminalToken()
+    protected Token512Bit()
     {
         RandomNumberGenerator.Fill(_token);
     }
 
-    protected TerminalToken(byte[] token)
+    protected Token512Bit(byte[] token)
     {
         if (_token.Length != token.Length)
             throw new ArgumentException("Key length does not match the set internal size.", nameof(token));
@@ -41,17 +41,17 @@ public record TerminalToken
     /// </summary>
     /// <param name="hex">String representation of the token in HEX format.</param>
     /// <returns></returns>
-    public static TerminalToken GetFromHex(string hex)
+    public static Token512Bit GetFromHex(string hex)
     {
-        return new TerminalToken(Convert.FromHexString(hex));
+        return new Token512Bit(Convert.FromHexString(hex));
     }
 
     /// <summary>
     ///     Generates a new terminal token.
     /// </summary>
     /// <returns></returns>
-    public static TerminalToken GenerateToken()
+    public static Token512Bit GenerateToken()
     {
-        return new TerminalToken();
+        return new Token512Bit();
     }
 }

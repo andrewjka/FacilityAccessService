@@ -1,7 +1,7 @@
 #region
 
 using System.Threading.Tasks;
-using Domain.AccessScope.Actions.Abstractions;
+using Domain.AccessScope.Actions;
 
 #endregion
 
@@ -10,7 +10,7 @@ namespace Domain.AccessScope.Services;
 /// <summary>
 ///     Describes a service for verify User access to Facility.
 /// </summary>
-public interface IAccessControlService
+public interface IAccessService
 {
     /// <summary>
     ///     Verifying access via specific access checker.

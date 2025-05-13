@@ -1,15 +1,11 @@
-#region
-
 using System;
 using System.Threading.Tasks;
 using Domain.CommonScope.PersistenceContext;
-using Domain.CommonScope.Services;
+using Domain.AuthScope.Services;
+using Domain.CommonScope.ValueObjects;
 using Domain.TerminalScope.Exceptions;
 using Domain.TerminalScope.Models;
 using Domain.TerminalScope.Specifications;
-using Domain.TerminalScope.ValueObjects;
-
-#endregion
 
 namespace Business.CommonScope.Services;
 
@@ -25,7 +21,7 @@ public class TerminalSessionService : ITerminalSessionService
         _persistenceContextFactory = persistenceContextFactory;
     }
 
-    public async Task<Terminal> ValidateTokenAsync(TerminalToken token)
+    public async Task<Terminal> ValidateTokenAsync(Token512Bit token)
     {
         var guardByIdSpec = new FindByTerminalTokenSpecification(
             token
