@@ -25,10 +25,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Business.Secure\Business.Secure.csproj"/>
-        <ProjectReference Include="..\GrpcClient\GrpcClient.csproj"/>
-        <ProjectReference Include="..\MessagingClient\MessagingClient.csproj"/>
+        <ProjectReference Include="..\Messaging\Messaging.csproj" />
         <ProjectReference Include="..\Persistence\Persistence.csproj"/>
-        <ProjectReference Include="..\RestService\RestService.csproj"/>
+        <ProjectReference Include="..\Presentation\Presentation.csproj" />
     </ItemGroup>
 
 </Project>

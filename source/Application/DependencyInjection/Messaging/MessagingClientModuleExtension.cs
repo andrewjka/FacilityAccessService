@@ -1,13 +1,13 @@
 using Event;
-using MessagingClient;
+using Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Application.DependencyInjection.Messaging;
 
-public static class MessagingServiceModuleExtension
+public static class MessagingModuleExtension
 {
-    public static void AddMessagingClientModule(
+    public static void AddMessagingModule(
         this IHostApplicationBuilder builder,
         string connectRabbitMqString
     )

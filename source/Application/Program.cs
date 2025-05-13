@@ -1,7 +1,6 @@
 using Application.DependencyInjection.BusinessVL;
 using Application.DependencyInjection.Domain;
 using Application.DependencyInjection.DomainSecure;
-using Application.DependencyInjection.GrpcClient;
 using Application.DependencyInjection.Messaging;
 using Application.DependencyInjection.Persistence;
 using Application.DependencyInjection.RestService;
@@ -38,11 +37,7 @@ public class Program
 
         builder.AddPersistenceModule(connectMySQLString);
 
-        builder.AddMessagingClientModule(connectRabbitMQString);
-
-        builder.AddMessagingServiceModule(connectRabbitMQString);
-
-        builder.AddGrpcClientModule();
+        builder.AddMessagingModule(connectRabbitMQString);
 
         builder.AddDomainSecureModule();
 

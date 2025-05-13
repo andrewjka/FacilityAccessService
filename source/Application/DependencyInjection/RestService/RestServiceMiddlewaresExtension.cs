@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Builder;
-using RestService.Authentication;
+using Presentation.Authentication;
 
 namespace Application.DependencyInjection.RestService;
 

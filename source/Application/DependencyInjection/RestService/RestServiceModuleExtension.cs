@@ -2,10 +2,10 @@ using Business.Secure.AccessScope.Context;
 using Business.Secure.CommonScope.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RestService.Authentication.Context;
-using RestService.Common.Context;
-using RestService.Controllers;
-using RestService.Mapping;
+using Presentation.Authentication.Context;
+using Presentation.Common.Context;
+using Presentation.Controllers;
+using Presentation.Mapping;
 
 namespace Application.DependencyInjection.RestService;
 
