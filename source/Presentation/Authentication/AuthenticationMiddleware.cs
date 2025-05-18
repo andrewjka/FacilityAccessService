@@ -40,10 +40,10 @@ public class AuthenticationMiddleware
         await using var scope = _scopeFactory.CreateAsyncScope();
 
         var userSessionService = scope.ServiceProvider
-            .GetService<IUserSessionService>();
+            .GetService<IAuthUserService>();
 
         var terminalSessionService = scope.ServiceProvider
-            .GetService<ITerminalSessionService>();
+            .GetService<IAuthTerminalService>();
 
         var endpoint = context.GetEndpoint();
 
@@ -115,6 +115,9 @@ public class AuthenticationMiddleware
                 allowAnonymous = action.DeclaringType.GetCustomAttribute<AllowAnonymousAttribute>();
 
             _isEndpointAllowAnonymous[endpoint] = allowAnonymous is not null;
+
+            if (allowAnonymous is not null)
+                isAllowAnonymous = true;
         }
 
         return isAllowAnonymous;

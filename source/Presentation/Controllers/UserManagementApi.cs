@@ -15,10 +15,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
 using Business.Secure.UserScope.Interfaces;
+using Domain.UserScope.Actions;
 using Domain.UserScope.Specifications;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Models;
 using Presentation.Authentication.Context;
+using Presentation.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 #endregion
@@ -71,15 +72,20 @@ public class UserManagementApiController : ControllerBase
     }
 
     /// <summary>
-    /// Returns information about the current user
+    /// Registry a new user.
     /// </summary>
-    /// <response code="200">Current user&#39;s information</response>
-    [HttpGet]
-    [Route("/whoami")]
-    [SwaggerOperation("GetCurrentUser")]
-    [SwaggerResponse(statusCode: 200, type: typeof(User), description: "Current user&#39;s information")]
-    public IActionResult GetCurrentUser()
+    /// <param name="authLoginRequest"></param>
+    /// <response code="200">Boolean value</response>
+    [HttpPost]
+    [Route("/users/")]
+    [Consumes("application/json")]
+    [SwaggerOperation("RegistryUser")]
+    public virtual async Task<IActionResult> RegistryUser([FromBody] AuthLoginRequest authLoginRequest)
     {
-        return Ok(HttpContext.GetUserOrDefault());
+        RegistryUserModel registryUserModel = new RegistryUserModel(authLoginRequest.Email, authLoginRequest.Password);
+
+        await _service.RegistryUserAsync(registryUserModel);
+
+        return Ok();
     }
 }

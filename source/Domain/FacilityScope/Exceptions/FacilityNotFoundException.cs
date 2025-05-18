@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.FacilityScope.Exceptions;
 
-public class FacilityNotFoundException : BusinessException
+public class FacilityNotFoundException : DomainException
 {
     public FacilityNotFoundException()
     {

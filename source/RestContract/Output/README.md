@@ -2,5 +2,5 @@
 
 Generate:
 ``
-openapi-generator-cli generate -g aspnetcore -i ./RestContract/Output/Specification/FacilityAccessService.json -o ./RestService  --additional-properties=operationResultTask=true,packageName=RestService,useSeparateModelProject=true
+openapi-generator-cli generate -g aspnetcore -i ./RestContract/Output/Specification/FastCodeAPI.json -o ./Presentation  --additional-properties=operationResultTask=true,packageName=Presentation,useSeparateModelProject=true
 ``

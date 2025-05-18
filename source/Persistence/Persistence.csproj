@@ -20,7 +20,6 @@
 
     <ItemGroup>
         <Folder Include="AccessScope\Converters\"/>
-        <Folder Include="CommonScope\Converters\"/>
         <Folder Include="CommonScope\Mapping\"/>
         <Folder Include="FacilityScope\Converters\"/>
         <Folder Include="Migrations\Stages\"/>

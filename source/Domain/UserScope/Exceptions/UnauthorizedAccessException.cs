@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.UserScope.Exceptions;
 
-public class UnauthorizedAccessException : BusinessException
+public class UnauthorizedAccessException : DomainException
 {
     public UnauthorizedAccessException()
     {

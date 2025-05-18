@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.UserScope.Exceptions;
 
-public class UserNotFoundException : BusinessException
+public class UserNotFoundException : DomainException
 {
     public UserNotFoundException()
     {

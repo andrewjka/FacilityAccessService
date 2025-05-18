@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.TerminalScope.Exceptions;
 
-public class TerminalTokenInvalidException : BusinessException
+public class TerminalTokenInvalidException : DomainException
 {
     public TerminalTokenInvalidException()
     {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.CommonScope.Configuration;
-using Persistence.TerminalScope.Converters;
+using Persistence.CommonScope.Converters;
 using Persistence.TerminalScope.Models;
 
 namespace Persistence.TerminalScope.Configurations;
@@ -16,7 +16,7 @@ public class TerminalConfiguration : BaseEntityConfiguration<Terminal>, IEntityT
             .IsRequired();
 
         builder.Property(entity => entity.Token)
-            .HasConversion<TerminalTokenConverter>()
+            .HasConversion<Token512BitConverter>()
             .IsRequired();
 
         builder.Property(entity => entity.ExpiredTokenOn)

@@ -25,16 +25,10 @@ public class UserServiceSecure : BaseUserAuthorization, IUserServiceSecure
     {
         _userService = userService;
     }
-
-
-    /// <summary>
-    ///     It is forbidden to create a new user, this is the responsibility of the internal workings of the service.
-    /// </summary>
-    /// <returns>Always returns exception</returns>
-    /// <exception cref="UnauthorizedAccessException"></exception>
+    
     public async Task<User> RegistryUserAsync(RegistryUserModel registryModel)
     {
-        throw new UnauthorizedAccessException("Forbidden action.");
+        return await _userService.RegistryUserAsync(registryModel);
     }
 
     public async Task<User> GetUserAsync(Specification<User> specification)

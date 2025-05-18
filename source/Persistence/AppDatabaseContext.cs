@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.AccessScope.Models;
+using Persistence.AuthScope.Models;
 using Persistence.FacilityScope.Models;
 using Persistence.TerminalScope.Models;
 using Persistence.UserScope.Models;
@@ -19,6 +20,7 @@ public class AppDatabaseContext : DbContext
     public DbSet<CategoryFacility> CategoryFacilities { get; set; }
     public DbSet<UserCategory> UserCategories { get; set; }
     public DbSet<UserFacility> UserFacilities { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

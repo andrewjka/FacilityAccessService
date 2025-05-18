@@ -3,11 +3,15 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Domain.CommonScope.Helpers;
 using Domain.CommonScope.PersistenceContext;
+using Domain.CommonScope.Services;
 using Domain.CommonScope.Specification;
 using Domain.UserScope.Actions;
+using Domain.UserScope.Exceptions;
 using Domain.UserScope.Models;
 using Domain.UserScope.Services;
+using Domain.UserScope.Specifications;
 using Domain.UserScope.ValueObjects;
 using FluentValidation;
 
@@ -21,7 +25,6 @@ public class UserService : IUserService
     private readonly IValidator<RegistryUserModel> _registryUserVL;
     private readonly IValidator<User> _userVL;
 
-
     public UserService(
         IValidator<RegistryUserModel> registryUserVL,
         IValidator<User> userVl,
@@ -30,6 +33,7 @@ public class UserService : IUserService
     {
         if (registryUserVL is null) throw new ArgumentNullException(nameof(registryUserVL));
         if (persistenceContextFactory is null) throw new ArgumentNullException(nameof(persistenceContextFactory));
+        if (userVl is null) throw new ArgumentNullException(nameof(userVl));
 
         _registryUserVL = registryUserVL;
         _userVL = userVl;
@@ -42,9 +46,16 @@ public class UserService : IUserService
         _registryUserVL.ValidateAndThrow(registryModel);
 
 
-        var user = new User(registryModel.Email, registryModel.Password, Role.Employee);
+        var user = new User(registryModel.Email, PasswordHasher.Hash(registryModel.Password), Role.Employee);
 
         _userVL.ValidateAndThrow(user);
+
+
+        bool isEmailClaimed = await GetUserAsync(new FindByEmailSpecification(registryModel.Email)) != null;
+        if (isEmailClaimed)
+        {
+            throw new SuchUserAlreadyRegisteredException("User with the specified email already exists.");
+        }
 
 
         await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())

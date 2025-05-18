@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.TerminalScope.Exceptions;
 
-public class TerminalNotFoundException : BusinessException
+public class TerminalNotFoundException : DomainException
 {
     public TerminalNotFoundException()
     {

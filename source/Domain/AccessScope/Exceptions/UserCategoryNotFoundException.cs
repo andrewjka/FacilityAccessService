@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.AccessScope.Exceptions;
 
-public class UserCategoryNotFoundException : BusinessException
+public class UserCategoryNotFoundException : DomainException
 {
     public UserCategoryNotFoundException()
     {

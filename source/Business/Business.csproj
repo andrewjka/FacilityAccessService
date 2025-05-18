@@ -13,4 +13,8 @@
         <ProjectReference Include="..\MessagingContract\MessagingContract.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="JWT" Version="11.0.0" />
+    </ItemGroup>
+
 </Project>

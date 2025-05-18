@@ -8,9 +8,8 @@
 
     <ItemGroup>
         <Folder Include="CommonScope\Actions\"/>
-        <Folder Include="CommonScope\Services\" />
-        <Folder Include="CommonScope\ValueObjects\"/>
         <Folder Include="FacilityScope\ValueObjects\"/>
+        <Folder Include="TerminalScope\ValueObjects\" />
     </ItemGroup>
 
 </Project>

@@ -25,6 +25,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Business.Secure\Business.Secure.csproj"/>
+        <ProjectReference Include="..\Cache\Cache.csproj" />
         <ProjectReference Include="..\Messaging\Messaging.csproj" />
         <ProjectReference Include="..\Persistence\Persistence.csproj"/>
         <ProjectReference Include="..\Presentation\Presentation.csproj" />

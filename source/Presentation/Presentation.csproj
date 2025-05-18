@@ -19,7 +19,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Business.Secure\Business.Secure.csproj"/>
-        <ProjectReference Include="..\RestContract\RestContract.csproj"/>
     </ItemGroup>
 
 
@@ -30,6 +29,12 @@
         <_ContentIncludedByDefault Remove="src\FacilityAccessService.RestService\appsettings.json"/>
         <_ContentIncludedByDefault Remove="FacilityAccessService.RestService\wwwroot\openapi-original.json"/>
         <_ContentIncludedByDefault Remove="FacilityAccessService.RestService\Properties\launchSettings.json"/>
+        <_ContentIncludedByDefault Remove="src\Org.OpenAPITools\appsettings.Development.json"/>
+        <_ContentIncludedByDefault Remove="src\Org.OpenAPITools\appsettings.json"/>
+        <_ContentIncludedByDefault Remove="src\Org.OpenAPITools\Properties\launchSettings.json"/>
+        <_ContentIncludedByDefault Remove="src\Org.OpenAPITools\wwwroot\openapi-original.json"/>
+        <_ContentIncludedByDefault Remove="src\Presentation\Properties\launchSettings.json" />
+        <_ContentIncludedByDefault Remove="src\Presentation\wwwroot\openapi-original.json" />
     </ItemGroup>
 
 </Project>

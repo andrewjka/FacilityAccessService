@@ -2,12 +2,14 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.AccessScope.Repositories;
+using Domain.AuthScope.Repositories;
 using Domain.CommonScope.PersistenceContext;
 using Domain.FacilityScope.Repositories;
 using Domain.TerminalScope.Repositories;
 using Domain.UserScope.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 using Persistence.AccessScope.Repositories;
+using Persistence.AuthScope.Repositories;
 using Persistence.FacilityScope.Repositories;
 using Persistence.TerminalScope.Repositories;
 using Persistence.UserScope.Repositories;
@@ -28,6 +30,8 @@ public class PersistenceContext : IPersistenceContext
     private IUserCategoryRepository _userCategoryRepository;
     private IUserFacilityRepository _userFacilityRepository;
     private IUserRepository _userRepository;
+
+    private IRefreshTokenRepository _refreshTokenRepository;
 
 
     public PersistenceContext(
@@ -70,6 +74,11 @@ public class PersistenceContext : IPersistenceContext
     );
 
     public IUserCategoryRepository UserCategoryRepository => _userCategoryRepository ??= new UserCategoryRepository(
+        _context,
+        _mapper
+    );
+
+    public IRefreshTokenRepository RefreshTokenRepository => _refreshTokenRepository ??= new RefreshTokenRepository(
         _context,
         _mapper
     );

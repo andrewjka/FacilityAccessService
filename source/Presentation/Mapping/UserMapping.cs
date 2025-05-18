@@ -1,6 +1,5 @@
 using AutoMapper;
 using Domain.UserScope.Models;
-using Domain.UserScope.ValueObjects;
 
 namespace Presentation.Mapping;
 

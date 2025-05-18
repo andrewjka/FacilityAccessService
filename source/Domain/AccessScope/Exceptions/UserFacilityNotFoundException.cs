@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.AccessScope.Exceptions;
 
-public class UserFacilityNotFoundException : BusinessException
+public class UserFacilityNotFoundException : DomainException
 {
     public UserFacilityNotFoundException()
     {

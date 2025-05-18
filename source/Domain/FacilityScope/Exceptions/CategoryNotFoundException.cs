@@ -7,7 +7,7 @@ using Domain.CommonScope.Exceptions;
 
 namespace Domain.FacilityScope.Exceptions;
 
-public class CategoryNotFoundException : BusinessException
+public class CategoryNotFoundException : DomainException
 {
     public CategoryNotFoundException()
     {

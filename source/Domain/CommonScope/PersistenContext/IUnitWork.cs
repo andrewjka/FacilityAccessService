@@ -1,6 +1,7 @@
 #region
 
 using Domain.AccessScope.Repositories;
+using Domain.AuthScope.Repositories;
 using Domain.FacilityScope.Repositories;
 using Domain.TerminalScope.Repositories;
 using Domain.UserScope.Repositories;
@@ -23,4 +24,6 @@ public interface IUnitWork
 
     public IUserFacilityRepository UserFacilityRepository { get; }
     public IUserCategoryRepository UserCategoryRepository { get; }
+
+    public IRefreshTokenRepository RefreshTokenRepository { get; }
 }

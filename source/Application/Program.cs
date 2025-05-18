@@ -1,9 +1,10 @@
 using Application.DependencyInjection.BusinessVL;
-using Application.DependencyInjection.Domain;
-using Application.DependencyInjection.DomainSecure;
+using Application.DependencyInjection.Business;
+using Application.DependencyInjection.BusinessSecure;
+using Application.DependencyInjection.Cache;
 using Application.DependencyInjection.Messaging;
 using Application.DependencyInjection.Persistence;
-using Application.DependencyInjection.RestService;
+using Application.DependencyInjection.Presentation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 
@@ -27,21 +28,25 @@ public class Program
         var connectMySQLString = builder.Configuration["Databases:MySQL"];
 
         var connectRabbitMQString = builder.Configuration["Messaging:RabbitMQ"];
+        
+        var connectRedisString = builder.Configuration["Caching:Redis"];
 
 
         // Modules injection section
+        
+        builder.AddPersistenceModule(connectMySQLString);
+        
+        builder.AddCacheModuleExtension(connectRedisString);
+        
+        builder.AddMessagingModule(connectRabbitMQString);
 
         builder.AddBusinessVLModule();
 
-        builder.AddDomainModule();
+        builder.AddBusinessModule();
 
-        builder.AddPersistenceModule(connectMySQLString);
+        builder.AddBusinessSecureModule();
 
-        builder.AddMessagingModule(connectRabbitMQString);
-
-        builder.AddDomainSecureModule();
-
-        builder.AddRestServiceModuleExtension();
+        builder.AddPresentationModuleExtension();
 
 
         var app = builder.Build();
@@ -49,7 +54,7 @@ public class Program
 
         // Middlewares top level injection section
 
-        app.AddRestServiceMiddlewares();
+        app.AddPresentationMiddlewares();
 
         app.Run();
     }
