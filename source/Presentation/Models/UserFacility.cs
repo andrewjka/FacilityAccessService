@@ -27,16 +27,16 @@ namespace Presentation.Models
     public partial class UserFacility : IEquatable<UserFacility>
     {
         /// <summary>
-        /// Gets or Sets UserId
+        /// Gets or Sets User
         /// </summary>
-        [DataMember(Name="UserId", EmitDefaultValue=false)]
-        public string UserId { get; set; }
+        [DataMember(Name="User", EmitDefaultValue=false)]
+        public User User { get; set; }
 
         /// <summary>
-        /// Gets or Sets FacilityId
+        /// Gets or Sets Facility
         /// </summary>
-        [DataMember(Name="FacilityId", EmitDefaultValue=true)]
-        public Guid FacilityId { get; set; }
+        [DataMember(Name="Facility", EmitDefaultValue=false)]
+        public Facility Facility { get; set; }
 
         /// <summary>
         /// Gets or Sets StartDate
@@ -58,8 +58,8 @@ namespace Presentation.Models
         {
             var sb = new StringBuilder();
             sb.Append("class UserFacility {\n");
-            sb.Append("  UserId: ").Append(UserId).Append("\n");
-            sb.Append("  FacilityId: ").Append(FacilityId).Append("\n");
+            sb.Append("  User: ").Append(User).Append("\n");
+            sb.Append("  Facility: ").Append(Facility).Append("\n");
             sb.Append("  StartDate: ").Append(StartDate).Append("\n");
             sb.Append("  EndDate: ").Append(EndDate).Append("\n");
             sb.Append("}\n");
@@ -99,14 +99,14 @@ namespace Presentation.Models
 
             return 
                 (
-                    UserId == other.UserId ||
-                    UserId != null &&
-                    UserId.Equals(other.UserId)
+                    User == other.User ||
+                    User != null &&
+                    User.Equals(other.User)
                 ) && 
                 (
-                    FacilityId == other.FacilityId ||
-                    
-                    FacilityId.Equals(other.FacilityId)
+                    Facility == other.Facility ||
+                    Facility != null &&
+                    Facility.Equals(other.Facility)
                 ) && 
                 (
                     StartDate == other.StartDate ||
@@ -130,10 +130,10 @@ namespace Presentation.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (UserId != null)
-                    hashCode = hashCode * 59 + UserId.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + FacilityId.GetHashCode();
+                    if (User != null)
+                    hashCode = hashCode * 59 + User.GetHashCode();
+                    if (Facility != null)
+                    hashCode = hashCode * 59 + Facility.GetHashCode();
                     
                     hashCode = hashCode * 59 + StartDate.GetHashCode();
                     

@@ -27,16 +27,16 @@ namespace Presentation.Models
     public partial class UserCategory : IEquatable<UserCategory>
     {
         /// <summary>
-        /// Gets or Sets UserId
+        /// Gets or Sets User
         /// </summary>
-        [DataMember(Name="UserId", EmitDefaultValue=false)]
-        public string UserId { get; set; }
+        [DataMember(Name="User", EmitDefaultValue=false)]
+        public User User { get; set; }
 
         /// <summary>
-        /// Gets or Sets CategoryId
+        /// Gets or Sets Category
         /// </summary>
-        [DataMember(Name="CategoryId", EmitDefaultValue=true)]
-        public Guid CategoryId { get; set; }
+        [DataMember(Name="Category", EmitDefaultValue=false)]
+        public Category Category { get; set; }
 
         /// <summary>
         /// Gets or Sets StartDate
@@ -58,8 +58,8 @@ namespace Presentation.Models
         {
             var sb = new StringBuilder();
             sb.Append("class UserCategory {\n");
-            sb.Append("  UserId: ").Append(UserId).Append("\n");
-            sb.Append("  CategoryId: ").Append(CategoryId).Append("\n");
+            sb.Append("  User: ").Append(User).Append("\n");
+            sb.Append("  Category: ").Append(Category).Append("\n");
             sb.Append("  StartDate: ").Append(StartDate).Append("\n");
             sb.Append("  EndDate: ").Append(EndDate).Append("\n");
             sb.Append("}\n");
@@ -99,14 +99,14 @@ namespace Presentation.Models
 
             return 
                 (
-                    UserId == other.UserId ||
-                    UserId != null &&
-                    UserId.Equals(other.UserId)
+                    User == other.User ||
+                    User != null &&
+                    User.Equals(other.User)
                 ) && 
                 (
-                    CategoryId == other.CategoryId ||
-                    
-                    CategoryId.Equals(other.CategoryId)
+                    Category == other.Category ||
+                    Category != null &&
+                    Category.Equals(other.Category)
                 ) && 
                 (
                     StartDate == other.StartDate ||
@@ -130,10 +130,10 @@ namespace Presentation.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (UserId != null)
-                    hashCode = hashCode * 59 + UserId.GetHashCode();
-                    
-                    hashCode = hashCode * 59 + CategoryId.GetHashCode();
+                    if (User != null)
+                    hashCode = hashCode * 59 + User.GetHashCode();
+                    if (Category != null)
+                    hashCode = hashCode * 59 + Category.GetHashCode();
                     
                     hashCode = hashCode * 59 + StartDate.GetHashCode();
                     
