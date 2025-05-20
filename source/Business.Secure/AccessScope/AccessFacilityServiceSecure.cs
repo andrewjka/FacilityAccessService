@@ -57,13 +57,13 @@ public class AccessFacilityServiceSecure : BaseUserAuthorization, IAccessFacilit
         await _accessFacility.UpdateAccessAsync(updateAccessModel);
     }
 
-    public async Task<UserFacility> GetAccessAsync(Specification<UserFacility> specification)
+    public async Task<UserFacilityDto> GetAccessAsync(Specification<UserFacility> specification)
     {
         EnsureSelfRequest();
         return await _accessFacility.GetAccessAsync(specification);
     }
 
-    public async Task<ReadOnlyCollection<UserFacility>> GetAccessesAsync(
+    public async Task<ReadOnlyCollection<UserFacilityDto>> GetAccessesAsync(
         Specification<UserFacility> specification
     )
     {
@@ -86,9 +86,9 @@ public class AccessFacilityServiceSecure : BaseUserAuthorization, IAccessFacilit
 
     protected void EnsureSelfRequest()
     {
-        var hasMaintenancePermission = _userContext.User.Role.CheckPermission(Permission.CanMaintenanceAccess);
+        var isSelfRequested = _userContext.User.Id == _queryContext.UserId;
 
-        if (hasMaintenancePermission) return;
+        if (isSelfRequested) return;
 
 
         EnsureHasMaintenancePermission();

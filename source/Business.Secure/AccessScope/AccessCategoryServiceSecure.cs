@@ -59,13 +59,13 @@ public class AccessCategoryServiceSecure : BaseUserAuthorization, IAccessCategor
         await _accessCategory.UpdateAccessAsync(updateAccessModel);
     }
 
-    public async Task<UserCategory> GetAccessAsync(Specification<UserCategory> specification)
+    public async Task<UserCategoryDto> GetAccessAsync(Specification<UserCategory> specification)
     {
         EnsureSelfRequest();
         return await _accessCategory.GetAccessAsync(specification);
     }
 
-    public async Task<ReadOnlyCollection<UserCategory>> GetAccessesAsync(
+    public async Task<ReadOnlyCollection<UserCategoryDto>> GetAccessesAsync(
         Specification<UserCategory> specification
     )
     {
@@ -88,9 +88,9 @@ public class AccessCategoryServiceSecure : BaseUserAuthorization, IAccessCategor
 
     protected void EnsureSelfRequest()
     {
-        var hasMaintenancePermission = _userContext.User.Role.CheckPermission(Permission.CanMaintenanceAccess);
+        var isSelfRequested = _userContext.User.Id == _queryContext.UserId;
 
-        if (hasMaintenancePermission) return;
+        if (isSelfRequested) return;
 
 
         EnsureHasMaintenancePermission();

@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Domain.AccessScope.Actions;
@@ -161,26 +162,52 @@ public class AccessCategoryService : IAccessCategoryService
         }
     }
 
-    public async Task<UserCategory> GetAccessAsync(Specification<UserCategory> specification)
+    public async Task<UserCategoryDto> GetAccessAsync(Specification<UserCategory> specification)
     {
         UserCategory userCategory;
+        User user;
+        Category category;
+
         await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())
         {
             userCategory = await context.UserCategoryRepository.FirstByAsync(specification);
+
+            user = await context.UserRepository.FirstByAsync(new FindByIdSpecification(userCategory.UserId));
+            category = await context.CategoryRepository.FirstByAsync(
+                new FindByGUIDSpecification<Category>(userCategory.CategoryId)
+            );
         }
 
-        return userCategory;
+        return new UserCategoryDto(user, category, userCategory.AccessPeriod);
     }
 
-    public async Task<ReadOnlyCollection<UserCategory>> GetAccessesAsync(
+    public async Task<ReadOnlyCollection<UserCategoryDto>> GetAccessesAsync(
         Specification<UserCategory> specification)
     {
+        List<UserCategoryDto> _userCategories = new List<UserCategoryDto>();
+
         ReadOnlyCollection<UserCategory> userCategories;
         await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())
         {
             userCategories = await context.UserCategoryRepository.SelectByAsync(specification);
         }
 
-        return userCategories;
+
+        User user;
+        Category category;
+        foreach (var userCategory in userCategories)
+        {
+            await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                user = await context.UserRepository.FirstByAsync(new FindByIdSpecification(userCategory.UserId));
+                category = await context.CategoryRepository.FirstByAsync(
+                    new FindByGUIDSpecification<Category>(userCategory.CategoryId)
+                );
+            }
+
+            _userCategories.Add(new UserCategoryDto(user, category, userCategory.AccessPeriod));
+        }
+
+        return _userCategories.AsReadOnly();
     }
 }

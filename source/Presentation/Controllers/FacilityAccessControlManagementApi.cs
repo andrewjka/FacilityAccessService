@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -44,26 +45,21 @@ public class FacilityAccessControlManagementApiController : ControllerBase
 
 
     /// <summary>
-    ///     Gets a list of facilities to which the user has access.
+    /// Gets a list of facilities to which the user has access.
     /// </summary>
     /// <param name="userId"></param>
     /// <param name="take"></param>
     /// <param name="offset"></param>
-    /// <param name="searchName"></param>
     /// <response code="200">List of categories to which the user has access.</response>
     [HttpGet]
     [Route("/users/{user_id}/access/facilities")]
     [SwaggerOperation("GetAccessUserFacilities")]
-    [SwaggerResponse(200, type: typeof(Facility),
+    [SwaggerResponse(statusCode: 200, type: typeof(List<UserFacility>),
         description: "List of categories to which the user has access.")]
-    public async Task<IActionResult> GetAccessUserFacilities(
+    public async  Task<IActionResult> GetAccessUserFacilities(
         [FromRoute(Name = "user_id")] [Required]
-        string userId,
-        [FromQuery(Name = "take")] [Range(1, 100)]
-        int? take,
-        [FromQuery(Name = "offset")] [Range(0, 100)]
-        int? offset
-    )
+        string userId, [FromQuery(Name = "take")] [Range(1, 100)] int? take,
+        [FromQuery(Name = "offset")] [Range(0, 100)] int? offset)
     {
         var specification = new DynamicUserFacilitySpecification(
             userId,

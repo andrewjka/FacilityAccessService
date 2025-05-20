@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Domain.AccessScope.Actions;
@@ -164,27 +165,53 @@ public class AccessFacilityService : IAccessFacilityService
         }
     }
 
-    public async Task<UserFacility> GetAccessAsync(Specification<UserFacility> specification)
+    public async Task<UserFacilityDto> GetAccessAsync(Specification<UserFacility> specification)
     {
         UserFacility userFacility;
+        User user;
+        Facility facility;
+
         await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())
         {
             userFacility = await context.UserFacilityRepository.FirstByAsync(specification);
+
+            user = await context.UserRepository.FirstByAsync(new FindByIdSpecification(userFacility.UserId));
+            facility = await context.FacilityRepository.FirstByAsync(
+                new FindByGUIDSpecification<Facility>(userFacility.FacilityId)
+            );
         }
 
-        return userFacility;
+        return new UserFacilityDto(user, facility, userFacility.AccessPeriod);
     }
 
-    public async Task<ReadOnlyCollection<UserFacility>> GetAccessesAsync(
+    public async Task<ReadOnlyCollection<UserFacilityDto>> GetAccessesAsync(
         Specification<UserFacility> specification
     )
     {
-        ReadOnlyCollection<UserFacility> userFacility;
+        List<UserFacilityDto> _userFacilities = new List<UserFacilityDto>();
+        
+        ReadOnlyCollection<UserFacility> userFacilities;
         await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())
         {
-            userFacility = await context.UserFacilityRepository.SelectByAsync(specification);
+            userFacilities = await context.UserFacilityRepository.SelectByAsync(specification);
+        }
+        
+        foreach (var userFacility in userFacilities)
+        {
+            User user;
+            Facility facility;
+            
+            await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())
+            {
+                user = await context.UserRepository.FirstByAsync(new FindByIdSpecification(userFacility.UserId));
+                facility = await context.FacilityRepository.FirstByAsync(
+                    new FindByGUIDSpecification<Facility>(userFacility.FacilityId)
+                );
+            }
+            
+            _userFacilities.Add(new UserFacilityDto(user, facility, userFacility.AccessPeriod));
         }
 
-        return userFacility;
+        return _userFacilities.AsReadOnly();
     }
 }

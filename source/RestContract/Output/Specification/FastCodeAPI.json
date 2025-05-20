@@ -440,7 +440,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Category"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserCategory"
+                                    }
                                 }
                             }
                         }
@@ -535,7 +538,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Facility"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserFacility"
+                                    }
                                 }
                             }
                         }
@@ -949,12 +955,11 @@
             "UserCategory": {
                 "type": "object",
                 "properties": {
-                    "UserId": {
-                        "type": "string"
+                    "User": {
+                        "$ref": "#/components/schemas/User"
                     },
-                    "CategoryId": {
-                        "type": "string",
-                        "format": "uuid"
+                    "Category": {
+                        "$ref": "#/components/schemas/Category"
                     },
                     "StartDate": {
                         "type": "string",
@@ -969,12 +974,11 @@
             "UserFacility": {
                 "type": "object",
                 "properties": {
-                    "UserId": {
-                        "type": "string"
+                    "User": {
+                        "$ref": "#/components/schemas/User"
                     },
-                    "FacilityId": {
-                        "type": "string",
-                        "format": "uuid"
+                    "Facility": {
+                        "$ref": "#/components/schemas/Facility"
                     },
                     "StartDate": {
                         "type": "string",

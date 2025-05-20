@@ -11,6 +11,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -43,26 +44,22 @@ public class CategoryAccessControlManagementApiController : ControllerBase
     }
 
     /// <summary>
-    ///     Gets a list of categories to which the user has access.
+    /// Gets a list of categories to which the user has access.
     /// </summary>
     /// <param name="userId"></param>
     /// <param name="take"></param>
     /// <param name="offset"></param>
-    /// <param name="searchName"></param>
     /// <response code="200">List of categories to which the user has access.</response>
     [HttpGet]
     [Route("/users/{user_id}/access/categories")]
     [SwaggerOperation("GetAccessUserCategories")]
-    [SwaggerResponse(200, type: typeof(Category),
+    [SwaggerResponse(statusCode: 200, type: typeof(List<UserCategory>),
         description: "List of categories to which the user has access.")]
     public async Task<IActionResult> GetAccessUserCategories(
         [FromRoute(Name = "user_id")] [Required]
-        string userId,
-        [FromQuery(Name = "take")] [Range(1, 100)]
-        int? take,
+        string userId, [FromQuery(Name = "take")] [Range(1, 100)] int? take,
         [FromQuery(Name = "offset")] [Range(0, 100)]
-        int? offset
-    )
+        int? offset)
     {
         var specification = new DynamicUserCategorySpecification(
             userId,
