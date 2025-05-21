@@ -6,6 +6,7 @@ using Application.DependencyInjection.Messaging;
 using Application.DependencyInjection.Persistence;
 using Application.DependencyInjection.Presentation;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Application;
@@ -30,6 +31,16 @@ public class Program
         var connectRabbitMQString = builder.Configuration["Messaging:RabbitMQ"];
         
         var connectRedisString = builder.Configuration["Caching:Redis"];
+        
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+        });
 
 
         // Modules injection section
@@ -51,6 +62,7 @@ public class Program
 
         var app = builder.Build();
 
+        app.UseCors("AllowAll");
 
         // Middlewares top level injection section
 
