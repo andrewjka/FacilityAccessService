@@ -1,6 +1,8 @@
 #region
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.AccessScope.Actions;
@@ -120,12 +122,12 @@ public class AccessService : IAccessService
         await using (var context = await _persistenceContextFactory.CreatePersistenceContextAsync())
         {
             // Finds all categories for which the user has been granted access & access period has not yet expired
-            var userCategories = await context.UserCategoryRepository.SelectByAsync(
+            ReadOnlyCollection<UserCategory> userCategories = await context.UserCategoryRepository.SelectByAsync(
                 findUserCategorySpec
             );
 
             // Selects the IDs of categories
-            var categoriesIds = userCategories.Select(userCategory => userCategory.CategoryId)
+            HashSet<Guid> categoriesIds = userCategories.Select(userCategory => userCategory.CategoryId)
                 .ToHashSet();
 
             // Finds among the user's categories the one that includes the facilityId

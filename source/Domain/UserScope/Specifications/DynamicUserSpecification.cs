@@ -9,6 +9,6 @@ public class DynamicUserSpecification : Specification<User>
     {
         ApplyPaging(offset ?? 0, take ?? 0);
 
-        if (!string.IsNullOrEmpty(searchId)) ApplyExpression(user => user.Id.Contains(searchId));
+        if (!string.IsNullOrEmpty(searchId)) ApplyExpression(user => user.Email.Contains(searchId));
     }
 }

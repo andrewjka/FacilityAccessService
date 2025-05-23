@@ -17,7 +17,9 @@ using AutoMapper;
 using Business.Secure.UserScope.Interfaces;
 using Domain.UserScope.Actions;
 using Domain.UserScope.Specifications;
+using Domain.UserScope.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Presentation.Authentication.Context;
 using Presentation.Models;
 using Swashbuckle.AspNetCore.Annotations;
@@ -74,15 +76,16 @@ public class UserManagementApiController : ControllerBase
     /// <summary>
     /// Registry a new user.
     /// </summary>
-    /// <param name="authLoginRequest"></param>
+    /// <param name="registryUserRequest"></param>
     /// <response code="200">Boolean value</response>
     [HttpPost]
     [Route("/users/")]
     [Consumes("application/json")]
     [SwaggerOperation("RegistryUser")]
-    public virtual async Task<IActionResult> RegistryUser([FromBody] AuthLoginRequest authLoginRequest)
+    public async Task<IActionResult> RegistryUser([FromBody] RegistryUserRequest registryUserRequest)
     {
-        RegistryUserModel registryUserModel = new RegistryUserModel(authLoginRequest.Email, authLoginRequest.Password);
+        RegistryUserModel registryUserModel = new RegistryUserModel(registryUserRequest.Email,
+            registryUserRequest.Password, Role.GetRoleByName(JsonConvert.SerializeObject(registryUserRequest.Role)));
 
         await _service.RegistryUserAsync(registryUserModel);
 

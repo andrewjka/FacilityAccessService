@@ -46,7 +46,14 @@ public class UserService : IUserService
         _registryUserVL.ValidateAndThrow(registryModel);
 
 
-        var user = new User(registryModel.Email, PasswordHasher.Hash(registryModel.Password), Role.Employee);
+        if (registryModel.role != Role.Guest || registryModel.role != Role.Employee
+                                             || registryModel.role != Role.Guard)
+        {
+            throw new Exception($"This role {registryModel.role} is not allowed to registry.");
+        }
+
+
+        var user = new User(registryModel.Email, PasswordHasher.Hash(registryModel.Password), registryModel.role);
 
         _userVL.ValidateAndThrow(user);
 

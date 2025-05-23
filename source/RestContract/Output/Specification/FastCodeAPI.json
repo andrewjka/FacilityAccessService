@@ -366,7 +366,9 @@
         "/users/": {
             "post": {
                 "operationId": "registryUser",
-                "tags": ["User management"],
+                "tags": [
+                    "User management"
+                ],
                 "summary": "Registry a new user.",
                 "requestBody": {
                     "$ref": "#/components/requestBodies/UserRegistry"
@@ -1000,11 +1002,20 @@
                             "type": "object",
                             "required": [
                                 "email",
-                                "password"
+                                "password",
+                                "role"
                             ],
                             "properties": {
                                 "email": {
                                     "type": "string"
+                                },
+                                "role": {
+                                    "type": "string",
+                                    "enum": [
+                                        "guest",
+                                        "employee",
+                                        "guard"
+                                    ]
                                 },
                                 "password": {
                                     "type": "string",
